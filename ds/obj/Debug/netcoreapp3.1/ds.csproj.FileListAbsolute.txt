@@ -9,3 +9,14 @@ C:\Users\Gentrit\source\repos\ds\ds\obj\Debug\netcoreapp3.1\ds.AssemblyInfoInput
 C:\Users\Gentrit\source\repos\ds\ds\obj\Debug\netcoreapp3.1\ds.AssemblyInfo.cs
 C:\Users\Gentrit\source\repos\ds\ds\obj\Debug\netcoreapp3.1\ds.dll
 C:\Users\Gentrit\source\repos\ds\ds\obj\Debug\netcoreapp3.1\ds.pdb
+C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\obj\Debug\netcoreapp3.1\ds.csprojAssemblyReference.cache
+C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\obj\Debug\netcoreapp3.1\ds.AssemblyInfoInputs.cache
+C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\obj\Debug\netcoreapp3.1\ds.AssemblyInfo.cs
+C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\obj\Debug\netcoreapp3.1\ds.dll
+C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\obj\Debug\netcoreapp3.1\ds.pdb
+C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\bin\Debug\netcoreapp3.1\ds.exe
+C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\bin\Debug\netcoreapp3.1\ds.deps.json
+C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\bin\Debug\netcoreapp3.1\ds.runtimeconfig.json
+C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\bin\Debug\netcoreapp3.1\ds.runtimeconfig.dev.json
+C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\bin\Debug\netcoreapp3.1\ds.dll
+C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\bin\Debug\netcoreapp3.1\ds.pdb
