@@ -6,20 +6,30 @@ namespace ds
     {
         static void Main(string[] args)
         {
-            string plaintekst = "gi";
-            string teksti = "gentrit ibishi";
-            string[] TekstiArray = teksti.Split(" ");
-            char[] ch = plaintekst.ToCharArray();
-            if (!(TekstiArray[0].StartsWith(ch[0])))
+            Console.Write("Shenoni Tekstin qe ndodhet ne liber: ");
+            string teksti = Console.ReadLine();
+            string[] arrayTeksti = teksti.Split(" ");
+            foreach (string i in arrayTeksti)
             {
-                Console.WriteLine("Nuk Starton");
+                Console.WriteLine(i);
             }
-            else
-            {
-                Console.WriteLine(ch[0]);
-            }
+            Console.Write("Shenoni plaintextin");
+            string plaintekst = Console.ReadLine();
+            char[] charPlaintekst = plaintekst.ToCharArray();
 
+            //Kontrollo Nese fjala fillon me karakterin e njejte exp: plaintext=g, teksti=gentrit
+
+            foreach(string i in arrayTeksti)
+            {
+                i.StartsWith(charPlaintekst[i]);
+            }
 
         }
+
+
+
+
+
+
     }
 }
