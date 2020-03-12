@@ -13,7 +13,7 @@ namespace ds
             for (int i = 0; i <= TekstiArray.Length; i++)
             {
 
-                //...
+               //
 
             }
 
