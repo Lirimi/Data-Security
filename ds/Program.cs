@@ -6,27 +6,31 @@ namespace ds
     {
         static void Main(string[] args)
         {
+
+            // Fjala
             Console.Write("Shenoni Tekstin qe ndodhet ne liber: ");
             string teksti = Console.ReadLine();
             string[] arrayTeksti = teksti.Split(" ");
-            foreach (string i in arrayTeksti)
-            {
-                Console.WriteLine(i);
-            }
-            Console.Write("Shenoni plaintextin");
+            // gentrit(0) ibishi(1)
+
+            // Plainteksti
+            Console.Write("Shenoni plaintextin: ");
             string plaintekst = Console.ReadLine();
-            char[] charPlaintekst = plaintekst.ToCharArray();
-
-            //Kontrollo Nese fjala fillon me karakterin e njejte exp: plaintext=g, teksti=gentrit
-
-            foreach(string i in arrayTeksti)
+            char[] ch = plaintekst.ToCharArray();
+            for(int i=0;i<arrayTeksti.Length;i++)
             {
-                i.StartsWith(charPlaintekst[i]);
+                if(arrayTeksti[i].StartsWith(ch[0]))
+                {
+                    Console.WriteLine(i);
+                }
+                else
+                {
+                    continue;
+                }
             }
-
         }
 
-
+        
 
 
 
