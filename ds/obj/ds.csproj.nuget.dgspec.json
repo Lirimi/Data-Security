@@ -1,26 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gentrit\\source\\repos\\GentritIbishi\\ds\\ds\\ds.csproj": {}
+    "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\ds.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gentrit\\source\\repos\\GentritIbishi\\ds\\ds\\ds.csproj": {
+    "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\ds.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gentrit\\source\\repos\\GentritIbishi\\ds\\ds\\ds.csproj",
+        "projectUniqueName": "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\ds.csproj",
         "projectName": "ds",
-        "projectPath": "C:\\Users\\Gentrit\\source\\repos\\GentritIbishi\\ds\\ds\\ds.csproj",
-        "packagesPath": "C:\\Users\\Gentrit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gentrit\\source\\repos\\GentritIbishi\\ds\\ds\\obj\\",
+        "projectPath": "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\ds.csproj",
+        "packagesPath": "C:\\Users\\jon_h\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Gentrit\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\jon_h\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"

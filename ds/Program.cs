@@ -7,7 +7,7 @@ namespace ds
         static void Main(string[] args)
         {
 
-            // Fjala
+            //-- Fjala
             Console.Write("Shenoni Tekstin qe ndodhet ne liber: ");
             string teksti = Console.ReadLine();
             string[] arrayTeksti = teksti.Split(" ");
