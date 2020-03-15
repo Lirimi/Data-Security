@@ -14,25 +14,42 @@ namespace ds
     {
 
       Console.Write("Shenoni tekstin qe doni ta enkriptoni\n");
-      string s =Console.ReadLine();
-      string t = "";
-      for (int i =0; i < s.Length; ++i)
+      string teksti =Console.ReadLine();
+      string enk = "";
+     /*for (int i =0; i < teksti.Length; ++i)
       {
-        char ch = s[i];
-        if (!string.IsNullOrEmpty(t))
+        char ch = teksti[i];
+        if (!string.IsNullOrEmpty(enk))
         {
-          t += " ";
+          enk += " ";
         }
 
         int n = (int)ch - (int)'a' + 1;
-        t += Convert.ToInt32(n);
+        enk += Convert.ToInt32(n);
 
        }
+       Console.WriteLine(enk);*/
+      string n = Encode(teksti, enk);
+      Console.Write("Your encoded text is:\t" + n + "\n");
 
-      Console.WriteLine(t);
 
     }
 
+    static string Encode(string teksti, string enk)
+    {
+      for (int i = 0; i < teksti.Length; ++i)
+      {
+      char ch = teksti[i];
+      if (!string.IsNullOrEmpty(enk))
+      {
+        enk += " ";
+      }
+      int n = (int)ch- (int)'a' + 1;
+      enk += Convert.ToInt32(n);
+      }
+      //Console.WriteLine(enk);
+      return new string(enk);
+    }
 
   }
 
