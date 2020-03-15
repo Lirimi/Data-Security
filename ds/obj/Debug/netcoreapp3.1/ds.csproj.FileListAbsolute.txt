@@ -20,3 +20,14 @@ C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\bin\Debug\netcoreapp3.1\ds.run
 C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\bin\Debug\netcoreapp3.1\ds.runtimeconfig.dev.json
 C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\bin\Debug\netcoreapp3.1\ds.dll
 C:\Users\Gentrit\source\repos\GentritIbishi\ds\ds\bin\Debug\netcoreapp3.1\ds.pdb
+C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\Viti 2\Semestri lV\Siguria e te Dhenave\Projekti\ds\ds\bin\Debug\netcoreapp3.1\ds.exe
+C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\Viti 2\Semestri lV\Siguria e te Dhenave\Projekti\ds\ds\bin\Debug\netcoreapp3.1\ds.deps.json
+C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\Viti 2\Semestri lV\Siguria e te Dhenave\Projekti\ds\ds\bin\Debug\netcoreapp3.1\ds.runtimeconfig.json
+C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\Viti 2\Semestri lV\Siguria e te Dhenave\Projekti\ds\ds\bin\Debug\netcoreapp3.1\ds.runtimeconfig.dev.json
+C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\Viti 2\Semestri lV\Siguria e te Dhenave\Projekti\ds\ds\bin\Debug\netcoreapp3.1\ds.dll
+C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\Viti 2\Semestri lV\Siguria e te Dhenave\Projekti\ds\ds\bin\Debug\netcoreapp3.1\ds.pdb
+C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\Viti 2\Semestri lV\Siguria e te Dhenave\Projekti\ds\ds\obj\Debug\netcoreapp3.1\ds.csprojAssemblyReference.cache
+C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\Viti 2\Semestri lV\Siguria e te Dhenave\Projekti\ds\ds\obj\Debug\netcoreapp3.1\ds.AssemblyInfoInputs.cache
+C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\Viti 2\Semestri lV\Siguria e te Dhenave\Projekti\ds\ds\obj\Debug\netcoreapp3.1\ds.AssemblyInfo.cs
+C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\Viti 2\Semestri lV\Siguria e te Dhenave\Projekti\ds\ds\obj\Debug\netcoreapp3.1\ds.dll
+C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\Viti 2\Semestri lV\Siguria e te Dhenave\Projekti\ds\ds\obj\Debug\netcoreapp3.1\ds.pdb
