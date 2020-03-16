@@ -6,10 +6,10 @@ namespace ds
     {
         static void Main(string[] args)
         {
-            Encrypt();
+            BealeEncrypt();
         }
 
-        public static void Encrypt()
+        public static void BealeEncrypt()
         {
             //Kodi per tekstin qe ndodhet ne liber
             Console.Write("Shenoni Tekstin qe ndodhet ne liber: ");
