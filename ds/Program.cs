@@ -16,7 +16,7 @@ namespace ds
             string teksti = Console.ReadLine();
             char[] test = teksti.ToCharArray();
 
-            //Kodi per plainteksitin qe deshirojme me mshef
+            //Kodi per plainteksitin qe deshirojme me mshef.
             Console.Write("Shenoni plaintextin: ");
             string plaintekst = Console.ReadLine();
             char[] ch = plaintekst.ToCharArray();
