@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ds
 {
@@ -6,32 +6,38 @@ namespace ds
     {
         static void Main(string[] args)
         {
+            Encrypt();
+        }
 
-            //-- Fjala
+        public static void Encrypt()
+        {
+            //Kodi per tekstin qe ndodhet ne liber
             Console.Write("Shenoni Tekstin qe ndodhet ne liber: ");
             string teksti = Console.ReadLine();
-            string[] arrayTeksti = teksti.Split(" ");
-            // gentrit(0) ibishi(1)
+            char[] test = teksti.ToCharArray();
 
-            // Plainteksti
+            //Kodi per plainteksitin qe deshirojme me mshef
             Console.Write("Shenoni plaintextin: ");
             string plaintekst = Console.ReadLine();
             char[] ch = plaintekst.ToCharArray();
-            for(int i=0;i<arrayTeksti.Length;i++)
+
+            //for loop 
+            for (int i = 0; i < plaintekst.Length; i++)
             {
-                if(arrayTeksti[i].StartsWith(ch[0]))
+                for (int j = 0; j < teksti.Length; j++)
                 {
-                    Console.WriteLine(i);
-                }
-                else
-                {
-                    continue;
+                    if (test[j] == ch[i])
+                    {
+                        Console.Write(j + " ");
+                        j = test.Length - 1;
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
             }
         }
-
-        
-
 
 
 
