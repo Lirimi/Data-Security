@@ -23,6 +23,8 @@ namespace ds
     {
       for (int i = 0; i < teksti.Length; ++i)
       {
+        if (teksti[i]>=(int)'a' && teksti[i]<=(int)'z')
+      {
         char ch = teksti[i];
           if (!string.IsNullOrEmpty(enk))
             {
@@ -33,6 +35,11 @@ namespace ds
 
         enk += Convert.ToInt32(n);
       }
+      else
+      {
+        continue;
+      }
+    }
 
       return new string(enk);
     }
