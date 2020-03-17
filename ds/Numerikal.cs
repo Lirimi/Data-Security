@@ -44,7 +44,7 @@ namespace ds
         int num = 0;
           for (int i = 0; i < gjat; i++)
           {
-            num = (dek[i] - '1') + 97;
+            num = (dek[i] - '1') + (int)'a';
               if (num >= 97 && num <= 122)
               {
                 char c = (char)num;
