@@ -52,7 +52,7 @@ namespace ds
           for (int i = 0; i < gjat; i++)
           {
             num = (dek[i] - '1') + (int)'a';
-              if (num >= 97 && num <= 122)
+              if (num >= (int)'a' && num <= (int)'z')
               {
                 char c = (char)num;
                 Console.Write(c);
