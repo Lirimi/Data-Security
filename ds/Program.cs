@@ -10,6 +10,8 @@ namespace ds
         {
             BealeEncrypt();
             Console.WriteLine();
+            BealeDecrypt();
+            Console.WriteLine();
             PermutationEncrypt();
             Console.WriteLine();
             PermutationDecrypt();
@@ -47,6 +49,38 @@ namespace ds
             }
         }
 
+        public static void BealeDecrypt()
+        {
+
+            string teksti = "gentrit ibishi";
+
+            Console.Write("Shkruani CipherTekstin(Example: 1 2 3, duke lene nje hapesire): ");
+            string[] ciphertekst = Console.ReadLine().Split(' ');
+
+
+            // Nese eshte zero merre karakterin zero prej tekstit
+
+            for (int i = 0; i < ciphertekst.Length; i++)
+            {
+                for (int j = 0; j < teksti.Length; j++)
+
+                    if (Convert.ToInt32(ciphertekst[i]) == j)
+                    {
+                        Console.Write(teksti[j] + " ");
+                    }
+
+            }
+
+
+            //Dekripton ciphertextin <ciphertext> duke u bazuar në një text file <book> që e paraqet librin. 
+            //Plaintexti i fituar shfaqet në ekran.
+
+        }
+
+        
+        
+        
+        
 
         static void PermutationEncrypt()
         {
