@@ -8,9 +8,14 @@ namespace ds
     {
         static void Main(string[] args)
         {
-            BealeEncrypt();
-            Console.WriteLine();
-            BealeDecrypt();
+            Console.Write("Shkruani plaintekstin: ");
+            string plainteksti = Console.ReadLine();
+            BealeEncrypt(plainteksti);
+
+            Console.Write("\nShkruani ciphertekstin: ");
+            string[] ciphertekst = Console.ReadLine().Split(' ');
+            BealeDecrypt(ciphertekst);
+            
             Console.WriteLine();
             PermutationEncrypt();
             Console.WriteLine();
@@ -19,18 +24,17 @@ namespace ds
             
         }
 
-        public static void BealeEncrypt()
+        // Funksioni BealeEncrypt
+        public static string BealeEncrypt(string plainteksti)
         {
             //Kodi per tekstin qe ndodhet ne liber
-            Console.Write("Shenoni Tekstin qe ndodhet ne liber: ");
-            string teksti = Console.ReadLine();
+            string teksti = "fakulteti teknik eshte fakulteti me i mire!";
             char[] test = teksti.ToCharArray();
 
             //Kodi per plainteksitin qe deshirojme me mshef.
-            Console.Write("Shenoni plaintextin: ");
-            string plaintekst = Console.ReadLine();
+            string plaintekst = plainteksti;
             char[] ch = plaintekst.ToCharArray();
-            Console.Write("Teksti i enkriptuar eshte: ");
+
             //for loop 
             for (int i = 0; i < plaintekst.Length; i++)
             {
@@ -47,19 +51,15 @@ namespace ds
                     }
                 }
             }
+            return plainteksti.ToString();
         }
-
-        public static void BealeDecrypt()
+        
+       // Funksioni BealeDecrypt
+        
+        public static string BealeDecrypt(string[] ciphertekst)
         {
-
-            string teksti = "gentrit ibishi";
-
-            Console.Write("Shkruani CipherTekstin(Example: 1 2 3, duke lene nje hapesire): ");
-            string[] ciphertekst = Console.ReadLine().Split(' ');
-
-
-            // Nese eshte zero merre karakterin zero prej tekstit
-
+            string teksti = "fakulteti teknik eshte fakulteti me i mire!";
+           
             for (int i = 0; i < ciphertekst.Length; i++)
             {
                 for (int j = 0; j < teksti.Length; j++)
@@ -70,11 +70,7 @@ namespace ds
                     }
 
             }
-
-
-            //Dekripton ciphertextin <ciphertext> duke u bazuar në një text file <book> që e paraqet librin. 
-            //Plaintexti i fituar shfaqet në ekran.
-
+            return ciphertekst.ToString();
         }
 
         
