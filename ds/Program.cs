@@ -25,6 +25,7 @@ namespace ds
         }
 
         // Funksioni BealeEncrypt
+        
         public static string BealeEncrypt(string plainteksti)
         {
             //Kodi per tekstin qe ndodhet ne liber
