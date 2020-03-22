@@ -67,7 +67,7 @@ namespace ds
 
                     if (Convert.ToInt32(ciphertekst[i]) == j)
                     {
-                        Console.Write(teksti[j] + " ");
+                        Console.Write(teksti[j] + "");
                     }
 
             }
