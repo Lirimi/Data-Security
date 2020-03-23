@@ -12,7 +12,7 @@ namespace ds
             string plainteksti = Console.ReadLine();
             BealeEncrypt(plainteksti);
 
-            Console.Write("\nShkruani ciphertekstin: ");
+            Console.Write("\nShkruani ciphertekstin(Exp: 0 1 2): ");
             string[] ciphertekst = Console.ReadLine().Split(' ');
             BealeDecrypt(ciphertekst);
         }
