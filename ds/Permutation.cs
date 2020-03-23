@@ -6,7 +6,7 @@ namespace ds
     {
         public Permutation()
         {
-            Console.Write("Plaintext: ");
+            Console.Write("\nPlaintext: ");
             string tekstiE = Console.ReadLine();
             Console.Write("Celsi: ");
             string celsiE = Console.ReadLine();
@@ -118,16 +118,16 @@ namespace ds
 
         }
 
-        static string PermutationDecrypt(string cels, string mesazh)
+        static string PermutationDecrypt(string celsi, string mesazh)
         {
 
             int x = 0, y = 0;
 
             string mesazhi = Ndarja(mesazh);
-            char[] key = cels.ToCharArray();
+            /*char[] key = cels.ToCharArray();
             Array.Reverse(key);
             string celsi = new string(key);
-
+            */
 
             Console.Write("\nKey:\t    ");
             StringBuilder celsiBuild = new StringBuilder(celsi);

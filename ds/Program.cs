@@ -11,8 +11,9 @@ namespace ds
 
 
             Beale B = new Beale();
+             Permutation P = new Permutation();
             Numerikal N = new Numerikal();
-            Permutation P = new Permutation();
+           
 
         }
     }

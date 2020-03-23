@@ -8,7 +8,7 @@ namespace ds
         public Numerikal()
         { 
            
-                Console.Write("Shkruani tekstin: ");
+                Console.Write("\nShkruani tekstin: ");
                 string text = Console.ReadLine();
                 string cipher = Encode(text);
                 Console.WriteLine("Cipher teksti i enkriptuar: " + cipher);
@@ -43,4 +43,3 @@ namespace ds
     }
 
 
-///////////

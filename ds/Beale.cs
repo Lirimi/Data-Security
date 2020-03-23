@@ -22,7 +22,7 @@ namespace ds
         public static string BealeEncrypt(string plainteksti)
         {
             //Kodi per tekstin qe ndodhet ne liber
-            string teksti = "fakulteti teknik eshte fakulteti me i mire!";
+            string teksti = "jon hajdini";
             char[] test = teksti.ToCharArray();
 
             //Kodi per plainteksitin qe deshirojme me mshef.
@@ -36,6 +36,7 @@ namespace ds
                 {
                     if (test[j] == ch[i])
                     {
+                        
                         Console.Write(j + " ");
                         j = test.Length - 1;
                     }
@@ -52,7 +53,7 @@ namespace ds
 
         public static string BealeDecrypt(string[] ciphertekst)
         {
-            string teksti = "fakulteti teknik eshte fakulteti me i mire!";
+            string teksti = "jon hajdini";
 
             for (int i = 0; i < ciphertekst.Length; i++)
             {
@@ -60,6 +61,7 @@ namespace ds
 
                     if (Convert.ToInt32(ciphertekst[i]) == j)
                     {
+                       
                         Console.Write(teksti[j] + "");
                     }
 
