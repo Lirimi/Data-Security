@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\ds.csproj": {}
+    "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\ds\\ds\\ds.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\ds.csproj": {
+    "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\ds\\ds\\ds.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\ds.csproj",
+        "projectUniqueName": "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\ds\\ds\\ds.csproj",
         "projectName": "ds",
-        "projectPath": "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\ds.csproj",
+        "projectPath": "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\ds\\ds\\ds.csproj",
         "packagesPath": "C:\\Users\\jon_h\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\obj\\",
+        "outputPath": "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\ds\\ds\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jon_h\\AppData\\Roaming\\NuGet\\NuGet.Config",
