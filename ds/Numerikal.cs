@@ -6,65 +6,41 @@ namespace ds
     public class Numerikal
     {
         public Numerikal()
-        {
-            Console.Write("\nShenoni tekstin qe doni ta enkodoni: ");
-            string teksti = Console.ReadLine();
-            string enk = "";
-            string n = EncodeNumerical(teksti, enk);
-            Console.Write("Teksti i enkoduar eshte: " + n + "\n");
+        { 
+           
+                Console.Write("Shkruani tekstin: ");
+                string text = Console.ReadLine();
+                string cipher = Encode(text);
+                Console.WriteLine("Cipher teksti i enkriptuar: " + cipher);
 
-            Console.Write("Shkruaj kodin qe doni ta dekodoni: ");
-            string dek = Console.ReadLine();
-            int gjat = dek.Length;
-            string z = DecodeNumerical(dek, gjat);
-            //Decode(dek, gjat);
-            Console.Write("Kodi i dekoduar eshte: " + z + "\n");
-            Console.Write("\n");
-        }
+                Console.Write("Shkruani cipher tekstin: ");
+                cipher = Console.ReadLine();
+                string plain = Decode(cipher);
+                Console.WriteLine("Plain teksti i dekriptuar: " + plain);
+            }
 
-        static string EncodeNumerical(string teksti, string enk)
-        {
-            for (int i = 0; i < teksti.Length; ++i)
+            static string Encode(string plain)
             {
-                if (teksti[i] >= (int)'a' && teksti[i] <= (int)'z')
-                {
-                    char ch = teksti[i];
-                    if (!string.IsNullOrEmpty(enk))
+                string cipher = "";
+                foreach (char c in plain)
+                    if (c >= 'a' && c <= 'z')
                     {
-                        enk += " ";
+                        cipher += (c - 'a' + 1).ToString();
+                        cipher += ' ';
                     }
-                    int n = (int)ch - (int)'a' + 1;
-
-
-                    enk += Convert.ToInt32(n);
-                }
-                else
-                {
-                    continue;
-                }
+                return cipher.Trim();
             }
 
-            return new string(enk);
-        }
-
-        static string DecodeNumerical(String dek, int gjat)
-        {
-            StringBuilder Decode = new StringBuilder(dek);
-            //Console.Write("Kodi i dekoduar eshte: ");
-            int num = 0;
-            for (int i = 0; i < gjat; i++)
+            static string Decode(string cipher)
             {
-                num = (dek[i] - '1') + (int)'a'; //1 = 97 
-                if (num >= (int)'a' && num <= (int)'z')
-                {
-                    char c = (char)num;
-                    Decode[i] = c;
-                    //Console.Write(c);
-                    //num = 0;
-                }
+                string[] chars = cipher.Split(" ");
+                string plain = "";
+                foreach (string s in chars)
+                    plain += (char)(Int16.Parse(s) + 'a' - 1);
+                return plain;
             }
-            //Console.Write("\n");
-            return Decode.ToString();
         }
     }
-}
+
+
+///////////

@@ -12,7 +12,7 @@ namespace ds
             string celsiE = Console.ReadLine();
             PermutationEncrypt(celsiE, tekstiE);
 
-            Console.Write("\nPlaintext: ");
+            Console.Write("\nCiphertext: ");
             string tekstiD = Console.ReadLine();
             Console.Write("Celsi: ");
             string celsiD = Console.ReadLine();
@@ -175,7 +175,7 @@ namespace ds
 
 
 
-            Console.Write("\nCiphertext: ");
+            Console.Write("\nPlaintext: ");
             string mesazhidekriptuar = "";
             for (int j = 0; j < y; j++)
             {
