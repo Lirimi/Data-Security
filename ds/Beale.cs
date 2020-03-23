@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace ds
@@ -7,7 +6,7 @@ namespace ds
 
    public class Beale
     {
-        static void Main(string[] args)
+        public Beale()
         {
             Console.Write("Shkruani plaintekstin: ");
             string plainteksti = Console.ReadLine();
