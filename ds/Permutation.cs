@@ -9,7 +9,7 @@ namespace ds
             try
             {
                 /* Enkriptimi */
-                Console.Write("Type message: ");
+                Console.Write("\nType message: ");
                 string message = Console.ReadLine();
                 Console.Write("Type key: ");
                 string key = Console.ReadLine();
