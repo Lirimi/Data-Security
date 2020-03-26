@@ -22,7 +22,7 @@ namespace ds
         public static string BealeEncrypt(string plainteksti)
         {
             //Kodi per tekstin qe ndodhet ne liber
-            string teksti = "jon hajdini";
+            string teksti = "grupi 28i";
             char[] test = teksti.ToCharArray();
 
             //Kodi per plainteksitin qe deshirojme me mshef.
@@ -53,7 +53,7 @@ namespace ds
 
         public static string BealeDecrypt(string[] ciphertekst)
         {
-            string teksti = "jon hajdini";
+            string teksti = "grupi 28";
 
             for (int i = 0; i < ciphertekst.Length; i++)
             {
