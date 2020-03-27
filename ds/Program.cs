@@ -14,22 +14,16 @@ namespace ds
             Numerical N = new Numerical();
 
 
-            if (args.Length == 0)
-            {
-                Console.Write("Argumentet Mungojne\n");
-                Console.Write("Argumentet Mungojne\n");
-                Console.Write("Argumentet Mungojne\n");
-                Console.Write("Argumentet Mungojne\n");
-                Console.Write("Argumentet Mungojne\n");
-                Console.Write("Argumentet Mungojne\n");
-                Console.Write("Argumentet Mungojne\n");
-                Console.Write("Argumentet Mungojne\n");
-                Console.Write("Argumentet Mungojne\n");
-
-            }
 
 
-            if (args[0].Equals("Numerical"))
+
+
+
+
+
+
+
+             if (args[0].Equals("Numerical"))
             {
                 if (args[1].Equals("Encode"))
                 {
