@@ -1,6 +1,5 @@
 using System;
 using System.Text.RegularExpressions;
-using System.Text;
 
 namespace ds
 {
@@ -12,17 +11,20 @@ namespace ds
             Beale B = new Beale();
             Permutation P = new Permutation();
             Numerical N = new Numerical();
-            if (args.Length == 0) 
+
+            if (args.Length == 0)
             {
                 Console.WriteLine("\n@Argumentet mungojne!");
+                Console.WriteLine("\n@Per ekzekutimin e kodit Beale shtyp | Beale Encode <text> | ose | Beale Decode <text> |");
                 Console.WriteLine("\n@Per ekzekutimin e kodit Permutation shtyp | Permutation Encrypt <text><text> | ose | Permutation Decrypt <text><text> |");
                 Console.WriteLine("\n@Per ekzekutimin e kodit Numerical shtyp | Numerical Encode <text> | ose | Numerical Decode <text> |");
                 Environment.Exit(1);
 
             }
-            if (args.Length <= 2 || args.Length > 4) 
+            if (args.Length <= 2 || args.Length > 4)
             {
                 Console.WriteLine("\n@Numri i argumenteve jo i lejuar!");
+                Console.WriteLine("\n@Per ekzekutimin e kodit Beale shtyp | Beale Encode <text> | ose | Beale Decode <text> |");
                 Console.WriteLine("\n@Per ekzekutimin e kodit Permutation shtyp | Permutation Encrypt <text><text> | ose | Permutation Decrypt <text><text> |");
                 Console.WriteLine("\n@Per ekzekutimin e kodit Numerical shtyp | Numerical Encode <text> | ose | Numerical Decode <text> |");
                 Environment.Exit(1);
@@ -46,12 +48,12 @@ namespace ds
                 else if (args[1].Equals("Decode"))
                 {
                     String text = args[2];
-                    if(Regex.IsMatch(text, "^[0-9]+"))
+                    if (Regex.IsMatch(text, "^[0-9]+"))
                     {
                         string Plain = N.Decode(text);
                         Console.WriteLine("Decode is:" + Plain);
                     }
-                    else 
+                    else
                     {
                         Console.Write("Argumenti i fundit lejohet te permbaje vetem numra 0-9!");
                     }
@@ -62,14 +64,67 @@ namespace ds
                     Console.Write("Argumenti eshte jo valid! (Args must be Encode or Decode)");
                 }
             }
-       }
+
+
+
+            //--------------------------------------------------Argumenti per Permutation
+            else if (args[0].Equals("Permutation"))
+            {
+                if (args[1].Equals("Encrypt"))
+                {
+                    String text = args[2];
+                    String key = args[3];
+                    string Cipher = P.Encrypt(text, key);
+                    Console.WriteLine("Encryptet plaintext is: " + Cipher);
+                }
+
+                else if (args[1].Equals("Decrypt"))
+                {
+                    String text = args[2];
+                    String key = args[3];
+                    String Plain = P.Decrypt(text, key);
+                    Console.WriteLine("Decryptet ciphertext is: " + Plain);
+                }
+                else
+                {
+                    Console.Write("E R R O R  !");
+                }
+            }
+
+
+            // ------------------------------------------------------------ Argumenti per Beale
+            else if (args[0].Equals("Beale"))
+            {
+                if (args[1].Equals("BealeEncrypt"))
+                {
+                    String plainteksti = args[2];
+                    String Cipher = B.BealeEncrypt(plainteksti);
+                    Console.WriteLine("Beale Encrypted plaintext is: " + Cipher);
+                }
+                else if (args[1].Equals("BealeDecrypt"))
+                {
+                    String ciphertekst = args[2];
+                    String Plain = B.BealeDecrypt(ciphertekst);
+                    Console.WriteLine("Beale Decrypted plaintext is: " + Plain);
+                }
+                else
+                {
+                    Console.Write("Argumenti eshte jo valid! (Args must be Encrypted or Decrypted) !");
+                }
+            }
+
+
+        }
+
+
+
 
         public class Beale 
         {
             public string BealeEncrypt(string plainteksti)
             {
                 //Kodi per tekstin qe ndodhet ne liber
-                string teksti = "grupi 28i";
+                string teksti = "grupi 28";
                 char[] test = teksti.ToCharArray();
 
                 //Kodi per plainteksitin qe deshirojme me mshef.
@@ -98,7 +153,7 @@ namespace ds
 
             // Funksioni BealeDecrypt
 
-            public string BealeDecrypt(string[] ciphertekst)
+            public string BealeDecrypt(string ciphertekst)
             {
                 string teksti = "grupi 28";
 
@@ -167,6 +222,8 @@ namespace ds
                 return new string(plainChars);
                 /* ------------------------------ */
             }
+
+
         }
 
         public class Numerical
