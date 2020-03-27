@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Text;
 
 namespace ds
@@ -12,35 +12,57 @@ namespace ds
             Beale B = new Beale();
             Permutation P = new Permutation();
             Numerical N = new Numerical();
+            if (args.Length == 0) 
+            {
+                Console.WriteLine("\n@Argumentet mungojne!");
+                Console.WriteLine("\n@Per ekzekutimin e kodit Permutation shtyp | Permutation Encrypt <text><text> | ose | Permutation Decrypt <text><text> |");
+                Console.WriteLine("\n@Per ekzekutimin e kodit Numerical shtyp | Numerical Encode <text> | ose | Numerical Decode <text> |");
+                Environment.Exit(1);
 
-
-
-
-
-
-
-
-
-
-
-             if (args[0].Equals("Numerical"))
+            }
+            if (args.Length <= 2 || args.Length > 4) 
+            {
+                Console.WriteLine("\n@Numri i argumenteve jo i lejuar!");
+                Console.WriteLine("\n@Per ekzekutimin e kodit Permutation shtyp | Permutation Encrypt <text><text> | ose | Permutation Decrypt <text><text> |");
+                Console.WriteLine("\n@Per ekzekutimin e kodit Numerical shtyp | Numerical Encode <text> | ose | Numerical Decode <text> |");
+                Environment.Exit(1);
+            }
+            if (args[0].Equals("Numerical"))
             {
                 if (args[1].Equals("Encode"))
                 {
+
                     String text = args[2];
-                    string f = N.Encode(text);
-                    Console.WriteLine("Encode is:" + f);
+                    if (Regex.IsMatch(text, "^[a-z]+"))
+                    {
+                        string Cipher = N.Encode(text);
+                        Console.WriteLine("Encode is:" + Cipher);
+                    }
+                    else
+                    {
+                        Console.Write("Argumenti i fundit lejohet te permbaje vetem shkronja te vogla sipas alfabetit anglez prej a-z!");
+                    }
                 }
                 else if (args[1].Equals("Decode"))
                 {
                     String text = args[2];
-                    string f = N.Decode(text);
-                    Console.WriteLine("Decode is:" + f);
+                    if(Regex.IsMatch(text, "^[0-9]+"))
+                    {
+                        string Plain = N.Decode(text);
+                        Console.WriteLine("Decode is:" + Plain);
+                    }
+                    else 
+                    {
+                        Console.Write("Argumenti i fundit lejohet te permbaje vetem numra 0-9!");
+                    }
 
                 }
+                else
+                {
+                    Console.Write("Argumenti eshte jo valid! (Args must be Encode or Decode)");
+                }
             }
-
-        }
+       }
 
         public class Beale 
         {
@@ -165,7 +187,8 @@ namespace ds
 
             public string Decode(string cipher)
             {
-                string[] chars = cipher.Split(" ");
+                string[] chars;
+                chars = cipher.Split(" ");
                 string plain = "";
                 foreach (string s in chars)
                     plain += (char)(Int16.Parse(s) + 'a' - 1);
@@ -175,10 +198,6 @@ namespace ds
 
 
     }
-
-
-
-
 
 }
 
