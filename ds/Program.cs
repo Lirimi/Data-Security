@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace ds
 {
@@ -95,21 +96,21 @@ namespace ds
             // ------------------------------------------------------------ Argumenti per Beale
             else if (args[0].Equals("Beale"))
             {
-                if (args[1].Equals("BealeEncrypt"))
+                if (args[1].Equals("Encrypt"))
                 {
                     String plainteksti = args[2];
                     String Cipher = B.BealeEncrypt(plainteksti);
-                    Console.WriteLine("Beale Encrypted plaintext is: " + Cipher);
+                    Console.WriteLine("Encrypted plaintext is: " + Cipher);
                 }
-                else if (args[1].Equals("BealeDecrypt"))
+                else if (args[1].Equals("Decrypt"))
                 {
-                    String ciphertekst = args[2];
+                    String[] ciphertekst = args[2].Split();
                     String Plain = B.BealeDecrypt(ciphertekst);
-                    Console.WriteLine("Beale Decrypted plaintext is: " + Plain);
+                    Console.WriteLine("Decrypted Ciphertext is: " + Plain);
                 }
                 else
                 {
-                    Console.Write("Argumenti eshte jo valid! (Args must be Encrypted or Decrypted) !");
+                    Console.Write("Argumenti eshte jo valid! (Args must be Encrypt or Decrypt) !");
                 }
             }
 
@@ -119,12 +120,12 @@ namespace ds
 
 
 
-        public class Beale 
+        public class Beale
         {
             public string BealeEncrypt(string plainteksti)
             {
                 //Kodi per tekstin qe ndodhet ne liber
-                string teksti = "grupi 28";
+                string teksti = "lirim";
                 char[] test = teksti.ToCharArray();
 
                 //Kodi per plainteksitin qe deshirojme me mshef.
@@ -132,6 +133,7 @@ namespace ds
                 char[] ch = plaintekst.ToCharArray();
 
                 //for loop 
+
                 for (int i = 0; i < plaintekst.Length; i++)
                 {
                     for (int j = 0; j < teksti.Length; j++)
@@ -153,9 +155,9 @@ namespace ds
 
             // Funksioni BealeDecrypt
 
-            public string BealeDecrypt(string ciphertekst)
+            public string BealeDecrypt(string[] ciphertekst)
             {
-                string teksti = "grupi 28";
+                string teksti = "lirim";
 
                 for (int i = 0; i < ciphertekst.Length; i++)
                 {
@@ -174,7 +176,7 @@ namespace ds
 
 
 
-        public class Permutation 
+        public class Permutation
         {
             public string Encrypt(string message, string key)
             {
@@ -259,4 +261,3 @@ namespace ds
 }
 
 
-    
