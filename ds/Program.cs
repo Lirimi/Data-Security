@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace ds
 {
@@ -72,19 +73,12 @@ namespace ds
             {
                 if (args[1].Equals("Encrypt"))
                 {
-
                     String text = args[2];
                     String key = args[3];
-                    if (Regex.IsMatch(text, "^[a-zA-Z]+") && Regex.IsMatch(key, "^[1-4]+") && key.Length == 4)
-                    {
-                        string Cipher = P.Encrypt(text, key);
-                        Console.WriteLine("Encryptet plaintext is: " + Cipher);
-                    }
-                    else if (Regex.IsMatch(text, "^[a-zA-Z]+") && Regex.IsMatch(key, "^[1-4]+") && key.Length != 4)
-                    {
-                        Console.WriteLine("Key is wrong!");
-                    }
+                    string Cipher = P.Encrypt(text, key);
+                    Console.WriteLine("Encryptet plaintext is: " + Cipher);
                 }
+
                 else if (args[1].Equals("Decrypt"))
                 {
                     String text = args[2];
@@ -96,8 +90,8 @@ namespace ds
                 {
                     Console.Write("E R R O R  !");
                 }
-                
             }
+
 
             // ------------------------------------------------------------ Argumenti per Beale
             else if (args[0].Equals("Beale"))
@@ -105,14 +99,14 @@ namespace ds
                 if (args[1].Equals("Encrypt"))
                 {
                     String plainteksti = args[2];
-                    Console.Write("Encrypted plaintext is: ");
-                    B.BealeEncrypt(plainteksti);
+                    String Cipher = B.BealeEncrypt(plainteksti);
+                    Console.WriteLine("Encrypted plaintext is: " + Cipher);
                 }
                 else if (args[1].Equals("Decrypt"))
                 {
                     String[] ciphertekst = args[2].Split();
-                    Console.Write("Decrypted Ciphertext is: ");
-                    B.BealeDecrypt(ciphertekst);
+                    String Plain = B.BealeDecrypt(ciphertekst);
+                    Console.WriteLine("Decrypted Ciphertext is: " + Plain);
                 }
                 else
                 {
@@ -128,7 +122,7 @@ namespace ds
 
         public class Beale
         {
-            public void BealeEncrypt(string plainteksti)
+            public string BealeEncrypt(string plainteksti)
             {
                 //Kodi per tekstin qe ndodhet ne liber
                 string teksti = "lirim";
@@ -156,12 +150,12 @@ namespace ds
                         }
                     }
                 }
-              
+                return plainteksti.ToString();
             }
 
             // Funksioni BealeDecrypt
 
-            public void BealeDecrypt(string[] ciphertekst)
+            public string BealeDecrypt(string[] ciphertekst)
             {
                 string teksti = "lirim";
 
@@ -176,7 +170,7 @@ namespace ds
                         }
 
                 }
-               
+                return ciphertekst.ToString();
             }
         }
 
