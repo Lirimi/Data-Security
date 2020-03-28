@@ -15,7 +15,7 @@ namespace ds
             if (args.Length == 0)
             {
                 Console.WriteLine("\n@Argumentet mungojne!");
-                Console.WriteLine("\n@Per ekzekutimin e kodit Beale shtyp | Beale Encrypt <text> | ose | Beale Decrypt <text> ku text duhet te jete like: '0 1 2'|");
+                Console.WriteLine("\n@Per ekzekutimin e kodit Beale shtyp | Beale Encrypt <text> | ose | Beale Decrypt <text> ku text te decrypt duhet te jete me thonjeza like: 0 1 2 |");
                 Console.WriteLine("\n@Per ekzekutimin e kodit Permutation shtyp | Permutation Encrypt <key><text> | ose | Permutation Decrypt <key><text> |");
                 Console.WriteLine("\n@Per ekzekutimin e kodit Numerical shtyp | Numerical Encode <text> | ose | Numerical Decode <text> |");
                 Environment.Exit(1);
