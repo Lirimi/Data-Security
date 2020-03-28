@@ -131,7 +131,12 @@ namespace ds
             public void BealeEncrypt(string plainteksti)
             {
                 //Kodi per tekstin qe ndodhet ne liber
-                string teksti = "lirim";
+                // string teksti = "lirim";
+                
+                //Test
+                string teksti = "ds/teksti.txt";
+                
+                
                 char[] test = teksti.ToCharArray();
 
                 //Kodi per plainteksitin qe deshirojme me mshef.
@@ -163,8 +168,12 @@ namespace ds
 
             public void BealeDecrypt(string[] ciphertekst)
             {
-                string teksti = "lirim";
+               // string teksti = "lirim";
 
+                //Test
+                string teksti = "ds/teksti.txt";
+                
+                
                 for (int i = 0; i < ciphertekst.Length; i++)
                 {
                     for (int j = 0; j < teksti.Length; j++)
