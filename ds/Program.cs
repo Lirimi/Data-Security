@@ -165,7 +165,7 @@ namespace ds
                 // string teksti = System.IO.File.ReadAllText("C:\\Users\\Gentrit\\Desktop\\teksti.txt");
                 // Per me lexu FilePath, te pjesa Gentrit shenoni userin tuaj gjithashtu krijoni 1 file teksti.txt qe permban fjale
                 
-                string teksti = "gentrit ibishi";
+                string teksti = "fakulteti teknik";
                 char[] test = teksti.ToCharArray();
 
                 //Kodi per plainteksitin qe deshirojme me mshef.
@@ -203,7 +203,7 @@ namespace ds
                // string teksti = System.IO.File.ReadAllText("C:\\Users\\Gentrit\\Desktop\\teksti.txt");
                // Per me lexu FilePath, te pjesa Gentrit shenoni userin tuaj gjithashtu krijoni 1 file teksti.txt qe permban fjale 
                  
-               string teksti = "gentrit ibishi";
+               string teksti = "fakulteti teknik";
                 
                 for (int i = 0; i < ciphertekst.Length; i++)
                 {
