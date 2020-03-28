@@ -16,7 +16,7 @@ namespace ds
             {
                 Console.WriteLine("\n@Argumentet mungojne!");
                 Console.WriteLine("\n@Per ekzekutimin e kodit Beale shtyp | Beale Encode <text> | ose | Beale Decode <text> |");
-                Console.WriteLine("\n@Per ekzekutimin e kodit Permutation shtyp | Permutation Encrypt <text><text> | ose | Permutation Decrypt <text><text> |");
+                Console.WriteLine("\n@Per ekzekutimin e kodit Permutation shtyp | Permutation Encrypt <key><text> | ose | Permutation Decrypt <key><text> |");
                 Console.WriteLine("\n@Per ekzekutimin e kodit Numerical shtyp | Numerical Encode <text> | ose | Numerical Decode <text> |");
                 Environment.Exit(1);
 
@@ -25,10 +25,12 @@ namespace ds
             {
                 Console.WriteLine("\n@Numri i argumenteve jo i lejuar!");
                 Console.WriteLine("\n@Per ekzekutimin e kodit Beale shtyp | Beale Encode <text> | ose | Beale Decode <text> |");
-                Console.WriteLine("\n@Per ekzekutimin e kodit Permutation shtyp | Permutation Encrypt <text><text> | ose | Permutation Decrypt <text><text> |");
+                Console.WriteLine("\n@Per ekzekutimin e kodit Permutation shtyp | Permutation Encrypt <key><text> | ose | Permutation Decrypt <key><text> |");
                 Console.WriteLine("\n@Per ekzekutimin e kodit Numerical shtyp | Numerical Encode <text> | ose | Numerical Decode <text> |");
                 Environment.Exit(1);
             }
+
+            /*---------------Args per Numerical-----------------*/
             if (args[0].Equals("Numerical"))
             {
                 if (args[1].Equals("Encode"))
@@ -38,11 +40,12 @@ namespace ds
                     if (Regex.IsMatch(text, "^[a-z]+"))
                     {
                         string Cipher = N.Encode(text);
-                        Console.WriteLine("Encode is:" + Cipher);
+                        Console.WriteLine("Encoded text is:" + Cipher);
                     }
                     else
                     {
                         Console.Write("Argumenti i fundit lejohet te permbaje vetem shkronja te vogla sipas alfabetit anglez prej a-z!");
+
                     }
                 }
                 else if (args[1].Equals("Decode"))
@@ -51,7 +54,7 @@ namespace ds
                     if (Regex.IsMatch(text, "^[0-9]+"))
                     {
                         string Plain = N.Decode(text);
-                        Console.WriteLine("Decode is:" + Plain);
+                        Console.WriteLine("Decoded cipher is:" + Plain);
                     }
                     else
                     {
@@ -61,70 +64,96 @@ namespace ds
                 }
                 else
                 {
-                    Console.Write("Argumenti eshte jo valid! (Args must be Encode or Decode)");
+                    Console.Write("Argumenti eshte jo valid! (Args must be | Encode | or | Decode |)");
                 }
             }
 
 
 
-            //--------------------------------------------------Argumenti per Permutation
+            /*---------------Args per Permutation-----------------*/
             else if (args[0].Equals("Permutation"))
             {
                 if (args[1].Equals("Encrypt"))
                 {
 
-                    String text = args[2];
-                    String key = args[3];
-                    if (Regex.IsMatch(text, "^[a-zA-Z]+") && Regex.IsMatch(key, "^[1-4]+") && key.Length == 4)
+                    String key = args[2];
+                    String text = args[3];
+                    if (Regex.IsMatch(key, "^[1-4]+$") && key.Length == 4 && Regex.IsMatch(text, "^[a-zA-Z]+$"))
                     {
-                        string Cipher = P.Encrypt(text, key);
+                        string Cipher = P.Encrypt(key, text);
                         Console.WriteLine("Encryptet plaintext is: " + Cipher);
                     }
-                    else if (Regex.IsMatch(text, "^[a-zA-Z]+") && Regex.IsMatch(key, "^[1-4]+") && key.Length != 4)
+                    else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4 && Regex.IsMatch(text, "^[a-zA-Z]+$"))
                     {
-                        Console.WriteLine("Key is wrong!");
+                        Console.WriteLine("Key is either too long or too short (Make sure its 4 charecters only!");
+                    }
+                    else
+                    {
+
+                        throw new Exception("Keep in mind that the first argument allows only numbers from 1-4 and the second argument allows only EN alphabetic characters!");
                     }
                 }
                 else if (args[1].Equals("Decrypt"))
                 {
-                    String text = args[2];
-                    String key = args[3];
-                    String Plain = P.Decrypt(text, key);
-                    Console.WriteLine("Decryptet ciphertext is: " + Plain);
+                    String key = args[2];
+                    String text = args[3];
+                    if (Regex.IsMatch(key, "^[1-4]+$") && key.Length == 4 && Regex.IsMatch(text, "^[a-zA-Z]+$"))
+                    {
+                        string Plain = P.Decrypt(key, text);
+                        Console.WriteLine("Decryptet Ciphertext is: " + Plain);
+                    }
+                    else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4 && Regex.IsMatch(text, "^[a-zA-Z]+$"))
+                    {
+                        Console.WriteLine("Key is either too long or too short (Make sure its 4 charecters only!");
+                    }
+                    else
+                    {
+
+                        throw new Exception("Keep in mind that the first argument allows only numbers from 1-4 and the second argument allows only EN alphabetic characters!");
+                    }
                 }
                 else
                 {
-                    Console.Write("E R R O R  !");
+                    Console.Write("E R R O R  ! Make sure you passed the argument right | Encrypt | or | Decrypt |!");
                 }
-                
+
             }
 
-            // ------------------------------------------------------------ Argumenti per Beale
+            /*---------------Args per Beale-----------------*/
             else if (args[0].Equals("Beale"))
             {
                 if (args[1].Equals("Encrypt"))
                 {
                     String plainteksti = args[2];
-                    Console.Write("Encrypted plaintext is: ");
-                    B.BealeEncrypt(plainteksti);
+                    if (Regex.IsMatch(plainteksti, "^[a-zA-Z]+"))
+                    {
+                        Console.Write("Encrypted plaintext is: ");
+                        B.BealeEncrypt(plainteksti);
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Argumenti i fundit duhet te permbaje tekst a-z ose A-Z");
+                    }
+
                 }
                 else if (args[1].Equals("Decrypt"))
                 {
                     String[] ciphertekst = args[2].Split();
                     Console.Write("Decrypted Ciphertext is: ");
                     B.BealeDecrypt(ciphertekst);
+                    Console.WriteLine();
                 }
                 else
                 {
                     Console.Write("Argumenti eshte jo valid! (Args must be Encrypt or Decrypt) !");
                 }
             }
-
-
+            else
+            {
+                Console.Write("Argumenti duhet te jete | Beale | ose | Permutation | ose | Numerical |");
+            }
         }
-
-
-
 
         public class Beale
         {
@@ -174,9 +203,7 @@ namespace ds
 
                             Console.Write(teksti[j] + "");
                         }
-
                 }
-               
             }
         }
 
@@ -184,18 +211,20 @@ namespace ds
 
         public class Permutation
         {
-            public string Encrypt(string message, string key)
+            public string Encrypt( string key, string message)
             {
-                /* Qikjo osht per mos me mujt perdorusi me jep qels jovalid */
-                if (key.Length > 4)
-                    throw new Exception("Invalid key!");
-                for (int i = 0; i < 4; i++)
-                    if (key[i] < '1' || key[i] > '4')
-                        throw new Exception("Invalid key!");
-                for (int i = 0; i < 3; i++)
-                    for (int j = i + 1; j < 4; j++)
+                /* Unaza qe nuk lejon numra te perseritur */
+                for (int i = 0; i < key.Length - 1; i++)
+                {
+                    for (int j = i + 1; j < key.Length; j++)
+                    {
                         if (key[i] == key[j])
+                        {
                             throw new Exception("Invalid key!");
+                           
+                        }
+                    }
+                }
                 /* -------------------------------------------------------- */
 
                 /* Qikjo osht pjesa e enkriptimit */
@@ -209,18 +238,20 @@ namespace ds
             }
 
             /* Funksioni per dekriptim */
-            public string Decrypt(string cipher, string key)
+            public string Decrypt( string key , string cipher)
             {
-                /* Qikjo osht per mos me mujt perdorusi me jep qels jovalid */
-                if (key.Length > 4)
-                    throw new Exception("Invalid key!");
-                for (int i = 0; i < 4; i++)
-                    if (key[i] < '1' || key[i] > '4')
-                        throw new Exception("Invalid key!");
-                for (int i = 0; i < 3; i++)
-                    for (int j = i + 1; j < 4; j++)
+                /* Unaza qe nuk lejon numra te perseritur */
+                for (int i = 0; i < key.Length - 1; i++)
+                {
+                    for (int j = i + 1; j < key.Length; j++)
+                    {
                         if (key[i] == key[j])
-                            throw new Exception("Invalid Key!");
+                        {
+                            throw new Exception("Invalid key!");
+
+                        }
+                    }
+                }
                 /* -------------------------------------------------------- */
 
                 /* Qikjo osht pjesa e dekriptimit */
