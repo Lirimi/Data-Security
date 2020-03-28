@@ -24,7 +24,7 @@ namespace ds
             if (args.Length <= 2 || args.Length > 4)
             {
                 Console.WriteLine("\n@Numri i argumenteve jo i lejuar!");
-                Console.WriteLine("\n@Per ekzekutimin e kodit Beale shtyp | Beale Encode <text> | ose | Beale Decode <text> |");
+                Console.WriteLine("\n@Per ekzekutimin e kodit Beale shtyp | Beale Encrypt <text> | ose | Beale Decrypt <text> ku text duhet te jete like: '0 1 2'|");
                 Console.WriteLine("\n@Per ekzekutimin e kodit Permutation shtyp | Permutation Encrypt <key><text> | ose | Permutation Decrypt <key><text> |");
                 Console.WriteLine("\n@Per ekzekutimin e kodit Numerical shtyp | Numerical Encode <text> | ose | Numerical Decode <text> |");
                 Environment.Exit(1);
@@ -133,13 +133,13 @@ namespace ds
                     }
                     else
                     {
-                        Console.WriteLine("Argumenti i fundit duhet te permbaje tekst a-z ose A-Z");
+                        Console.WriteLine("Argumenti i fundit duhet te permbaje tekst a-z ose A-Z ne varesi nga teksti");
                     }
 
                 }
                 else if (args[1].Equals("Decrypt"))
                 {
-                    String[] ciphertekst = args[2].Split();
+                    String[] ciphertekst = args[2].Split(" ");
                     Console.Write("Decrypted Ciphertext is: ");
                     B.BealeDecrypt(ciphertekst);
                     Console.WriteLine();
@@ -160,7 +160,12 @@ namespace ds
             public void BealeEncrypt(string plainteksti)
             {
                 //Kodi per tekstin qe ndodhet ne liber
-                string teksti = "lirim";
+                // Nese deshironi ta beni qe te lexoj path
+                // Per me lexu FilePath, te pjesa Gentrit shenoni userin tuaj gjithashtu krijoni 1 file teksti.txt qe permban fjale
+                // string teksti = System.IO.File.ReadAllText("C:\\Users\\Gentrit\\Desktop\\teksti.txt");
+                // Per me lexu FilePath, te pjesa Gentrit shenoni userin tuaj gjithashtu krijoni 1 file teksti.txt qe permban fjale
+                
+                string teksti = "gentrit ibishi";
                 char[] test = teksti.ToCharArray();
 
                 //Kodi per plainteksitin qe deshirojme me mshef.
@@ -192,7 +197,13 @@ namespace ds
 
             public void BealeDecrypt(string[] ciphertekst)
             {
-               string teksti = "lirim";
+               //Kodi per tekstin qe ndodhet ne liber
+               // Nese deshironi ta beni qe te lexoj path
+               // Per me lexu FilePath, te pjesa Gentrit shenoni userin tuaj gjithashtu krijoni 1 file teksti.txt qe permban fjale
+               // string teksti = System.IO.File.ReadAllText("C:\\Users\\Gentrit\\Desktop\\teksti.txt");
+               // Per me lexu FilePath, te pjesa Gentrit shenoni userin tuaj gjithashtu krijoni 1 file teksti.txt qe permban fjale 
+                 
+               string teksti = "gentrit ibishi";
                 
                 for (int i = 0; i < ciphertekst.Length; i++)
                 {
