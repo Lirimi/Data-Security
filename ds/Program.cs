@@ -79,40 +79,40 @@ namespace ds
 
                     String key = args[2];
                     String text = args[3];
-                    if (Regex.IsMatch(key, "^[1-4]+$") && key.Length == 4 && Regex.IsMatch(text, "^[a-zA-Z ]+$"))
+                    if (Regex.IsMatch(key, "^[1-4]+$") && key.Length == 4)
                     {
                         Console.WriteLine();
                         P.Encrypt(key, text);
                      
                     }
-                    else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4 && Regex.IsMatch(text, "^[a-zA-Z ]+$"))
+                    else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4)
                     {
                         Console.WriteLine("\n@Key is either too long or too short (Make sure its 4 charecters only!");
                     }
                     else
                     {
 
-                        throw new Exception("\n@Keep in mind that the first argument allows only numbers from 1-4 and the second argument allows only EN alphabetic characters!");
+                        throw new Exception("\n@Keep in mind that the first argument allows only numbers from 1-4!");
                     }
                 }
                 else if (args[1].Equals("Decrypt"))
                 {
                     String key = args[2];
                     String text = args[3];
-                    if (Regex.IsMatch(key, "^[1-4]+$") && key.Length == 4 && Regex.IsMatch(text, "^[a-zA-Z ]+$"))
+                    if (Regex.IsMatch(key, "^[1-4]+$") && key.Length == 4)
                     {
                         Console.WriteLine();
                         P.Decrypt(key, text);
 
                     }
-                    else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4 && Regex.IsMatch(text, "^[a-zA-Z ]+$"))
+                    else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4)
                     {
                         Console.WriteLine("\n@Key is either too long or too short (Make sure its 4 charecters only!");
                     }
                     else
                     {
 
-                        throw new Exception("\n@Keep in mind that the first argument allows only numbers from 1-4 and the second argument allows only EN alphabetic characters!");
+                        throw new Exception("\n@Keep in mind that the first argument allows only numbers from 1-4!");
                     }
                 }
                 else
@@ -128,7 +128,7 @@ namespace ds
                 if (args[1].Equals("Encrypt"))
                 {
                     String plainteksti = args[2];
-                    if (Regex.IsMatch(plainteksti, "^[a-zA-Z ]+"))
+                    if (Regex.IsMatch(plainteksti, "^[a-zA-Z ]+$"))
                     {
                         Console.Write("Encrypted plaintext is: ");
                         B.BealeEncrypt(plainteksti);
