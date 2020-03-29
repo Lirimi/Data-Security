@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace ds
 {
@@ -37,14 +38,14 @@ namespace ds
                 {
 
                     String text = args[2];
-                    if (Regex.IsMatch(text, "^[a-z]+"))
+                    if (Regex.IsMatch(text, "^[a-z ]+"))
                     {
                         string Cipher = N.Encode(text);
                         Console.WriteLine("Encoded text is:" + Cipher);
                     }
                     else
                     {
-                        Console.Write("Argumenti i fundit lejohet te permbaje vetem shkronja te vogla sipas alfabetit anglez prej a-z!");
+                        Console.Write("\n@Argumenti i fundit lejohet te permbaje vetem shkronja te vogla sipas alfabetit anglez prej a-z!");
 
                     }
                 }
@@ -58,13 +59,13 @@ namespace ds
                     }
                     else
                     {
-                        Console.Write("Argumenti i fundit lejohet te permbaje vetem numra 0-9!");
+                        Console.Write("\n@Argumenti i fundit lejohet te permbaje vetem numra 0-9!");
                     }
 
                 }
                 else
                 {
-                    Console.Write("Argumenti eshte jo valid! (Args must be | Encode | or | Decode |)");
+                    Console.Write("\n@Argumenti eshte jo valid! (Args must be | Encode | or | Decode |)");
                 }
             }
 
@@ -78,43 +79,45 @@ namespace ds
 
                     String key = args[2];
                     String text = args[3];
-                    if (Regex.IsMatch(key, "^[1-4]+$") && key.Length == 4 && Regex.IsMatch(text, "^[a-zA-Z]+$"))
+                    if (Regex.IsMatch(key, "^[1-4]+$") && key.Length == 4 && Regex.IsMatch(text, "^[a-zA-Z ]+$"))
                     {
-                        string Cipher = P.Encrypt(key, text);
-                        Console.WriteLine("Encryptet plaintext is: " + Cipher);
+                        Console.WriteLine();
+                        P.Encrypt(key, text);
+                     
                     }
-                    else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4 && Regex.IsMatch(text, "^[a-zA-Z]+$"))
+                    else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4 && Regex.IsMatch(text, "^[a-zA-Z ]+$"))
                     {
-                        Console.WriteLine("Key is either too long or too short (Make sure its 4 charecters only!");
+                        Console.WriteLine("\n@Key is either too long or too short (Make sure its 4 charecters only!");
                     }
                     else
                     {
 
-                        throw new Exception("Keep in mind that the first argument allows only numbers from 1-4 and the second argument allows only EN alphabetic characters!");
+                        throw new Exception("\n@Keep in mind that the first argument allows only numbers from 1-4 and the second argument allows only EN alphabetic characters!");
                     }
                 }
                 else if (args[1].Equals("Decrypt"))
                 {
                     String key = args[2];
                     String text = args[3];
-                    if (Regex.IsMatch(key, "^[1-4]+$") && key.Length == 4 && Regex.IsMatch(text, "^[a-zA-Z]+$"))
+                    if (Regex.IsMatch(key, "^[1-4]+$") && key.Length == 4 && Regex.IsMatch(text, "^[a-zA-Z ]+$"))
                     {
-                        string Plain = P.Decrypt(key, text);
-                        Console.WriteLine("Decryptet Ciphertext is: " + Plain);
+                        Console.WriteLine();
+                        P.Decrypt(key, text);
+
                     }
-                    else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4 && Regex.IsMatch(text, "^[a-zA-Z]+$"))
+                    else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4 && Regex.IsMatch(text, "^[a-zA-Z ]+$"))
                     {
-                        Console.WriteLine("Key is either too long or too short (Make sure its 4 charecters only!");
+                        Console.WriteLine("\n@Key is either too long or too short (Make sure its 4 charecters only!");
                     }
                     else
                     {
 
-                        throw new Exception("Keep in mind that the first argument allows only numbers from 1-4 and the second argument allows only EN alphabetic characters!");
+                        throw new Exception("\n@Keep in mind that the first argument allows only numbers from 1-4 and the second argument allows only EN alphabetic characters!");
                     }
                 }
                 else
                 {
-                    Console.Write("E R R O R  ! Make sure you passed the argument right | Encrypt | or | Decrypt |!");
+                    Console.Write("\n@E R R O R  ! Make sure you passed the argument right | Encrypt | or | Decrypt |!");
                 }
 
             }
@@ -125,7 +128,7 @@ namespace ds
                 if (args[1].Equals("Encrypt"))
                 {
                     String plainteksti = args[2];
-                    if (Regex.IsMatch(plainteksti, "^[a-zA-Z]+"))
+                    if (Regex.IsMatch(plainteksti, "^[a-zA-Z ]+"))
                     {
                         Console.Write("Encrypted plaintext is: ");
                         B.BealeEncrypt(plainteksti);
@@ -133,7 +136,7 @@ namespace ds
                     }
                     else
                     {
-                        Console.WriteLine("Argumenti i fundit duhet te permbaje tekst a-z ose A-Z ne varesi nga teksti");
+                        Console.WriteLine("\n@Argumenti i fundit duhet te permbaje tekst a-z ose A-Z ne varesi nga teksti");
                     }
 
                 }
@@ -146,12 +149,12 @@ namespace ds
                 }
                 else
                 {
-                    Console.Write("Argumenti eshte jo valid! (Args must be Encrypt or Decrypt) !");
+                    Console.Write("\n@Argumenti eshte jo valid! (Args must be Encrypt or Decrypt) !");
                 }
             }
             else
             {
-                Console.Write("Argumenti duhet te jete | Beale | ose | Permutation | ose | Numerical |");
+                Console.Write("\n@Argumenti duhet te jete | Beale | ose | Permutation | ose | Numerical |");
             }
         }
 
@@ -222,7 +225,7 @@ namespace ds
 
         public class Permutation
         {
-            public string Encrypt( string key, string message)
+            private string Key(string key)
             {
                 /* Unaza qe nuk lejon numra te perseritur */
                 for (int i = 0; i < key.Length - 1; i++)
@@ -231,46 +234,88 @@ namespace ds
                     {
                         if (key[i] == key[j])
                         {
-                            throw new Exception("Invalid key!");
-                           
+                            throw new Exception("@Invalid key! Make sure the numbers are not repeated!");
+
                         }
                     }
                 }
                 /* -------------------------------------------------------- */
+                return new string(key);
+            }
+            public void Encrypt(string key, string message)
+            {
 
-                /* Qikjo osht pjesa e enkriptimit */
+                Key(key);
+
+                /* Pjesa e enkriptimit */
                 if (message.Length % 4 != 0)
-                    message = message.PadRight(message.Length + 4 - message.Length % 4, 'x');
+                {
+                    message = message.PadRight(message.Length + 4 - message.Length % 4, 'w');
+                }
                 char[] cipherChars = new char[message.Length];
+                string Cipher = "";
                 for (int i = 0; i < message.Length; i++)
+                {
                     cipherChars[i] = message[key[i % 4] - '1' + i / 4 * 4];
-                return new string(cipherChars);
-                /* ------------------------------ */
+                    Cipher += cipherChars[i];
+
+                }
+                /* ---------------------- */
+                Console.WriteLine("Plaintexti i enkriptuar: " + Cipher);
+                /* Pika Shtese! */
+                Console.Write("Plaintext:  ");
+                for (int i = 0; i < message.Length; i += 4)
+                {
+                    Console.Write(message.Substring(i, 4) + ' ');
+                }
+
+                if (key.Length % message.Length != 0) 
+                {
+                    key += key;
+                }
+                Console.Write("\nKey:\t    ");
+                for (int i = 0; i < key.Length; i += 4)
+                {
+                    Console.Write(key.Substring(i, 4) + ' ');
+                }
+                Console.Write("\nCipherText: ");
+                for (int i = 0; i < Cipher.Length; i += 4) 
+                {
+                    Console.Write(Cipher.Substring(i, 4) + ' ');
+                }
+                Console.WriteLine();
+                /* ------------ */
+
+
             }
 
             /* Funksioni per dekriptim */
-            public string Decrypt( string key , string cipher)
+            public void Decrypt( string key , string cipher)
             {
-                /* Unaza qe nuk lejon numra te perseritur */
-                for (int i = 0; i < key.Length - 1; i++)
-                {
-                    for (int j = i + 1; j < key.Length; j++)
-                    {
-                        if (key[i] == key[j])
-                        {
-                            throw new Exception("Invalid key!");
+               
+                 Key(key);
 
-                        }
-                    }
-                }
-                /* -------------------------------------------------------- */
-
-                /* Qikjo osht pjesa e dekriptimit */
+                 /* Pjesa e dekriptimit */
                 char[] plainChars = new char[cipher.Length];
                 for (int i = 0; i < cipher.Length; i++)
+                {
                     plainChars[key[i % 4] - '1' + i / 4 * 4] = cipher[i];
-                return new string(plainChars);
-                /* ------------------------------ */
+                 
+
+                }
+                string Plain = new string(plainChars);
+                /* ------------------- */
+
+
+              
+                Console.Write("Ciphertexti i dekriptuar: ");
+                /* Pjesa qe mundeson heqjen e karekterit special */
+                StringBuilder plain = new StringBuilder(Plain);
+                plain.Replace("w", "");
+                Console.Write(plain);
+                Console.WriteLine();
+                /* --------------------------------------------- */
+
             }
 
 
