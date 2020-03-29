@@ -13,21 +13,12 @@ namespace ds
             Permutation P = new Permutation();
             Numerical N = new Numerical();
 
-            if (args.Length == 0)
-            {
-                Console.WriteLine("\n@Argumentet mungojne!");
-                Console.WriteLine("\n@Per ekzekutimin e kodit Beale shtyp | ds.exe Beale Encrypt <text> | ose | ds.exe Beale Decrypt <text> ku text te decrypt duhet te jete me thonjeza like: 0 1 2 |");
-                Console.WriteLine("\n@Per ekzekutimin e kodit Permutation shtyp | ds.exe Permutation Encrypt <key><text> | ose | ds.exe Permutation Decrypt <key><text> |");
-                Console.WriteLine("\n@Per ekzekutimin e kodit Numerical shtyp | ds.exe Numerical Encode <text> | ose | ds.exe Numerical Decode <text> |");
-                Environment.Exit(1);
-
-            }
             if (args.Length <= 2 || args.Length > 4)
             {
-                Console.WriteLine("\n@Numri i argumenteve jo i lejuar!");
-                Console.WriteLine("\n@Per ekzekutimin e kodit Beale shtyp | ds.exe Beale Encrypt <text> | ose | ds.exe Beale Decrypt <text> ku text te decrypt duhet te jete me thonjeza like: 0 1 2 |");
-                Console.WriteLine("\n@Per ekzekutimin e kodit Permutation shtyp | ds.exe Permutation Encrypt <key><text> | ose | ds.exe Permutation Decrypt <key><text> |");
-                Console.WriteLine("\n@Per ekzekutimin e kodit Numerical shtyp | ds.exe Numerical Encode <text> | ose | ds.exe Numerical Decode <text> |");
+                Console.WriteLine("\n@Argumentet Mungojne / Numri i argumenteve jo i lejuar!");
+                Console.WriteLine("\n@Per ekzekutimin e funksionit Beale shtyp | ds.exe Beale Encrypt <text> | ose | ds.exe Beale Decrypt <text> ku text te decrypt duhet te jete me thonjeza like: 0 1 2 |");
+                Console.WriteLine("\n@Per ekzekutimin e funksionit Permutation shtyp | ds.exe Permutation Encrypt <key><text> | ose | ds.exe Permutation Decrypt <key><text> |");
+                Console.WriteLine("\n@Per ekzekutimin e funksionit Numerical shtyp | ds.exe Numerical Encode <text> | ose | ds.exe Numerical Decode <text> |");
                 Environment.Exit(1);
             }
 
@@ -38,10 +29,10 @@ namespace ds
                 {
 
                     String text = args[2];
-                    if (Regex.IsMatch(text, "^[a-z ]+"))
+                    if (Regex.IsMatch(text, "^[a-z ]+$"))
                     {
                         string Cipher = N.Encode(text);
-                        Console.WriteLine("Encoded text is:" + Cipher);
+                        Console.WriteLine("Encoded text is: " + Cipher);
                     }
                     else
                     {
@@ -55,7 +46,7 @@ namespace ds
                     if (Regex.IsMatch(text, "^[0-9]+"))
                     {
                         string Plain = N.Decode(text);
-                        Console.WriteLine("Decoded cipher is:" + Plain);
+                        Console.WriteLine("Decoded cipher is: " + Plain);
                     }
                     else
                     {
@@ -66,6 +57,7 @@ namespace ds
                 else
                 {
                     Console.Write("\n@Argumenti eshte jo valid! (Args must be | Encode | or | Decode |)");
+                    Environment.Exit(1);
                 }
             }
 
@@ -118,6 +110,7 @@ namespace ds
                 else
                 {
                     Console.Write("\n@E R R O R  ! Make sure you passed the argument right | Encrypt | or | Decrypt |!");
+                    Environment.Exit(1);
                 }
 
             }
@@ -158,11 +151,13 @@ namespace ds
                 else
                 {
                     Console.Write("\n@Argumenti eshte jo valid! (Args must be Encrypt or Decrypt) !");
+                    Environment.Exit(1);
                 }
             }
             else
             {
                 Console.Write("\n@Argumenti duhet te jete | Beale | ose | Permutation | ose | Numerical |");
+                Environment.Exit(1);
             }
         }
 
