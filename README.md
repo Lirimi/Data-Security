@@ -1,7 +1,7 @@
 # ds
 * Projekti ne lenden "Siguria e te dhenave". Realizimi i funksioneve u implmentua ne gjuhen programuese C#
 
-* Per udhezimet rreth ekzekutimit te programit ne Windows, si dhe rezultatin e ekzekutimeve referohu tek 'Raporti i projektit - Udhezuesi';
+* Per udhezimet rreth ekzekutimit te programit ne Windows, si dhe rezultatin e ekzekutimeve referohu tek 'Raporti i projektit - Udhezuesi'
 
 
 
