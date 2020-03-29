@@ -143,9 +143,17 @@ namespace ds
                 else if (args[1].Equals("Decrypt"))
                 {
                     String[] ciphertekst = args[2].Split(" ");
-                    Console.Write("Decrypted Ciphertext is: ");
-                    B.BealeDecrypt(ciphertekst);
-                    Console.WriteLine();
+                    String Cipher = String.Concat(ciphertekst);
+                    if (Regex.IsMatch(Cipher, "^[0-9]+$"))
+                    {
+                        Console.Write("Decrypted Ciphertext is: ");
+                        B.BealeDecrypt(ciphertekst);
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("\n@Argumenti i fundit duhet te permbaje vetem kod");
+                    }
                 }
                 else
                 {
@@ -327,6 +335,7 @@ namespace ds
 
             public string Encode(string plain)
             {
+                //char[] seperator = { ' ', '+' };
                 string cipher = "";
                 foreach (char c in plain)
                     if (c >= 'a' && c <= 'z')
