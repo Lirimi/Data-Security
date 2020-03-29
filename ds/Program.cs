@@ -330,14 +330,22 @@ namespace ds
 
             public string Encode(string plain)
             {
-                //char[] seperator = { ' ', '+' };
+               
                 string cipher = "";
                 foreach (char c in plain)
+                {
                     if (c >= 'a' && c <= 'z')
                     {
                         cipher += (c - 'a' + 1).ToString();
                         cipher += ' ';
                     }
+                   else 
+                    {
+                        cipher += '0';
+                        cipher += ' ';
+                    }
+                }
+
                 return cipher.Trim();
             }
 
@@ -347,7 +355,17 @@ namespace ds
                 chars = cipher.Split(" ");
                 string plain = "";
                 foreach (string s in chars)
-                    plain += (char)(Int16.Parse(s) + 'a' - 1);
+                {
+                    int numri = Int32.Parse(s);
+                    if (numri >= 1 && numri <= 26)
+                    {
+                        plain += (char)(Int16.Parse(s) + 'a' - 1);
+                    }
+                    else
+                    {
+                        plain += " ";
+                    }
+                }
                 return plain;
             }
         }
