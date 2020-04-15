@@ -1,6 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
-using System.Text;
+
 
 namespace ds
 {
@@ -18,12 +18,9 @@ namespace ds
                 if (args.Length <= 2 || args.Length > 4)
                 {
                     Console.WriteLine("\n@Argumentet Mungojne / Numri i argumenteve jo i lejuar!");
-                    Console.WriteLine(
-                        "\n@Per ekzekutimin e funksionit Beale shtyp | ds.exe Beale Encrypt <text> | ose | ds.exe Beale Decrypt <text> ku text te decrypt duhet te jete me thonjeza like: 0 1 2 |");
-                    Console.WriteLine(
-                        "\n@Per ekzekutimin e funksionit Permutation shtyp | ds.exe Permutation Encrypt <key><text> | ose | ds.exe Permutation Decrypt <key><text> |");
-                    Console.WriteLine(
-                        "\n@Per ekzekutimin e funksionit Numerical shtyp | ds.exe Numerical Encode <text> | ose | ds.exe Numerical Decode <text> |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit Beale shtyp | ds.exe Beale Encrypt <text> | ose | ds.exe Beale Decrypt <text> ku text te decrypt duhet te jete me thonjeza like: 0 1 2 |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit Permutation shtyp | ds.exe Permutation Encrypt <key><text> | ose | ds.exe Permutation Decrypt <key><text> |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit Numerical shtyp | ds.exe Numerical Encode <text> | ose | ds.exe Numerical Decode <text> |");
                     Environment.Exit(1);
                 }
 
@@ -41,8 +38,7 @@ namespace ds
                         }
                         else
                         {
-                            Console.Write(
-                                "\n@Argumenti i fundit lejohet te permbaje vetem shkronja te vogla sipas alfabetit anglez prej a-z!");
+                            Console.Write("\n@Argumenti i fundit lejohet te permbaje vetem shkronja te vogla sipas alfabetit anglez prej a-z!");
 
                         }
                     }
@@ -85,14 +81,12 @@ namespace ds
                         }
                         else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4)
                         {
-                            Console.WriteLine(
-                                "\n@Key is either too long or too short (Make sure its 4 charecters only!");
+                            Console.WriteLine("\n@Key is either too long or too short (Make sure its 4 charecters only!");
                         }
                         else
                         {
 
-                            throw new Exception(
-                                "\n@Keep in mind that the first argument allows only numbers from 1-4!");
+                            throw new Exception("\n@Keep in mind that the first argument allows only numbers from 1-4!");
                         }
                     }
                     else if (args[1].Equals("Decrypt"))
@@ -107,20 +101,17 @@ namespace ds
                         }
                         else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4)
                         {
-                            Console.WriteLine(
-                                "\n@Key is either too long or too short (Make sure its 4 charecters only!");
+                            Console.WriteLine("\n@Key is either too long or too short (Make sure its 4 charecters only!");
                         }
                         else
                         {
 
-                            throw new Exception(
-                                "\n@Keep in mind that the first argument allows only numbers from 1-4!");
+                            throw new Exception("\n@Keep in mind that the first argument allows only numbers from 1-4!");
                         }
                     }
                     else
                     {
-                        Console.Write(
-                            "\n@E R R O R  ! Make sure you passed the argument right | Encrypt | or | Decrypt |!");
+                        Console.Write("\n@E R R O R  ! Make sure you passed the argument right | Encrypt | or | Decrypt |!");
                         Environment.Exit(1);
                     }
 
@@ -140,8 +131,7 @@ namespace ds
                         }
                         else
                         {
-                            Console.WriteLine(
-                                "\n@Argumenti i fundit duhet te permbaje tekst a-z ose A-Z ne varesi nga teksti");
+                            Console.WriteLine("\n@Argumenti i fundit duhet te permbaje tekst a-z ose A-Z ne varesi nga teksti");
                         }
 
                     }
@@ -172,9 +162,9 @@ namespace ds
                     Environment.Exit(1);
                 }
             }
-            catch (Exception e)
+            catch (Exception error)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(error.Message);
             }
         }
         /*--------------------------------------------------------------------------*/
