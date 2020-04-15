@@ -29,8 +29,7 @@ namespace ds
 
         public string Decode(string cipher)
         {
-            string[] chars;
-            chars = cipher.Split(" ");
+            string[] chars = cipher.Split(" ");
             string plain = "";
             foreach (string s in chars)
             {
@@ -41,7 +40,7 @@ namespace ds
                     {
                         plain += (char)(Int16.Parse(s) + 'a' - 1);
                     }
-                    else if (numri == 0)
+                    else
                     {
                         plain += " ";
                     }

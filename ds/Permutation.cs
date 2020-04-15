@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+
 namespace ds
 {
     public class Permutation
@@ -85,9 +86,8 @@ namespace ds
             string Plain = new string(plainChars);
             /* ------------------- */
 
-
-
             Console.Write("Ciphertexti i dekriptuar: ");
+
             /* Pjesa qe mundeson heqjen e karekterit special */
             StringBuilder plain = new StringBuilder(Plain);
             plain.Replace("w", "");

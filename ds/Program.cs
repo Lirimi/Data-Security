@@ -12,6 +12,7 @@ namespace ds
             Beale B = new Beale();
             Permutation P = new Permutation();
             Numerical N = new Numerical();
+
             try
             {
                 if (args.Length <= 2 || args.Length > 4)

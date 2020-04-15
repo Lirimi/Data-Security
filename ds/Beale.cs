@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace ds
 {
     public class Beale
@@ -11,18 +12,17 @@ namespace ds
             // string teksti = System.IO.File.ReadAllText("C:\\Users\\Gentrit\\Desktop\\teksti.txt");
             // Per me lexu FilePath, te pjesa Gentrit shenoni userin tuaj gjithashtu krijoni 1 file teksti.txt qe permban fjale
 
-            string libri = "fakulteti teknik";  // libri  
-            char[] test = libri.ToCharArray();  // shendrrojme stringun librin ne varg karakteresh  
+            string libri = "fakulteti teknik";  
+            char[] test = libri.ToCharArray();  
 
-            //Kodi per plainteksitin qe deshirojme me mshef.
-            //string plaintekst = plainteksti;
-            char[] ch = plainteksti.ToCharArray(); // shendrrojme stringun plaintext ne varg karakteresh 
 
-            //for loop 
+           char[] ch = plainteksti.ToCharArray(); 
 
-            for (int i = 0; i < plainteksti.Length; i++)      // fiek         
+             
+
+            for (int i = 0; i < plainteksti.Length; i++)              
             {
-                for (int j = 0; j < libri.Length; j++)       // fakulteti teknik    === 0 8 6 0 
+                for (int j = 0; j < libri.Length; j++)       
                 {
                     if (test[j] == ch[i])
                     {
@@ -40,8 +40,7 @@ namespace ds
 
         }
 
-        // Funksioni BealeDecrypt
-
+      
         public void BealeDecrypt(string[] ciphertekst)
         {
             //Kodi per tekstin qe ndodhet ne liber
