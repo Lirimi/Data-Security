@@ -14,6 +14,7 @@ namespace ds
             Permutation P = new Permutation();
             Numerical N = new Numerical();
             Createuser C = new Createuser();
+            Deleteuser D = new Deleteuser();
 
             try
             {
@@ -24,6 +25,7 @@ namespace ds
                     Console.WriteLine("\n@Per ekzekutimin e funksionit Permutation shtyp | ds.exe Permutation Encrypt <key><text> | ose | ds.exe Permutation Decrypt <key><text> |");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit Numerical shtyp | ds.exe Numerical Encode <text> | ose | ds.exe Numerical Decode <text> |");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit CreateUser per GenerateRsaKey shtyp | ds.exe create-user <name> |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit DeleteUser per DeleteRsaKey shtyp | ds.exe delete-user <name> |");
                     Environment.Exit(1);
                 }
 
@@ -185,6 +187,40 @@ namespace ds
                         else
                         {
                             Console.WriteLine("File me ate emer egziston ne folderin keys, provo tjeter emer!");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
+                        Environment.Exit(1);
+                    }
+                }
+                /*---------------Args per delete-user-----------------*/
+                else if (args[0].Equals("delete-user"))
+                {
+                    string text = args[1];
+                    if (Regex.IsMatch(text, "^[A-Za-z0-9_.]+$"))
+                    {
+                        //FilePath
+                        string privateKeyfilePath = "keys//" + text + ".xml";
+                        string publicKeyfilePath = "keys//" + text + ".pub.xml";
+
+                        //Check nese egziston ndonje file me ate emer ne direktorin keys
+                        bool privateKeyExist = File.Exists(privateKeyfilePath);
+                        bool publicKeyExist = File.Exists(publicKeyfilePath);
+
+                        if ((privateKeyExist && publicKeyExist))
+                        {
+                            //Perdorimi i funksionit DeleteRsaKey per te fshire qelesat privat dhe public me madhesi 1024(sipas deshires)
+                            D.DeleteRsaKey(privateKeyfilePath, publicKeyfilePath, 1024);
+
+                            //Trego qe u fshin qelsat
+                            Console.WriteLine("Eshte larguar celesi privat " + "'keys//" + args[1] + ".xml'");
+                            Console.WriteLine("Eshte larguar celesi publik " + "'keys//" + args[1] + ".pub.xml'");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Celesi '" + args[1] + "' nuk ekziston.");
                         }
                     }
                     else
