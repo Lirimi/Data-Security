@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Text.RegularExpressions;
 
 
@@ -12,15 +13,17 @@ namespace ds
             Beale B = new Beale();
             Permutation P = new Permutation();
             Numerical N = new Numerical();
+            Createuser C = new Createuser();
 
             try
             {
-                if (args.Length <= 2 || args.Length > 4)
+                if (args.Length <= 1 || args.Length > 4)
                 {
                     Console.WriteLine("\n@Argumentet Mungojne / Numri i argumenteve jo i lejuar!");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit Beale shtyp | ds.exe Beale Encrypt <text> | ose | ds.exe Beale Decrypt <text> ku text te decrypt duhet te jete me thonjeza like: 0 1 2 |");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit Permutation shtyp | ds.exe Permutation Encrypt <key><text> | ose | ds.exe Permutation Decrypt <key><text> |");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit Numerical shtyp | ds.exe Numerical Encode <text> | ose | ds.exe Numerical Decode <text> |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit CreateUser per GenerateRsaKey shtyp | ds.exe create-user <name> |");
                     Environment.Exit(1);
                 }
 
@@ -156,10 +159,39 @@ namespace ds
                         Environment.Exit(1);
                     }
                 }
-                else
+                /*---------------Args per create-user-----------------*/
+                else if (args[0].Equals("create-user"))
                 {
-                    Console.Write("\n@Argumenti duhet te jete | Beale | ose | Permutation | ose | Numerical |");
-                    Environment.Exit(1);
+                    string text = args[1];
+                    if (Regex.IsMatch(text, "^[A-Za-z0-9_.]+$"))
+                    {
+                        //FilePath
+                        string privateKeyfilePath = "keys//" + text + ".xml";
+                        string publicKeyfilePath = "keys//" + text + ".pub.xml";
+
+                        //Check nese egziston ndonje file me ate emer ne direktorin keys
+                        bool privateKeyExist = File.Exists(privateKeyfilePath);
+                        bool publicKeyExist = File.Exists(publicKeyfilePath);
+
+                        if (!(privateKeyExist && publicKeyExist))
+                        {
+                            //Perdorimi i funksionit GenerateRsaKey per te krijuar qelesat privat dhe public me madhesi 1024(sipas deshires)
+                            C.GenerateRsaKey(privateKeyfilePath, publicKeyfilePath, 1024);
+
+                            //Trego qe u krijuan qelsat
+                            Console.WriteLine("Eshte krijuar celesi privat " + "'keys//" + args[1] + ".xml'");
+                            Console.WriteLine("Eshte krijuar celesi public " + "'keys//" + args[1] + ".pub.xml'");
+                        }
+                        else
+                        {
+                            Console.WriteLine("File me ate emer egziston ne folderin keys, provo tjeter emer!");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
+                        Environment.Exit(1);
+                    }
                 }
             }
             catch (Exception error)
