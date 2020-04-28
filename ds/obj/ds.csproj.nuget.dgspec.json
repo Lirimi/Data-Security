@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\ds.csproj": {}
+    "/home/lirix/Documents/GitHub/ds/ds/ds.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\ds.csproj": {
+    "/home/lirix/Documents/GitHub/ds/ds/ds.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\ds.csproj",
+        "projectUniqueName": "/home/lirix/Documents/GitHub/ds/ds/ds.csproj",
         "projectName": "ds",
-        "projectPath": "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\ds.csproj",
-        "packagesPath": "C:\\Users\\jon_h\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jon_h\\Desktop\\Literatura dhe Afate FIEK\\Viti 2\\Semestri lV\\Siguria e te Dhenave\\Projekti\\ds\\ds\\obj\\",
+        "projectPath": "/home/lirix/Documents/GitHub/ds/ds/ds.csproj",
+        "packagesPath": "/home/lirix/.nuget/packages/",
+        "outputPath": "/home/lirix/Documents/GitHub/ds/ds/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jon_h\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/lirix/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -52,7 +50,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/current/sdk/3.1.201/RuntimeIdentifierGraph.json"
         }
       }
     }

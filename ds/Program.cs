@@ -181,17 +181,17 @@ namespace ds
                             C.GenerateRsaKey(privateKeyfilePath, publicKeyfilePath, 1024);
 
                             //Trego qe u krijuan qelsat
-                            Console.WriteLine("Eshte krijuar celesi privat " + "'keys//" + args[1] + ".xml'");
-                            Console.WriteLine("Eshte krijuar celesi public " + "'keys//" + args[1] + ".pub.xml'");
+                            Console.WriteLine("@Eshte krijuar celesi privat " + "'keys//" + args[1] + ".xml'");
+                            Console.WriteLine("@Eshte krijuar celesi public " + "'keys//" + args[1] + ".pub.xml'");
                         }
                         else
                         {
-                            Console.WriteLine("File me ate emer egziston ne folderin keys, provo tjeter emer!");
+                            Console.WriteLine("@File me ate emer egziston ne folderin keys, provo tjeter emer!");
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
+                        Console.WriteLine("@Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
                         Environment.Exit(1);
                     }
                 }
@@ -215,19 +215,25 @@ namespace ds
                             D.DeleteRsaKey(privateKeyfilePath, publicKeyfilePath, 1024);
 
                             //Trego qe u fshin qelsat
-                            Console.WriteLine("Eshte larguar celesi privat " + "'keys//" + args[1] + ".xml'");
-                            Console.WriteLine("Eshte larguar celesi publik " + "'keys//" + args[1] + ".pub.xml'");
+                            Console.WriteLine("@Eshte larguar celesi privat " + "'keys//" + args[1] + ".xml'");
+                            Console.WriteLine("@Eshte larguar celesi publik " + "'keys//" + args[1] + ".pub.xml'");
                         }
                         else
                         {
-                            Console.WriteLine("Celesi '" + args[1] + "' nuk ekziston.");
+                            Console.WriteLine("@Celesi '" + args[1] + "' nuk ekziston.");
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
+                        Console.WriteLine("@Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
                         Environment.Exit(1);
                     }
+                }
+                else
+                {
+                    Console.WriteLine("@First Argument is not valid! Make sure you passed it right!");
+                    Console.WriteLine("@Pass no arguments for DETAILS!");
+                    Environment.Exit(1);
                 }
             }
             catch (Exception error)

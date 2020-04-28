@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "/home/lirimilinux/.nuget/packages/": {}
+    "/home/lirix/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/lirimilinux/Documents/GitHub/Projekti_Siguri/ds/ds.csproj",
+      "projectUniqueName": "/home/lirix/Documents/GitHub/ds/ds/ds.csproj",
       "projectName": "ds",
-      "projectPath": "/home/lirimilinux/Documents/GitHub/Projekti_Siguri/ds/ds.csproj",
-      "packagesPath": "/home/lirimilinux/.nuget/packages/",
-      "outputPath": "/home/lirimilinux/Documents/GitHub/Projekti_Siguri/ds/obj/",
+      "projectPath": "/home/lirix/Documents/GitHub/ds/ds/ds.csproj",
+      "packagesPath": "/home/lirix/.nuget/packages/",
+      "outputPath": "/home/lirix/Documents/GitHub/ds/ds/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/lirimilinux/.config/NuGet/NuGet.Config"
+        "/home/lirix/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -50,7 +50,13 @@
           "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/current/sdk/3.1.201/RuntimeIdentifierGraph.json"
       }
     }
   }

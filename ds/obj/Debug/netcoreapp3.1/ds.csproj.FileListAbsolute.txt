@@ -54,3 +54,16 @@ C:/Users/jon_h/Desktop/Literatura dhe Afate FIEK/ds/ds/bin/Debug/netcoreapp3.1/d
 C:/Users/jon_h/Desktop/Literatura dhe Afate FIEK/ds/ds/bin/Debug/netcoreapp3.1/ds.runtimeconfig.dev.json
 C:/Users/jon_h/Desktop/Literatura dhe Afate FIEK/ds/ds/bin/Debug/netcoreapp3.1/ds.dll
 C:/Users/jon_h/Desktop/Literatura dhe Afate FIEK/ds/ds/bin/Debug/netcoreapp3.1/ds.pdb
+/home/lirix/Documents/GitHub/ds/ds/bin/Debug/netcoreapp3.1/ds
+/home/lirix/Documents/GitHub/ds/ds/bin/Debug/netcoreapp3.1/ds.deps.json
+/home/lirix/Documents/GitHub/ds/ds/bin/Debug/netcoreapp3.1/ds.runtimeconfig.json
+/home/lirix/Documents/GitHub/ds/ds/bin/Debug/netcoreapp3.1/ds.runtimeconfig.dev.json
+/home/lirix/Documents/GitHub/ds/ds/bin/Debug/netcoreapp3.1/ds.dll
+/home/lirix/Documents/GitHub/ds/ds/bin/Debug/netcoreapp3.1/ds.pdb
+/home/lirix/Documents/GitHub/ds/ds/obj/Debug/netcoreapp3.1/ds.csprojAssemblyReference.cache
+/home/lirix/Documents/GitHub/ds/ds/obj/Debug/netcoreapp3.1/ds.csproj.CoreCompileInputs.cache
+/home/lirix/Documents/GitHub/ds/ds/obj/Debug/netcoreapp3.1/ds.AssemblyInfoInputs.cache
+/home/lirix/Documents/GitHub/ds/ds/obj/Debug/netcoreapp3.1/ds.AssemblyInfo.cs
+/home/lirix/Documents/GitHub/ds/ds/obj/Debug/netcoreapp3.1/ds.dll
+/home/lirix/Documents/GitHub/ds/ds/obj/Debug/netcoreapp3.1/ds.pdb
+/home/lirix/Documents/GitHub/ds/ds/obj/Debug/netcoreapp3.1/ds.genruntimeconfig.cache

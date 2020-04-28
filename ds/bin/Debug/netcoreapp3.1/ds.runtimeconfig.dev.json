@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "/home/lirimilinux/.dotnet/store/|arch|/|tfm|",
-      "/home/lirimilinux/.nuget/packages"
+      "/home/lirix/.dotnet/store/|arch|/|tfm|",
+      "/home/lirix/.nuget/packages"
     ]
   }
 }
