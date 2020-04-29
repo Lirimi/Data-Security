@@ -1,9 +1,8 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Xml.XPath;
 using System.Xml;
-using System.Text;
+using System.Security.Cryptography;
 
 
 namespace ds
@@ -29,7 +28,7 @@ namespace ds
                     Console.WriteLine("\n@Per ekzekutimin e funksionit Numerical shtyp | ds.exe Numerical Encode <text> | ose | ds.exe Numerical Decode <text> |");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit CreateUser per GenerateRsaKey shtyp | ds.exe create-user <name> |");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit DeleteUser per DeleteRsaKey shtyp | ds.exe delete-user <name> |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit ExportKey shtyp | ds.exe Export-Key <public | private> <name> [file] |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit ExportKey shtyp | ds.exe export-key <public | private> <name> [file] |");
                     Environment.Exit(1);
                 }
 
@@ -233,10 +232,10 @@ namespace ds
                         Environment.Exit(1);
                     }
                 }
-                else if (args[0].Equals("Export-Key"))
+                else if (args[0].Equals("export-key"))
                 {
                     XmlDocument xmlDoc = new XmlDocument();
-                    if (args[1].Equals("Public"))
+                    if (args[1].Equals("public"))
                     {
                         try
                         {
@@ -245,6 +244,7 @@ namespace ds
                             if (args.Length == 4)
                             {
                                 xmlDoc.Save(args[3].ToString());
+                                Console.WriteLine("Celesi publik u ruajt ne fajllin " + args[3]);
                             }
                             else if (args.Length == 3)
                             {
@@ -259,19 +259,22 @@ namespace ds
                             throw new Exception("@Celesi publik " + args[2].ToString() + " nuk ekziston ose filepath eshte gabim!");
                         }
                     }
-                    else if (args[1].Equals("Private"))
+                    else if (args[1].Equals("private"))
                     {
                         try
                         {
                             string filename = "keys//" + args[2] + ".xml";
+
                             xmlDoc.Load(filename);
                             if (args.Length == 4)
                             {
                                 xmlDoc.Save(args[3].ToString());
+                                Console.WriteLine("Celesi privat u ruajt ne fajllin " + args[3]);
                             }
                             else if (args.Length == 3)
                             {
                                 xmlDoc.Save(Console.Out);
+
                                 Console.WriteLine();
                             }
                         }
@@ -279,11 +282,20 @@ namespace ds
                         {
                             throw new Exception("@Celesi privat " + args[2].ToString() + " nuk ekziston ose filepathi eshte gabim!");
                         }
+                     
                     }
                     else
                     {
                         Console.WriteLine("@Argument is not passed right! Make sure is Public or Private!");
                     }
+                }
+                else if (args[0].Equals("import-key"))
+                {
+                    XmlDocument xmlDoc = new XmlDocument();
+                    xmlDoc.Load(args[2].ToString());
+                    
+                    string filename = "keys//" + args[1] + ".xml";
+                    xmlDoc.Save(filename);
                 }
                 else
                 {
