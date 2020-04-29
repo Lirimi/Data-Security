@@ -235,6 +235,8 @@ namespace ds
                         Environment.Exit(1);
                     }
                 }
+                
+                /*-----args per export-key--------------*/
                 else if (args[0].Equals("export-key"))
                 {
                     XmlDocument xmlDoc = new XmlDocument();
@@ -290,6 +292,8 @@ namespace ds
                         Console.WriteLine("@Argument is not passed right! Make sure is Public or Private!");
                     }
                 }
+                
+                /*--------args per import key-----------*/
                 else if (args[0].Equals("import-key"))
                 {
                     try
@@ -350,6 +354,8 @@ namespace ds
                         throw new Exception("@Fajlli i dhene nuk eshte cels valid!");
                     }
                 }
+                
+                /*----Argument is wrong------*/
                 else
                 {
                     Console.WriteLine("@First Argument is not valid! Make sure you passed it right!");
