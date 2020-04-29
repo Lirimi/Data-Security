@@ -1,7 +1,10 @@
 using System;
 using System.IO;
+using System.Net.Http;
 using System.Xml;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 
 namespace ds
@@ -10,17 +13,38 @@ namespace ds
     {
         public void Import(string AddToPath, string SourcePath) 
         {
-            /*---Load Xml Document ---*/
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(SourcePath); 
-            xmlDoc.Normalize();
+           
           
-            /*------Check if key exists-------------*/
+            XmlDocument xmlDoc = new XmlDocument();
+
+            /*-------Check if sourcepath has a web client----*/
+            bool HttpPath = PathIsHttp(SourcePath);
+            /*---Load Http Document ----*/
+            if (HttpPath)
+            {
+                Task<Stream> HttpDoc = GetRequest(SourcePath);
+                HttpDoc.Wait();
+                var GetString = HttpDoc.Result;
+                xmlDoc.Load(SourcePath);
+                xmlDoc.Normalize();
+                
+                
+            }
+            /*---Load Xml Document from path---*/
+            else
+            {
+                xmlDoc.Load(SourcePath); 
+                xmlDoc.Normalize();
+            }
+
+            /*-----------Check if key exists-----------------*/
             bool KeyExists = KeyExistsCheck(AddToPath);
             
-            /*-------Check if key is private-------*/
+            /*------------Check if key is private------------*/
             bool PrivateKey = PrivateKeyCheck(xmlDoc);
-          
+
+            
+            
             if (!KeyExists)
             {
                 if (!PrivateKey)
@@ -81,6 +105,32 @@ namespace ds
             }
 
             return false;
+        }
+
+        bool PathIsHttp(string SourcePath)
+        {
+            bool getRequest = Regex.IsMatch(SourcePath,"^(http|https)://.*$");
+            if (getRequest)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        async Task<Stream> GetRequest(string SourcePath)
+        {
+           
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage response = await client.GetAsync(SourcePath))
+                {
+                    using (HttpContent content = response.Content)
+                    {
+                        Stream mycontent = await content.ReadAsStreamAsync();
+                        return mycontent;
+                    }
+                }
+            }
         }
     }
 }
