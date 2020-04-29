@@ -1,10 +1,8 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml;
-using System.Security.Cryptography;
+
 
 
 namespace ds
@@ -19,6 +17,8 @@ namespace ds
             Numerical N = new Numerical();
             Createuser C = new Createuser();
             Deleteuser D = new Deleteuser();
+            ImportKey I = new ImportKey();
+            
 
             try
             {
@@ -294,64 +294,17 @@ namespace ds
                 }
                 
                 /*--------args per import key-----------*/
-                else if (args[0].Equals("import-key"))
+                else if (args[0].Equals("import-key".ToLower()))
                 {
                     try
                     {
-                        XmlDocument xmlDoc = new XmlDocument();
-                        xmlDoc.Load(args[2].ToString());
-                        xmlDoc.Normalize();
-                        XmlNodeList Node = xmlDoc.GetElementsByTagName("P"); // Node shikon se a ekziston nje tag <P>
-                        // Nese nuk ekziston atehere qelsi eshte publik
-                        if (Node.Item(0) == null)
-                        {
-                            
-                            string filename = "keys//" + args[1] + ".pub.xml"; 
-                            bool publicKeyExist = File.Exists(filename);
-                            if (publicKeyExist)
-                            {
-                                Console.WriteLine("Celsi " + args[1] + " ekziston paraprakisht!");
-                            }
-                            else
-                            {
-                                xmlDoc.Save(filename);
-                                Console.WriteLine("Celsi publik u ruajt ne filen keys/" + args[1] + ".pub.xml");
-                            }
-                        }
-                        // Nese ekziston atehere qelsi eshte privat
-                        else
-                        {
-                            /*--Ruajme qelsin private --*/
-                            string filename = "keys//" + args[1] + ".xml";
-                            /*-------------------------*/
-                            bool privateKeyExist = File.Exists(filename);
-                        
-                            if(!privateKeyExist)
-                            {
-                                xmlDoc.Save(filename);
-                                /*--Gjenerojme qelsin publik--*/
-                                FileStream fs = null;
-                                StreamWriter sw = null;
-                                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(1024);
-                                string publicKeyPath = "keys//" + args[1] + ".pub.xml";
-                                fs = new FileStream(publicKeyPath, FileMode.Create, FileAccess.Write);
-                                sw = new StreamWriter(fs);
-                                sw.Write(rsa.ToXmlString(false));
-                                sw.Flush();
-                                /*-----------------------------*/
-                                
-                                Console.WriteLine("Celsi privat u ruajt ne fajllin keys/" + args[1] + ".xml");
-                                Console.WriteLine("Celsi publik u ruajt ne fajllin keys/" + args[1] + ".pub.xml");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Celsi " + args[1] + " ekziston paraprakisht!");
-                            }
-                        }
+                       
+                        I.Import(args[1], args[2]);
+                       
                     }
                     catch
                     {
-                        throw new Exception("@Fajlli i dhene nuk eshte cels valid!");
+                        throw new Exception("@Fajlli i dhene nuk eshte cels valid! Check the path right!");
                     }
                 }
                 
