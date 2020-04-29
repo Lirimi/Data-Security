@@ -1,5 +1,7 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Security.Cryptography;
@@ -20,7 +22,7 @@ namespace ds
 
             try
             {
-                if (args.Length <= 0 || args.Length > 4)
+                if (args.Length <= 1 || args.Length > 4)
                 {
                     Console.WriteLine("\n@Argumentet Mungojne / Numri i argumenteve jo i lejuar!");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit Beale shtyp | ds.exe Beale Encrypt <text> | ose | ds.exe Beale Decrypt <text> ku text te decrypt duhet te jete me thonjeza like: 0 1 2 |");
@@ -29,6 +31,7 @@ namespace ds
                     Console.WriteLine("\n@Per ekzekutimin e funksionit CreateUser per GenerateRsaKey shtyp | ds.exe create-user <name> |");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit DeleteUser per DeleteRsaKey shtyp | ds.exe delete-user <name> |");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit ExportKey shtyp | ds.exe export-key <public | private> <name> [file] |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit ImportKey shtyp | ds.exe import-key <name> <path> |");
                     Environment.Exit(1);
                 }
 
@@ -251,8 +254,6 @@ namespace ds
                                 xmlDoc.Save(Console.Out);
                                 Console.WriteLine();
                             }
-
-
                         }
                         catch
                         {
@@ -291,11 +292,63 @@ namespace ds
                 }
                 else if (args[0].Equals("import-key"))
                 {
-                    XmlDocument xmlDoc = new XmlDocument();
-                    xmlDoc.Load(args[2].ToString());
-                    
-                    string filename = "keys//" + args[1] + ".xml";
-                    xmlDoc.Save(filename);
+                    try
+                    {
+                        XmlDocument xmlDoc = new XmlDocument();
+                        xmlDoc.Load(args[2].ToString());
+                        xmlDoc.Normalize();
+                        XmlNodeList Node = xmlDoc.GetElementsByTagName("P"); // Node shikon se a ekziston nje tag <P>
+                        // Nese nuk ekziston atehere qelsi eshte publik
+                        if (Node.Item(0) == null)
+                        {
+                            
+                            string filename = "keys//" + args[1] + ".pub.xml"; 
+                            bool publicKeyExist = File.Exists(filename);
+                            if (publicKeyExist)
+                            {
+                                Console.WriteLine("Celsi " + args[1] + " ekziston paraprakisht!");
+                            }
+                            else
+                            {
+                                xmlDoc.Save(filename);
+                                Console.WriteLine("Celsi publik u ruajt ne filen keys/" + args[1] + ".pub.xml");
+                            }
+                        }
+                        // Nese ekziston atehere qelsi eshte privat
+                        else
+                        {
+                            /*--Ruajme qelsin private --*/
+                            string filename = "keys//" + args[1] + ".xml";
+                            /*-------------------------*/
+                            bool privateKeyExist = File.Exists(filename);
+                        
+                            if(!privateKeyExist)
+                            {
+                                xmlDoc.Save(filename);
+                                /*--Gjenerojme qelsin publik--*/
+                                FileStream fs = null;
+                                StreamWriter sw = null;
+                                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(1024);
+                                string publicKeyPath = "keys//" + args[1] + ".pub.xml";
+                                fs = new FileStream(publicKeyPath, FileMode.Create, FileAccess.Write);
+                                sw = new StreamWriter(fs);
+                                sw.Write(rsa.ToXmlString(false));
+                                sw.Flush();
+                                /*-----------------------------*/
+                                
+                                Console.WriteLine("Celsi privat u ruajt ne fajllin keys/" + args[1] + ".xml");
+                                Console.WriteLine("Celsi publik u ruajt ne fajllin keys/" + args[1] + ".pub.xml");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Celsi " + args[1] + " ekziston paraprakisht!");
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        throw new Exception("@Fajlli i dhene nuk eshte cels valid!");
+                    }
                 }
                 else
                 {
