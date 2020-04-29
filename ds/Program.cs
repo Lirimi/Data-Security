@@ -1,6 +1,9 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Xml.XPath;
+using System.Xml;
+using System.Text;
 
 
 namespace ds
@@ -18,7 +21,7 @@ namespace ds
 
             try
             {
-                if (args.Length <= 1 || args.Length > 4)
+                if (args.Length <= 0 || args.Length > 4)
                 {
                     Console.WriteLine("\n@Argumentet Mungojne / Numri i argumenteve jo i lejuar!");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit Beale shtyp | ds.exe Beale Encrypt <text> | ose | ds.exe Beale Decrypt <text> ku text te decrypt duhet te jete me thonjeza like: 0 1 2 |");
@@ -26,6 +29,7 @@ namespace ds
                     Console.WriteLine("\n@Per ekzekutimin e funksionit Numerical shtyp | ds.exe Numerical Encode <text> | ose | ds.exe Numerical Decode <text> |");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit CreateUser per GenerateRsaKey shtyp | ds.exe create-user <name> |");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit DeleteUser per DeleteRsaKey shtyp | ds.exe delete-user <name> |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit ExportKey shtyp | ds.exe Export-Key <public | private> <name> [file] |");
                     Environment.Exit(1);
                 }
 
@@ -227,6 +231,58 @@ namespace ds
                     {
                         Console.WriteLine("@Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
                         Environment.Exit(1);
+                    }
+                }
+                else if (args[0].Equals("Export-Key"))
+                {
+                    XmlDocument xmlDoc = new XmlDocument();
+                    if (args[1].Equals("Public"))
+                    {
+                        try
+                        {
+                            string filename = "keys//" + args[2] + ".pub.xml";
+                            xmlDoc.Load(filename);
+                            if (args.Length == 4)
+                            {
+                                xmlDoc.Save(args[3].ToString());
+                            }
+                            else if (args.Length == 3)
+                            {
+                                xmlDoc.Save(Console.Out);
+                                Console.WriteLine();
+                            }
+
+
+                        }
+                        catch
+                        {
+                            throw new Exception("@Celesi publik " + args[2].ToString() + " nuk ekziston ose filepath eshte gabim!");
+                        }
+                    }
+                    else if (args[1].Equals("Private"))
+                    {
+                        try
+                        {
+                            string filename = "keys//" + args[2] + ".xml";
+                            xmlDoc.Load(filename);
+                            if (args.Length == 4)
+                            {
+                                xmlDoc.Save(args[3].ToString());
+                            }
+                            else if (args.Length == 3)
+                            {
+                                xmlDoc.Save(Console.Out);
+                                Console.WriteLine();
+                            }
+                        }
+                        catch
+                        {
+                            throw new Exception("@Celesi privat " + args[2].ToString() + " nuk ekziston ose filepathi eshte gabim!");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("@Argument is not passed right! Make sure is Public or Private!");
                     }
                 }
                 else
