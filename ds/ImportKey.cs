@@ -19,16 +19,13 @@ namespace ds
 
             /*-------Check if sourcepath has a web client----*/
             bool HttpPath = PathIsHttp(SourcePath);
-            /*---Load Http Document ----*/
+            
+            /*----Load Http Document----*/
             if (HttpPath)
             {
-                Task<Stream> HttpDoc = GetRequest(SourcePath);
-                HttpDoc.Wait();
-                var GetString = HttpDoc.Result;
+                GetRequest(SourcePath).Wait();
                 xmlDoc.Load(SourcePath);
                 xmlDoc.Normalize();
-                
-                
             }
             /*---Load Xml Document from path---*/
             else
@@ -86,7 +83,7 @@ namespace ds
         bool PrivateKeyCheck(XmlDocument xmlDoc)
         {
             /*---Create Node---*/
-            XmlNodeList Node = xmlDoc.GetElementsByTagName("P"); // Node shikon se a ekziston nje tag <P>
+            XmlNodeList Node = xmlDoc.GetElementsByTagName("P"); // Node shikon se a ekziston nje tag <P> ne Xml Documentin
             if (Node.Item(0) == null)
             {
                 return false;
@@ -99,7 +96,7 @@ namespace ds
         {
             string filenamePublic = "keys//" + AddToPath + ".pub.xml";
             string filenamePrivate = "keys//" + AddToPath + ".xml";
-            if (File.Exists(filenamePublic) && File.Exists(filenamePrivate))
+            if (File.Exists(filenamePublic) || File.Exists(filenamePrivate))
             {
                 return true;
             }

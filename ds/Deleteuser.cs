@@ -11,5 +11,13 @@ namespace ds
             File.Delete(privateKeyPath);
             File.Delete(publicKeyPath);
         }
+        
+        public void DeleteRsaKey(string publicKeyPath, int size)
+        {
+            File.Delete(publicKeyPath);
+        }
+        
+        
+        
     }
 }
