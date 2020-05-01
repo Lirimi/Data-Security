@@ -19,7 +19,7 @@ namespace ds
             Deleteuser D = new Deleteuser();
             ExportKey E = new ExportKey();
             ImportKey I = new ImportKey();
-            rsaEaD R = new rsaEaD();
+            EncryptMessage EM = new EncryptMessage();
             
 
             try
@@ -326,7 +326,7 @@ namespace ds
                 {
                     string userName = args[1];
                     string message = args[2];
-                    R.Encrypt(userName, message);   
+                    EM.Encrypt(userName, message);   
                 }
                 /*----Argument is wrong------*/
                 else

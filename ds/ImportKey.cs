@@ -7,14 +7,16 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 
+
 namespace ds
 {
     public class ImportKey
     {
+        static RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
         public void Import(string AddToPath, string SourcePath) 
         {
            
-          
+            
             XmlDocument xmlDoc = new XmlDocument();
 
             /*-------Check if sourcepath has a web client----*/
@@ -80,7 +82,7 @@ namespace ds
 
         }
 
-        bool PrivateKeyCheck(XmlDocument xmlDoc)
+        private bool PrivateKeyCheck(XmlDocument xmlDoc)
         {
             /*---Create Node---*/
             XmlNodeList Node = xmlDoc.GetElementsByTagName("P"); // Node shikon se a ekziston nje tag <P> ne Xml Documentin
@@ -92,7 +94,7 @@ namespace ds
             return true;
         }
 
-        bool KeyExistsCheck(string AddToPath)
+        private bool KeyExistsCheck(string AddToPath)
         {
             string filenamePublic = "keys//" + AddToPath + ".pub.xml";
             string filenamePrivate = "keys//" + AddToPath + ".xml";
@@ -104,7 +106,7 @@ namespace ds
             return false;
         }
 
-        bool PathIsHttp(string SourcePath)
+        private bool PathIsHttp(string SourcePath)
         {
             bool getRequest = Regex.IsMatch(SourcePath,"^(http|https)://.*$");
             if (getRequest)
@@ -114,7 +116,7 @@ namespace ds
             return false;
         }
 
-        async Task<Stream> GetRequest(string SourcePath)
+        private async Task<Stream> GetRequest(string SourcePath)
         {
            
             using (HttpClient client = new HttpClient())
