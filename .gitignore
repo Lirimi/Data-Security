@@ -405,3 +405,5 @@ ds/obj/Debug/netcoreapp3.1/ds.pdb
 *.pdb
 ds/obj/Debug/netcoreapp3.1/ds.csprojAssemblyReference.cache
 *.json
+*.dll
+*.pdb

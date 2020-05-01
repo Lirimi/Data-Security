@@ -19,6 +19,7 @@ namespace ds
             Deleteuser D = new Deleteuser();
             ExportKey E = new ExportKey();
             ImportKey I = new ImportKey();
+            rsaEaD R = new rsaEaD();
             
 
             try
@@ -297,7 +298,7 @@ namespace ds
                 }
                 
                 /*--------args per import key-----------*/
-                else if (args[0].Equals("import-key".ToLower()))
+                else if (args[0].Equals("import-key"))
                 {
                     string import = args[1];
                     string frompath = args[2];
@@ -320,7 +321,13 @@ namespace ds
                         Environment.Exit(1);
                     }
                 }
-                
+                /*----Args per Encryption-----*/
+                else if (args[0].Equals("write-message"))
+                {
+                    string userName = args[1];
+                    string message = args[2];
+                    R.Encrypt(userName, message);   
+                }
                 /*----Argument is wrong------*/
                 else
                 {
