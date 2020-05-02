@@ -68,3 +68,4 @@ C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\ds\ds\obj\Debug\netcoreapp3.1\d
 C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\ds\ds\obj\Debug\netcoreapp3.1\ds.dll
 C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\ds\ds\obj\Debug\netcoreapp3.1\ds.pdb
 C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\ds\ds\obj\Debug\netcoreapp3.1\ds.genruntimeconfig.cache
+C:\Users\jon_h\Desktop\Literatura dhe Afate FIEK\ds\ds\obj\Debug\netcoreapp3.1\ds.csprojAssemblyReference.cache

@@ -350,8 +350,19 @@ namespace ds
                 /*-----Args per Decryption----*/
                 else if (args[0].Equals("read-message"))
                 {
-                    string ciphertext = args[1];
-                    DM.Decrypt(ciphertext);
+
+                        string ciphertext = args[1];
+                        if (!args[1].Contains("="))
+                        {
+
+                            DM.DecryptFromPath(ciphertext);
+                        }
+                        else
+                        {
+                            DM.DecryptFromConsole(ciphertext);
+                        }
+                
+                
                 }
                 /*----Argument is wrong------*/
                 else

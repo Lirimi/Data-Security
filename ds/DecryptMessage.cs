@@ -10,14 +10,32 @@ namespace ds
     {
         static RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
 
-        public void Decrypt(string ciphertext)
+        public void DecryptFromConsole(string ciphertext)
         {
             string[] ciphertextSplit = ciphertext.Split('.');
             string username = ciphertextSplit[0];
             string iv = ciphertextSplit[1];
             string key = ciphertextSplit[2];
             string encryptedMessage = ciphertextSplit[3];
+            
+            string user = DecodeUserName(username);
+            byte[] DecryptetKey = DecryptKeywithRSA(username, key);
+            String DecryptedText = DecryptCipher(encryptedMessage, iv, DecryptetKey);
+            Console.WriteLine("Marresi: " + user);
+            Console.WriteLine("Mesazhi: " + DecryptedText);
+        }
 
+        
+        public void DecryptFromPath(string ciphertextFromPath)
+        {
+           
+            string ciphertext =  System.IO.File.ReadAllText(@ciphertextFromPath);
+            string[] ciphertextSplit = ciphertext.Split('.');
+            string username = ciphertextSplit[0];
+            string iv = ciphertextSplit[1];
+            string key = ciphertextSplit[2];
+            string encryptedMessage = ciphertextSplit[3];
+           
             string user = DecodeUserName(username);
             byte[] DecryptetKey = DecryptKeywithRSA(username, key);
             String DecryptedText = DecryptCipher(encryptedMessage, iv, DecryptetKey);
@@ -31,7 +49,27 @@ namespace ds
 
             /*-----Encode String from byte array----*/
             string GetUserName = Encoding.UTF8.GetString(GetUserNameBytes);
-            return GetUserName;
+
+            /*----Checks if private ket of user exits in dir keys----*/
+            bool checkUser = CheckifFUserExists(GetUserName);
+            if (checkUser)
+            {
+                return GetUserName;
+            }
+            else 
+            {
+                throw new Exception("Celsi privat keys/" + GetUserName + ".xml nuk ekziston");
+            }
+        }
+
+        private bool CheckifFUserExists(string username)
+        {
+            if (File.Exists("keys//" + username + ".xml")) 
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private byte[] DecryptKeywithRSA(string username, string key)

@@ -421,3 +421,7 @@ ds/obj/Debug/netcoreapp3.1/ds.csprojAssemblyReference.cache
 ds/obj/Debug/netcoreapp3.1/ds.AssemblyInfo.cs
 ds/obj/Debug/netcoreapp3.1/ds.csproj.FileListAbsolute.txt
 *.cache
+.vs/ds/v16/.suo
+*.dll
+*.pdb
+*.txt
