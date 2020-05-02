@@ -12,10 +12,15 @@ namespace ds
 
         public void Decrypt(string ciphertext)
         {
-            Console.WriteLine("Teksti i dekriptuar: "+ DecryptCiphertext(ciphertext));
+            string[] ciphertextSplit = ciphertext.Split('.');
+            string username = ciphertextSplit[0];
+            string iv = ciphertextSplit[1];
+            string key = ciphertextSplit[2];
+            string encryptedMessage = ciphertextSplit[3];
         }
         
-        private static string DecryptCiphertext(string ciphertext)
+         
+        private string DecryptCiphertext(string ciphertext)
         {
             byte[] byteCiphertext = Convert.FromBase64String(ciphertext);
             byte[] byteDecryptedtext = objRSA.Decrypt(byteCiphertext, true);

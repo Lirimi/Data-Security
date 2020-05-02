@@ -20,6 +20,7 @@ namespace ds
             ExportKey E = new ExportKey();
             ImportKey I = new ImportKey();
             EncryptMessage EM = new EncryptMessage();
+            DecryptMessage DM = new DecryptMessage();
             
 
             try
@@ -27,13 +28,15 @@ namespace ds
                 if (args.Length <= 1 || args.Length > 4)
                 {
                     Console.WriteLine("\n@Argumentet Mungojne / Numri i argumenteve jo i lejuar!");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit Beale shtyp | ds.exe Beale Encrypt <text> | ose | ds.exe Beale Decrypt <text> ku text te decrypt duhet te jete me thonjeza like: 0 1 2 |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit Permutation shtyp | ds.exe Permutation Encrypt <key><text> | ose | ds.exe Permutation Decrypt <key><text> |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit Numerical shtyp | ds.exe Numerical Encode <text> | ose | ds.exe Numerical Decode <text> |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit CreateUser per GenerateRsaKey shtyp | ds.exe create-user <name> |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit DeleteUser per DeleteRsaKey shtyp | ds.exe delete-user <name> |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit ExportKey shtyp | ds.exe export-key <public | private> <name> [file] |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit ImportKey shtyp | ds.exe import-key <name> <path> |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit Beale shtyp | ds Beale Encrypt <text> | ose | ds Beale Decrypt <text> |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit Permutation shtyp | ds Permutation Encrypt <key><text> | ose | ds Permutation Decrypt <key><text> |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit Numerical shtyp | ds Numerical Encode <text> | ose | ds Numerical Decode <text> |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit CreateUser shtyp | ds create-user <name> |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit DeleteUser shtyp | ds delete-user <name> |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit ExportKey shtyp | ds export-key <public | private> <name> [file] |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit ImportKey shtyp | ds import-key <name> <path> |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit EncryptMessage shtyp | ds write-message <name> <message> [file] |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit DecryptMessage shtyp | ds read-message <encrypted-message> |");
                     Environment.Exit(1);
                 }
 
@@ -110,7 +113,6 @@ namespace ds
                         {
                             Console.WriteLine();
                             P.Decrypt(key, text);
-
                         }
                         else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4)
                         {
@@ -342,8 +344,14 @@ namespace ds
                     }
                     catch
                     {
-                        Console.WriteLine("Celsi publik " + userName + " nuk ekziston!");
+                        throw new Exception("Celsi publik " + userName + " nuk ekziston!");
                     }
+                }
+                /*-----Args per Decryption----*/
+                else if (args[0].Equals("read-message"))
+                {
+                    string ciphertext = args[1];
+                    DM.Decrypt(ciphertext);
                 }
                 /*----Argument is wrong------*/
                 else
@@ -359,7 +367,7 @@ namespace ds
             }
         }
         /*--------------------------------------------------------------------------*/
-
+        
     }
 
 }
