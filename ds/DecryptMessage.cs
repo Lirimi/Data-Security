@@ -17,6 +17,12 @@ namespace ds
             string iv = ciphertextSplit[1];
             string key = ciphertextSplit[2];
             string encryptedMessage = ciphertextSplit[3];
+
+            string user = DecodeUserName(username);
+            byte[] DecryptetKey = DecryptKeywithRSA(username, key);
+            String DecryptedText = DecryptCipher(encryptedMessage, iv, DecryptetKey);
+            Console.WriteLine("Marresi: " + user);
+            Console.WriteLine("Mesazhi: " + DecryptedText);
         }
         private string DecodeUserName(string username)
         {
@@ -51,6 +57,33 @@ namespace ds
             byte[] Decryptedkey = objRSA.Decrypt(GetKeyBytes, true);
 
             return Decryptedkey;
+        }
+
+
+        private string DecryptCipher(string encryptedMessage, string iv, byte[] key)
+        {
+
+            DESCryptoServiceProvider objDES = new DESCryptoServiceProvider();
+
+            byte[] getEncryptedBytes = Convert.FromBase64String(encryptedMessage);
+            byte[] getIVbytes = Convert.FromBase64String(iv);
+
+            /* --Ne instance marrim iv, qelsin, vleren e modes dhe padding--*/
+            objDES.IV = getIVbytes;
+            objDES.Key = key;
+            objDES.Mode = CipherMode.ECB;
+            objDES.Padding = PaddingMode.Zeros;
+
+           
+
+            MemoryStream ms = new MemoryStream(getEncryptedBytes);
+            byte[] byteDecrypted = new byte[ms.Length];
+            CryptoStream cs = new CryptoStream(ms, objDES.CreateDecryptor(), CryptoStreamMode.Read);
+            cs.Read(byteDecrypted, 0, byteDecrypted.Length);
+            cs.Close();
+
+            return Encoding.UTF8.GetString(byteDecrypted);
+
         }
 
     }

@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "/home/lirix/.dotnet/store/|arch|/|tfm|",
-      "/home/lirix/.nuget/packages"
+      "C:\\Users\\jon_h\\.dotnet\\store\\|arch|\\|tfm|",
+      "/home/lirix/.nuget/packages/"
     ]
   }
 }
