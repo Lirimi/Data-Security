@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Xml;
+
 
 
 
@@ -326,7 +326,24 @@ namespace ds
                 {
                     string userName = args[1];
                     string message = args[2];
-                    EM.Encrypt(userName, message);   
+                    try
+                    {
+                       
+                        if (args.Length == 3)
+                        {
+                            EM.EncryptToConsole(userName, message);
+                        }
+                        else if (args.Length == 4)
+                        {
+                            string SaveToPath = args[3];
+                            EM.EncryptToPath(userName, message, SaveToPath);
+                            Console.WriteLine("Mesazhi i enkriptuar u ruajt ne filen " + SaveToPath);
+                        }
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Celsi publik " + userName + " nuk ekziston!");
+                    }
                 }
                 /*----Argument is wrong------*/
                 else
