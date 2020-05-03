@@ -21,6 +21,7 @@ namespace ds
             ImportKey I = new ImportKey();
             EncryptMessage EM = new EncryptMessage();
             DecryptMessage DM = new DecryptMessage();
+            Import_Key IM = new Import_Key();
             
 
             try
@@ -323,6 +324,7 @@ namespace ds
                         Environment.Exit(1);
                     }
                 }
+
                 /*----Args per Encryption-----*/
                 else if (args[0].Equals("write-message"))
                 {
