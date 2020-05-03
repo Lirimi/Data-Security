@@ -352,17 +352,7 @@ namespace ds
                 {
 
                         string ciphertext = args[1];
-                        if (!args[1].Contains("="))
-                        {
-
-                            DM.DecryptFromPath(ciphertext);
-                        }
-                        else
-                        {
-                            DM.DecryptFromConsole(ciphertext);
-                        }
-                
-                
+                        DM.Decrypt(ciphertext);
                 }
                 /*----Argument is wrong------*/
                 else
