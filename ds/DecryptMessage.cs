@@ -18,8 +18,8 @@ namespace ds
             }
             else
             {
-                File.ReadAllText(@ciphertext);
-                ciphertextSplit = ciphertext.Split('.');
+                string encryptedCipher = File.ReadAllText(@ciphertext);
+                ciphertextSplit = encryptedCipher.Split('.');
             }
             
             /*----- Incializojme strings nga String Array ----*/

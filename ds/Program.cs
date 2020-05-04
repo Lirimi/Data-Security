@@ -21,7 +21,7 @@ namespace ds
             ImportKey I = new ImportKey();
             EncryptMessage EM = new EncryptMessage();
             DecryptMessage DM = new DecryptMessage();
-            Import_Key IM = new Import_Key();
+            
             
 
             try
@@ -351,8 +351,7 @@ namespace ds
                 }
                 /*-----Args per Decryption----*/
                 else if (args[0].Equals("read-message"))
-                {
-
+                { 
                         string ciphertext = args[1];
                         DM.Decrypt(ciphertext);
                 }

@@ -12,9 +12,10 @@ namespace ds
         public void Import(string AddToPath, string SourcePath) 
         {
            
+            /*------Rsa instance-----*/
             RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
             
-            string RSAParemeters = "";
+            String RSAParameters = "";
             
             /*-------Check if sourcepath has a web client----*/
             bool HttpPath = PathIsHttp(SourcePath);
@@ -22,38 +23,43 @@ namespace ds
             /*----Read Rsa key from Web----*/
             if (HttpPath)
             {
-                GetRequest(SourcePath).Wait();
-             
-                StreamReader sr = new StreamReader(SourcePath);
-                RSAParemeters = sr.ReadToEnd();
+                Task<Stream> xmlParameters = GetRequest(SourcePath);
+                xmlParameters.Wait();
+                var readXml = xmlParameters.Result;
+                
+                StreamReader sr = new StreamReader(readXml);
+                RSAParameters = sr.ReadToEnd();
                 sr.Close();
-                objRSA.FromXmlString(RSAParemeters);
+                
+                objRSA.FromXmlString(RSAParameters);
             }
             /*---Read RSA Key from path---*/
             else
             {
                 StreamReader sr = new StreamReader(SourcePath);
-                RSAParemeters = sr.ReadToEnd();
+                RSAParameters = sr.ReadToEnd();
                 sr.Close();
-                objRSA.FromXmlString(RSAParemeters);
+                objRSA.FromXmlString(RSAParameters);
             }
 
+            
             /*-----------Check if key exists-----------------*/
             bool KeyExists = KeyExistsCheck(AddToPath);
             
-            /*------------Check if key is private------------*/
-            bool PublicKey = objRSA.PublicOnly;
-
+            /*------------Check if key is Public------------*/
+            //------bool publicKey = objRSA.PublicOnly;--------//
+            /*----For unknown reason it always gives false------*/
             
             
             if (!KeyExists)
             {
-                if (PublicKey)
+                if (!RSAParameters.Contains("<P>"))
                 {
                     /* ------- Importojme qelsin Publik -----*/
                     StreamWriter sw = new StreamWriter("keys//" + AddToPath + ".pub.xml");
-                    sw.Write(RSAParemeters);
+                    sw.Write(RSAParameters);
                     sw.Close();
+                    Console.WriteLine("Celsi publik u ruajt ne fajllin keys/" + AddToPath + ".pub.xml");
                 }
                 else
                 {
@@ -64,10 +70,10 @@ namespace ds
                     objRSA2.ImportParameters(exportPrivateParameters);
             
                     /*------- Include Public ParemetersOnly ----*/
-                    string PublicRsaParemeters = objRSA2.ToXmlString(false);
+                    string PublicRSAParameters = objRSA2.ToXmlString(false);
           
                     StreamWriter swPublic = new StreamWriter("keys//" + AddToPath + ".pub.xml");
-                    swPublic.Write(PublicRsaParemeters);
+                    swPublic.Write(PublicRSAParameters);
                     swPublic.Close();
           
                     /*------- Include All Paremeters ------*/
@@ -113,18 +119,14 @@ namespace ds
 
         private async Task<Stream> GetRequest(string SourcePath)
         {
-           
-            using (HttpClient client = new HttpClient())
-            {
-                using (HttpResponseMessage response = await client.GetAsync(SourcePath))
-                {
-                    using (HttpContent content = response.Content)
-                    {
-                        Stream mycontent = await content.ReadAsStreamAsync();
-                        return mycontent;
-                    }
-                }
-            }
+            
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(SourcePath);
+            HttpContent content = response.Content;
+
+            Stream mycontent = await content.ReadAsStreamAsync();
+            return mycontent;
+            
         }
     }
 }

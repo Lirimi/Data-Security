@@ -7,8 +7,6 @@ namespace ds
 {
     public class EncryptMessage
     {
-        static Random random = new Random();
-        
         public void EncryptToConsole(string userName, string message) 
         {
            
@@ -23,7 +21,8 @@ namespace ds
             
             
             /*-----CIPHERTEXT-----*/
-            Console.WriteLine(encodeUserName + "." + ivToString + "." + encryptKey + "." + encryptMessage);
+            String encryptedtext = String.Format("{0}.{1}.{2}.{3}", encodeUserName, ivToString, encryptKey, encryptMessage);
+            Console.WriteLine(encryptedtext);
 
         }
         
@@ -41,12 +40,13 @@ namespace ds
             
             
             /*-----CIPHERTEXT-----*/
-            string encryptedtext = encodeUserName + "." + ivToString + "." + encryptKey + "." + encryptMessage;
+            String encryptedtext = String.Format("{0}.{1}.{2}.{3}", encodeUserName, ivToString, encryptKey, encryptMessage);
             File.WriteAllText(ToPath, encryptedtext);
         }
 
         private void GenerateKeys(byte[] iv, byte[] key)
         {
+            Random random = new Random();
             /*--- Gjenerojme nje mode iv ----*/
             random.NextBytes(iv);
            
