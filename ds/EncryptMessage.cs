@@ -2,14 +2,15 @@ using System;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace ds
 {
     public class EncryptMessage
     {
-        public void EncryptToConsole(string userName, string message) 
+        public void Encrypt(string userName, string message, [Optional, DefaultParameterValue(0)] object ToPath) 
         {
-           
+            
             byte[] iv = new byte[8];
             byte[] key = new byte[8];
             
@@ -19,29 +20,19 @@ namespace ds
             string encryptKey = EncryptKeyWithRSA(userName, key);
             string encryptMessage = EncryptMessageWithDES(message, key, iv);
             
-            
             /*-----CIPHERTEXT-----*/
             String encryptedtext = String.Format("{0}.{1}.{2}.{3}", encodeUserName, ivToString, encryptKey, encryptMessage);
-            Console.WriteLine(encryptedtext);
+            
+            if (ToPath.Equals(0))
+            {
+               
+                Console.WriteLine(encryptedtext);
+            }
+            else
+            {
+                File.WriteAllText(ToPath.ToString(), encryptedtext);
+            }
 
-        }
-        
-        public void EncryptToPath(string userName, string message, string ToPath) 
-        {
-          
-            byte[] iv = new byte[8];
-            byte[] key = new byte[8];
-            
-            GenerateKeys(iv, key);
-            string encodeUserName = EncodeName(userName);
-            string ivToString = Convert.ToBase64String(iv);
-            string encryptKey = EncryptKeyWithRSA(userName, key);
-            string encryptMessage = EncryptMessageWithDES(message, key, iv);
-            
-            
-            /*-----CIPHERTEXT-----*/
-            String encryptedtext = String.Format("{0}.{1}.{2}.{3}", encodeUserName, ivToString, encryptKey, encryptMessage);
-            File.WriteAllText(ToPath, encryptedtext);
         }
 
         private void GenerateKeys(byte[] iv, byte[] key)

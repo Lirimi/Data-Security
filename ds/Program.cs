@@ -330,17 +330,17 @@ namespace ds
                 {
                     string userName = args[1];
                     string message = args[2];
+                    
                     try
                     {
-                       
                         if (args.Length == 3)
                         {
-                            EM.EncryptToConsole(userName, message);
+                            EM.Encrypt(userName, message);
                         }
                         else if (args.Length == 4)
                         {
                             string SaveToPath = args[3];
-                            EM.EncryptToPath(userName, message, SaveToPath);
+                            EM.Encrypt(userName, message, SaveToPath);
                             Console.WriteLine("Mesazhi i enkriptuar u ruajt ne filen " + SaveToPath);
                         }
                     }
