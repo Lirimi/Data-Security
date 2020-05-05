@@ -1,5 +1,7 @@
 using System;
-using System.Xml;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 
 
 namespace ds
@@ -7,38 +9,55 @@ namespace ds
   
     public class ExportKey
     {
-        
-        public void PublicKeyToPath(string userKey, string exportToPath)
+        public void PublicKey(string userKey, [Optional, DefaultParameterValue(0)] object ToPath)
         {
-            XmlDocument xmlDoc = new XmlDocument();
-            String exportFrom = "keys//" + userKey + ".pub.xml";
-            xmlDoc.Load(exportFrom);
-            xmlDoc.Save(exportToPath);
+
+            RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
+
+            String RSAParameters = "";
+            string path = "keys//" + userKey + ".pub.xml";
+            StreamReader sr = new StreamReader(path);
+            RSAParameters = sr.ReadToEnd();
+            sr.Close();
+
+            objRSA.FromXmlString(RSAParameters);
+
+
+            if (ToPath.Equals(0))
+            {
+                Console.WriteLine(RSAParameters);
+            }
+            else
+            {
+                StreamWriter sw = new StreamWriter(ToPath.ToString());
+                sw.Write(RSAParameters);
+                sw.Close();
+            }
         }
 
-        public void PrivateKeyToPath(string userKey, string exportToPath)
+        public void PrivateKey(string userKey, [Optional, DefaultParameterValue(0)] object ToPath)
         {
-            XmlDocument xmlDoc = new XmlDocument();
-            String exportFrom = "keys//" + userKey + ".xml";
-            xmlDoc.Load(exportFrom);
-            xmlDoc.Save(exportToPath);
-            
-        }
-        
-        public void PublicKeyToConsole(string userKey)
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            String exportFrom = "keys//" + userKey + ".pub.xml";
-            xmlDoc.Load(exportFrom);
-            xmlDoc.Save(Console.Out);
-        }
-        
-        public void PrivateKeyToConsole(string userKey)
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            String exportFrom = "keys//" + userKey + ".xml";
-            xmlDoc.Load(exportFrom);
-            xmlDoc.Save(Console.Out);
+            RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
+
+            String RSAParameters = "";
+            string path = "keys//" + userKey + ".xml";
+            StreamReader sr = new StreamReader(path);
+            RSAParameters = sr.ReadToEnd();
+            sr.Close();
+
+            objRSA.FromXmlString(RSAParameters);
+
+
+            if (ToPath.Equals(0))
+            {
+                Console.WriteLine(RSAParameters);
+            }
+            else
+            {
+                StreamWriter sw = new StreamWriter(ToPath.ToString());
+                sw.Write(RSAParameters);
+                sw.Close();
+            }
         }
     }
 }
