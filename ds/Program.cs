@@ -22,6 +22,7 @@ namespace ds
             EncryptMessage EM = new EncryptMessage();
             DecryptMessage DM = new DecryptMessage();
             
+            
 
             try
             {
@@ -323,22 +324,23 @@ namespace ds
                         Environment.Exit(1);
                     }
                 }
+
                 /*----Args per Encryption-----*/
                 else if (args[0].Equals("write-message"))
                 {
                     string userName = args[1];
                     string message = args[2];
+                    
                     try
                     {
-                       
                         if (args.Length == 3)
                         {
-                            EM.EncryptToConsole(userName, message);
+                            EM.Encrypt(userName, message);
                         }
                         else if (args.Length == 4)
                         {
                             string SaveToPath = args[3];
-                            EM.EncryptToPath(userName, message, SaveToPath);
+                            EM.Encrypt(userName, message, SaveToPath);
                             Console.WriteLine("Mesazhi i enkriptuar u ruajt ne filen " + SaveToPath);
                         }
                     }
@@ -350,19 +352,19 @@ namespace ds
                 /*-----Args per Decryption----*/
                 else if (args[0].Equals("read-message"))
                 {
-
+                    try
+                    {
                         string ciphertext = args[1];
-                        if (!args[1].Contains("="))
+                        DM.Decrypt(ciphertext);
+                    }
+                    catch (Exception exception)
+                    {
+                        if (exception is FormatException || exception is IndexOutOfRangeException)
                         {
-
-                            DM.DecryptFromPath(ciphertext);
+                            throw new Exception("@Mesazhi i dhene nuk paraqet cipher ose path valid! ");
                         }
-                        else
-                        {
-                            DM.DecryptFromConsole(ciphertext);
-                        }
-                
-                
+                        Console.WriteLine(exception.Message);
+                    }
                 }
                 /*----Argument is wrong------*/
                 else

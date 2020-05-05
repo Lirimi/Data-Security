@@ -1,74 +1,87 @@
 using System;
 using System.IO;
 using System.Net.Http;
-using System.Xml;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
-
 
 namespace ds
 {
     public class ImportKey
     {
-        static RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
         public void Import(string AddToPath, string SourcePath) 
         {
            
+            /*------Rsa instance-----*/
+            RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
             
-            XmlDocument xmlDoc = new XmlDocument();
-
+            String RSAParameters = "";
+            
             /*-------Check if sourcepath has a web client----*/
             bool HttpPath = PathIsHttp(SourcePath);
             
-            /*----Load Http Document----*/
+            /*----Read Rsa key from Web----*/
             if (HttpPath)
             {
-                GetRequest(SourcePath).Wait();
-                xmlDoc.Load(SourcePath);
-                xmlDoc.Normalize();
+                Task<Stream> xmlParameters = GetRequest(SourcePath);
+                xmlParameters.Wait();
+                var readXml = xmlParameters.Result;
+                
+                StreamReader sr = new StreamReader(readXml);
+                RSAParameters = sr.ReadToEnd();
+                sr.Close();
+                
+                objRSA.FromXmlString(RSAParameters);
             }
-            /*---Load Xml Document from path---*/
+            /*---Read RSA Key from path---*/
             else
             {
-                xmlDoc.Load(SourcePath); 
-                xmlDoc.Normalize();
+                StreamReader sr = new StreamReader(SourcePath);
+                RSAParameters = sr.ReadToEnd();
+                sr.Close();
+                objRSA.FromXmlString(RSAParameters);
             }
 
+            
             /*-----------Check if key exists-----------------*/
             bool KeyExists = KeyExistsCheck(AddToPath);
             
-            /*------------Check if key is private------------*/
-            bool PrivateKey = PrivateKeyCheck(xmlDoc);
-
+            /*------------Check if key is Public------------*/
+            //------bool publicKey = objRSA.PublicOnly;--------//
+            /*----For unknown reason it always gives false------*/
             
             
             if (!KeyExists)
             {
-                if (!PrivateKey)
+                if (!RSAParameters.Contains("<P>"))
                 {
-                    /* ------- Ruajme qelsin Publik -----*/
-                    string filename = "keys//" + AddToPath + ".pub.xml"; 
-                    xmlDoc.Save(filename);
-                    Console.WriteLine("Celsi publik u ruajt ne filen keys/" + AddToPath + ".pub.xml");
+                    /* ------- Importojme qelsin Publik -----*/
+                    StreamWriter sw = new StreamWriter("keys//" + AddToPath + ".pub.xml");
+                    sw.Write(RSAParameters);
+                    sw.Close();
+                    Console.WriteLine("Celsi publik u ruajt ne fajllin keys/" + AddToPath + ".pub.xml");
                 }
                 else
                 {
-                    /*--Ruajme qelsin privat--*/
-                    string filename = "keys//" + AddToPath + ".xml";
-                    xmlDoc.Save(filename);
+                    /*-------- Importojme qelsin privat ------*/
+                    RSAParameters exportPrivateParameters = objRSA.ExportParameters(true);
                     
-                    /*--Gjenerojme qelsin publik--*/
-                    FileStream fs = null;
-                    StreamWriter sw = null;
-                    RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(1024);
-                    string publicKeyPath = "keys//" + AddToPath + ".pub.xml";
-                    fs = new FileStream(publicKeyPath, FileMode.Create, FileAccess.Write);
-                    sw = new StreamWriter(fs);
-                    sw.Write(rsa.ToXmlString(false));
-                    sw.Flush();
-                    /*-----------------------------*/
+                    RSACryptoServiceProvider objRSA2 = new RSACryptoServiceProvider(); 
+                    objRSA2.ImportParameters(exportPrivateParameters);
+            
+                    /*------- Include Public ParemetersOnly ----*/
+                    string PublicRSAParameters = objRSA2.ToXmlString(false);
+          
+                    StreamWriter swPublic = new StreamWriter("keys//" + AddToPath + ".pub.xml");
+                    swPublic.Write(PublicRSAParameters);
+                    swPublic.Close();
+          
+                    /*------- Include All Paremeters ------*/
+                    string PrivateRsaParemters = objRSA2.ToXmlString(true);
+        
+                    StreamWriter swPrivate = new StreamWriter("keys//" + AddToPath + ".xml");
+                    swPrivate.Write(PrivateRsaParemters);
+                    swPrivate.Close();
                     
                     Console.WriteLine("Celsi privat u ruajt ne fajllin keys/" + AddToPath + ".xml");
                     Console.WriteLine("Celsi publik u ruajt ne fajllin keys/" + AddToPath + ".pub.xml");
@@ -81,19 +94,7 @@ namespace ds
 
 
         }
-
-        private bool PrivateKeyCheck(XmlDocument xmlDoc)
-        {
-            /*---Create Node---*/
-            XmlNodeList Node = xmlDoc.GetElementsByTagName("P"); // Node shikon se a ekziston nje tag <P> ne Xml Documentin
-            if (Node.Item(0) == null)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
+        
         private bool KeyExistsCheck(string AddToPath)
         {
             string filenamePublic = "keys//" + AddToPath + ".pub.xml";
@@ -118,18 +119,14 @@ namespace ds
 
         private async Task<Stream> GetRequest(string SourcePath)
         {
-           
-            using (HttpClient client = new HttpClient())
-            {
-                using (HttpResponseMessage response = await client.GetAsync(SourcePath))
-                {
-                    using (HttpContent content = response.Content)
-                    {
-                        Stream mycontent = await content.ReadAsStreamAsync();
-                        return mycontent;
-                    }
-                }
-            }
+            
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(SourcePath);
+            HttpContent content = response.Content;
+
+            Stream mycontent = await content.ReadAsStreamAsync();
+            return mycontent;
+            
         }
     }
 }
