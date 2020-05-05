@@ -439,3 +439,4 @@ ds/obj/Debug/netcoreapp3.1/ds.csproj.FileListAbsolute.txt
 *.pdb
 *.dll
 *.pdb
+ds/obj/Debug/netcoreapp3.1/ds.assets.cache

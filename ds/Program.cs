@@ -257,13 +257,13 @@ namespace ds
                         {
                             if (args.Length == 3)
                             {
-                                E.PublicKeyToConsole(userKey);
+                                E.PublicKey(userKey);
                                 Console.WriteLine();
                             }
                             else if (args.Length == 4)
                             {
                                 string exportToPath = args[3];
-                                E.PublicKeyToPath(userKey, exportToPath);
+                                E.PublicKey(userKey, exportToPath);
                                 Console.WriteLine("Celesi publik u ruajt ne fajllin " + exportToPath);
                             }
                         }
@@ -278,13 +278,13 @@ namespace ds
                         {
                             if (args.Length == 3)
                             {
-                                E.PrivateKeyToConsole(userKey);
+                                E.PrivateKey(userKey);
                                 Console.WriteLine();
                             }
                             else if (args.Length == 4)
                             {
                                 string exportToPath = args[3];
-                                E.PrivateKeyToPath(userKey, exportToPath);
+                                E.PrivateKey(userKey, exportToPath);
                                 Console.WriteLine("Celesi privat u ruajt ne fajllin " + exportToPath);
                             }
                         }
