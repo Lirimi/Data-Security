@@ -351,9 +351,20 @@ namespace ds
                 }
                 /*-----Args per Decryption----*/
                 else if (args[0].Equals("read-message"))
-                { 
+                {
+                    try
+                    {
                         string ciphertext = args[1];
                         DM.Decrypt(ciphertext);
+                    }
+                    catch (Exception exception)
+                    {
+                        if (exception is FormatException || exception is IndexOutOfRangeException)
+                        {
+                            throw new Exception("@Mesazhi i dhene nuk paraqet cipher ose path valid! ");
+                        }
+                        Console.WriteLine(exception.Message);
+                    }
                 }
                 /*----Argument is wrong------*/
                 else

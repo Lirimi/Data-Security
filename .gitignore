@@ -437,3 +437,5 @@ ds/obj/Debug/netcoreapp3.1/ds.csproj.FileListAbsolute.txt
 *.pdb
 *.dll
 *.pdb
+*.dll
+*.pdb

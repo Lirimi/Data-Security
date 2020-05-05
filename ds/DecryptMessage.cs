@@ -12,7 +12,8 @@ namespace ds
         {
             /*---- Ndajme stringun ku ka seperator '.' ----*/
             string[] ciphertextSplit = {};
-            if (ciphertext.Contains("="))
+            
+            if (!File.Exists(ciphertext))
             {
                 ciphertextSplit = ciphertext.Split('.');
             }
@@ -51,7 +52,6 @@ namespace ds
             }
             
             throw new Exception("Celsi privat keys/" + GetUserName + ".xml nuk ekziston");
-            
         }
 
         private bool CheckifFUserExists(string username)
