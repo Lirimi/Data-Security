@@ -269,7 +269,7 @@ namespace ds
                         }
                         catch
                         {
-                            throw new Exception("@Celesi publik " + args[2].ToString() + " nuk ekziston ose filepath eshte gabim!");
+                            throw new Exception("@Celesi publik " + args[2].ToString() + " nuk ekziston!");
                         }
                     }
                     else if (args[1].Equals("private"))
@@ -290,7 +290,7 @@ namespace ds
                         }
                         catch
                         {
-                            throw new Exception("@Celesi privat " + args[2].ToString() + " nuk ekziston ose filepathi eshte gabim!");
+                            throw new Exception("@Celesi privat " + args[2].ToString() + " nuk ekziston!");
                         }
                     }
                     else

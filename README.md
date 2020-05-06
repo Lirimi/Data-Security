@@ -2,12 +2,12 @@
 * Projekti ne lenden "Siguria e te dhenave". Realizimi i funksioneve u implmentua ne gjuhen programuese C#
 
 
-1. Ekzekutimi i Programit ne Linux ose Mac(ne Windows referohu tek Raporti): 
+1. Ekzekutimi i Programit: 
 
 * Supozojme se jemi ne pathin e duhur atehere:
 
-* Hapi 1: Kompailimi ne Terminal behet duke përdorur komandën  "msbuild ds.sln" per te ndertuar projektin
-* Hapi 2: Ekzekutimi dhe thirrja e main behet ne pathin ku u krijua ds.dll file pas kompilimit duke perdorum komanden vetem ds.exe(ds) per platformen Windows ndersa dotnet ds.dll per platformen Linux ose Mac pastaj therrasim argumentet si me poshte: =>
+* Hapi 1: Kompailimi ne Terminal behet duke përdorur komandën  "msbuild ds.sln" per te ndertuar projektin ne pathin Github/ds ku ekziston edhe .sln file ose debug nga VS Code
+* Hapi 2: Ekzekutimi dhe thirrja e main behet ne pathin ku u krijua ds.dll zakonisht ne shtegun ds/ds/bin/debug/netcoreapp3.1 duke perdorum komanden vetem ds.exe(ds) per platformen Windows ndersa dotnet ds.dll per platformen Linux ose Mac pastaj therrasim argumentet si me poshte: =>
 
 	1.Ekzekutimi i funksionit Beale:
 		ds Beale Encrypt  <text>
@@ -64,7 +64,7 @@ FAZA II:
 
 * Komanda read-message: Duke perdorur qelsin RSA privat te marresit Dekriptohet mesazhi i enkriptuar dhe shfaqet ne console.
       
-3. Per te pare Rezultatet e ekzekutimit referohu tek 'Raporti i projektit'!
+3. Per te pare Rezultatet e ekzekutimit referohu tek 'Raporti i projektit'(Faza 1) perkatesisht 'Rezultatet e ekzekutimeve'(Faza 2)!
 
 
 
