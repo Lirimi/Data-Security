@@ -84,7 +84,7 @@ namespace ds
             /* --Ne instance marrim iv, qelsin, vleren e modes dhe padding--*/
             objDES.IV = iv;
             objDES.Key = key;
-            objDES.Mode = CipherMode.ECB;
+            objDES.Mode = CipherMode.CBC;
             objDES.Padding = PaddingMode.Zeros;
             
             /*--- Krijojme nje memory stream dhe cryptostream  ---*/

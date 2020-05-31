@@ -44,6 +44,62 @@ namespace ds
             }
             rsa.Clear();
         }
+
+        public void GeneratePassword()
+        {
+            Console.Write("Jepni fjalekalimin: ");
+            string password = Console.ReadLine();
+
+            ValidatePassword(password);
+            
+            Console.Write("Perserit fjalekalimin: ");
+            string repeatpassword = Console.ReadLine();
+            
+            if (!String.Equals(password, repeatpassword)) 
+                    throw new Exception("Gabim: Fjalekalimet nuk perputhen.");
+
+        }
+        
+        
+        private void ValidatePassword( string password )
+        {
+            const int MIN_LENGTH =  6 ;
+            const int MAX_LENGTH = 15 ;
+
+            if ( password == null ) throw new ArgumentNullException("Gabim: Passwordi nuk eshte shtypur!") ;
+
+            bool meetsLengthRequirements = password.Length >= MIN_LENGTH && password.Length <= MAX_LENGTH ;
+            bool hasLetter               = false ;
+            bool hasDecimalDigitorSymbol = false ;
+
+            if ( meetsLengthRequirements )
+            {
+                foreach (char c in password )
+                {
+                    if      ( char.IsLetter(c) )                   hasLetter = true ;
+                    else if ( char.IsDigit(c) || char.IsSymbol(c)) hasDecimalDigitorSymbol   = true ;
+                }
+            }
+
+            if(meetsLengthRequirements && hasLetter && hasDecimalDigitorSymbol)
+                return;
+            if (!meetsLengthRequirements)
+            {
+                Console.WriteLine("Gabim: Fjalëkalimi yt duhet të jetë të paktën 6 karaktere i gjatë. Provo përsëri.");
+                GeneratePassword();
+            }
+            else if (!hasLetter)
+            {
+                Console.WriteLine("Gabim: Fjalekalimi duhet te permbaje se paku nje karakter. Provo përsëri.");
+                GeneratePassword();
+            }
+            else if (!hasDecimalDigitorSymbol)
+            {
+                Console.WriteLine("Gabim: Fjalekalimi duhet te permbaje se paku nje numer ose simbol. Provo përsëri.");
+                GeneratePassword();
+            }
+
+        }
     }
 
 }

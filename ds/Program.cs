@@ -186,11 +186,14 @@ namespace ds
                         bool privateKeyExist = File.Exists(privateKeyfilePath);
                         bool publicKeyExist = File.Exists(publicKeyfilePath);
 
-                        if (!(privateKeyExist && publicKeyExist))
+                        if (!(privateKeyExist || publicKeyExist))
                         {
+                           
+                            C.GeneratePassword();  // Gjenerojme passwordin per shfryezuesin
+                            
+                            
                             //Perdorimi i funksionit GenerateRsaKey per te krijuar qelesat privat dhe public me madhesi 1024(sipas deshires)
                             C.GenerateRsaKey(privateKeyfilePath, publicKeyfilePath, 1024);
-
                             //Trego qe u krijuan qelsat
                             Console.WriteLine("@Eshte krijuar celesi privat " + "'keys//" + args[1] + ".xml'");
                             Console.WriteLine("@Eshte krijuar celesi public " + "'keys//" + args[1] + ".pub.xml'");
