@@ -51,7 +51,7 @@ namespace ds
 
        
 
-        public String GeneratePassword()
+        public byte[] GeneratePassword()
         {
             Console.Write("Jepni fjalekalimin: ");
             string password = Console.ReadLine();
@@ -64,13 +64,10 @@ namespace ds
             if (!String.Equals(password, repeatpassword)) 
                     throw new Exception("Gabim: Fjalekalimet nuk perputhen.");
 
-            return password;
-
-
+            byte[] salt = CreateSalt(10);
+            byte[] Saltedpassword = GenerateSaltedHash(Encoding.UTF8.GetBytes(password), salt);
+            return Saltedpassword;
         }
-
-       
-
 
         private void ValidatePassword( string password )
         {
@@ -111,18 +108,45 @@ namespace ds
             }
 
         }
-        
-       
+
+        static byte[] GenerateSaltedHash(byte[] plainText, byte[] salt)
+        {
+            HashAlgorithm algorithm = new SHA256Managed();
+
+            byte[] plainTextWithSaltBytes = new byte[plainText.Length + salt.Length];
+
+            for (int i = 0; i < plainText.Length; i++)
+            {
+                plainTextWithSaltBytes[i] = plainText[i];
+            }
+            for (int i = 0; i < salt.Length; i++)
+            {
+                plainTextWithSaltBytes[plainText.Length + i] = salt[i];
+            }
+
+            return algorithm.ComputeHash(plainTextWithSaltBytes);            
+        }
+
+        private byte[] CreateSalt(int size)
+        {
+            var rng = new RNGCryptoServiceProvider();
+            var buff = new byte[size];
+            rng.GetBytes(buff);
+            return buff;
+        }
+
+
+
         public void InsertIntoDB(string user)
         {
-
-            String Pass = GeneratePassword();;
+            byte[] pass = GeneratePassword();
+            String password = Convert.ToBase64String(pass);
             
             try
             {
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 
-                String query = "INSERT INTO users VALUES" + "('" + user + "','" + Pass + "')";
+                String query = "INSERT INTO users VALUES" + "('" + user + "','" + password + "')";
                  
                 bool dbopen = DB.Open();
                 MySqlDataReader row;
