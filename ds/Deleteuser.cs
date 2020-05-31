@@ -1,11 +1,15 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
+using MySql.Data.MySqlClient;
+
 namespace ds
 {
     public class Deleteuser
     {
+        DatabaseConnection DB = new DatabaseConnection();
         public void DeleteRsaKey(string privateKeyPath, string publicKeyPath, int size)
         {
             File.Delete(privateKeyPath);
@@ -16,8 +20,28 @@ namespace ds
         {
             File.Delete(publicKeyPath);
         }
-        
-        
-        
+
+        public void DeletefromDB(string user)
+        {
+           
+            try
+            {
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                
+                String query = "DELETE FROM users WHERE USER=" + "'" + user + "';";  
+                 
+                bool dbopen = DB.Open();
+                MySqlDataReader row;
+                row = DB.ExecuteReader(query);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+
+
     }
 }

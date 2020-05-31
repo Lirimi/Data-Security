@@ -122,7 +122,7 @@ namespace ds
             {
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 
-                String query = "Insert into users values" + "('" + user + "','" + Pass + "')";
+                String query = "INSERT INTO users VALUES" + "('" + user + "','" + Pass + "')";
                  
                 bool dbopen = DB.Open();
                 MySqlDataReader row;

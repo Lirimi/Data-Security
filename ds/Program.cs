@@ -226,14 +226,16 @@ namespace ds
                         if ((privateKeyExist && publicKeyExist))
                         {
                             //Perdorimi i funksionit DeleteRsaKey per te fshire qelesat privat dhe public me madhesi 1024(sipas deshires)
+                            D.DeletefromDB(text);
                             D.DeleteRsaKey(privateKeyfilePath, publicKeyfilePath, 1024);
-
+                            
                             //Trego qe u fshin qelsat
                             Console.WriteLine("@Eshte larguar celesi privat " + "'keys//" + text + ".xml'");
                             Console.WriteLine("@Eshte larguar celesi publik " + "'keys//" + text + ".pub.xml'");
                         }
                         else if (publicKeyExist)
                         {
+                            D.DeletefromDB(text);
                             D.DeleteRsaKey(publicKeyfilePath, 1024);
                             Console.WriteLine("@Eshte larguar celesi publik " + "'keys//" + text + ".pub.xml'");
                         }
