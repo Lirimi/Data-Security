@@ -8,4 +8,18 @@
   <ItemGroup>
     <Compile Remove="EmptyClass.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.3.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d">
+      <HintPath>..\..\..\..\Downloads\MySql.Data.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="5.0.0-preview.4.20251.6" />
+  </ItemGroup>
+
+  <PropertyGroup>
+  <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+</PropertyGroup>
 </Project>

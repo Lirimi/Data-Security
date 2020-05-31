@@ -189,9 +189,9 @@ namespace ds
                         if (!(privateKeyExist || publicKeyExist))
                         {
                            
-                            C.GeneratePassword();  // Gjenerojme passwordin per shfryezuesin
+                           
                             
-                            
+                            C.InsertIntoDB(text);
                             //Perdorimi i funksionit GenerateRsaKey per te krijuar qelesat privat dhe public me madhesi 1024(sipas deshires)
                             C.GenerateRsaKey(privateKeyfilePath, publicKeyfilePath, 1024);
                             //Trego qe u krijuan qelsat

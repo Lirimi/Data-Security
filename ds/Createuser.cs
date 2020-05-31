@@ -1,12 +1,16 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
+using MySql.Data.MySqlClient;
 
 namespace ds
 {
-    public class Createuser
+    
+    public class Createuser 
     {
+        DatabaseConnection DB = new DatabaseConnection();
         public void GenerateRsaKey(string privateKeyPath, string publicKeyPath, int size)
         {
             //nje stream qe i ruan qelsat
@@ -45,7 +49,9 @@ namespace ds
             rsa.Clear();
         }
 
-        public void GeneratePassword()
+       
+
+        public String GeneratePassword()
         {
             Console.Write("Jepni fjalekalimin: ");
             string password = Console.ReadLine();
@@ -54,13 +60,18 @@ namespace ds
             
             Console.Write("Perserit fjalekalimin: ");
             string repeatpassword = Console.ReadLine();
-            
+
             if (!String.Equals(password, repeatpassword)) 
                     throw new Exception("Gabim: Fjalekalimet nuk perputhen.");
 
+            return password;
+
+
         }
-        
-        
+
+       
+
+
         private void ValidatePassword( string password )
         {
             const int MIN_LENGTH =  6 ;
@@ -85,20 +96,42 @@ namespace ds
                 return;
             if (!meetsLengthRequirements)
             {
-                Console.WriteLine("Gabim: Fjalëkalimi yt duhet të jetë të paktën 6 karaktere i gjatë. Provo përsëri.");
-                GeneratePassword();
+                throw new Exception("Gabim: Fjalëkalimi yt duhet të jetë të paktën 6 karaktere i gjatë.");
+                
             }
-            else if (!hasLetter)
+            if (!hasLetter)
             {
-                Console.WriteLine("Gabim: Fjalekalimi duhet te permbaje se paku nje karakter. Provo përsëri.");
-                GeneratePassword();
+                throw new Exception("Gabim: Fjalekalimi duhet te permbaje se paku nje karakter.");
+                
             }
-            else if (!hasDecimalDigitorSymbol)
+            if (!hasDecimalDigitorSymbol)
             {
-                Console.WriteLine("Gabim: Fjalekalimi duhet te permbaje se paku nje numer ose simbol. Provo përsëri.");
-                GeneratePassword();
+                throw new Exception("Gabim: Fjalekalimi duhet te permbaje se paku nje numer ose simbol.");
+                
             }
 
+        }
+        
+       
+        public void InsertIntoDB(string user)
+        {
+
+            String Pass = GeneratePassword();;
+            
+            try
+            {
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                
+                String query = "Insert into users values" + "('" + user + "','" + Pass + "')";
+                 
+                bool dbopen = DB.Open();
+                MySqlDataReader row;
+                row = DB.ExecuteReader(query);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 
