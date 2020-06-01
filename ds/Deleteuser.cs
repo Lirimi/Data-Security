@@ -33,6 +33,7 @@ namespace ds
                 bool dbopen = DB.Open();
                 MySqlDataReader row;
                 row = DB.ExecuteReader(query);
+                Console.WriteLine("@Eshte fshire shfrytezuesi " + user);
             }
             catch(Exception ex)
             {

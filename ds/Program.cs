@@ -21,6 +21,7 @@ namespace ds
             ImportKey I = new ImportKey();
             EncryptMessage EM = new EncryptMessage();
             DecryptMessage DM = new DecryptMessage();
+            Token T = new Token();
             
             
 
@@ -369,6 +370,22 @@ namespace ds
                             throw new Exception("@Mesazhi i dhene nuk paraqet cipher ose path valid! ");
                         }
                         Console.WriteLine(exception.Message);
+                    }
+                }
+                /*----Args per Login-----*/
+                if (args[0].Equals("login"))
+                {
+                    try
+                    {
+                        string username = args[1];
+                        Console.Write("Jep passwordin: ");
+                        string password = Console.ReadLine();
+                        T.Login(username, password);
+                      
+                    }
+                    catch(Exception error)
+                    {
+                        throw new Exception(error.Message);
                     }
                 }
                 /*----Argument is wrong------*/

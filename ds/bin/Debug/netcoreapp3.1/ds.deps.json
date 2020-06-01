@@ -8,11 +8,21 @@
     ".NETCoreApp,Version=v3.1": {
       "ds/1.0.0": {
         "dependencies": {
+          "BouncyCastle": "1.8.6.1",
+          "Newtonsoft.Json": "12.0.3",
           "System.Diagnostics.PerformanceCounter": "5.0.0-preview.4.20251.6",
           "MySql.Data": "6.3.5.0"
         },
         "runtime": {
           "ds.dll": {}
+        }
+      },
+      "BouncyCastle/1.8.6.1": {
+        "runtime": {
+          "lib/BouncyCastle.Crypto.dll": {
+            "assemblyVersion": "1.8.6.0",
+            "fileVersion": "1.8.20052.1"
+          }
         }
       },
       "Microsoft.NETCore.Platforms/5.0.0-preview.4.20251.6": {},
@@ -58,6 +68,14 @@
             "assetType": "runtime",
             "assemblyVersion": "5.0.0.0",
             "fileVersion": "5.0.20.25106"
+          }
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.3.23909"
           }
         }
       },
@@ -226,6 +244,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "BouncyCastle/1.8.6.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rkqpuKmJkdcfTMBkIj1b5nMdBAWKwAyh+I/BQYeqqSD2jkIlhwc9qBNKmSbnpmmm5c29qHZGLpvBSTNWvDLtQA==",
+      "path": "bouncycastle/1.8.6.1",
+      "hashPath": "bouncycastle.1.8.6.1.nupkg.sha512"
+    },
     "Microsoft.NETCore.Platforms/5.0.0-preview.4.20251.6": {
       "type": "package",
       "serviceable": true,
@@ -246,6 +271,13 @@
       "sha512": "sha512-VfvnHKb3ETkjKK/wQ2P/HZ4DxnQOfcD2zPNv9G+bgdSev3cW8S6ZFOi+JpEMjmXu37RlCAPzpEOnTjQLy/Jj+Q==",
       "path": "microsoft.win32.systemevents/5.0.0-preview.4.20251.6",
       "hashPath": "microsoft.win32.systemevents.5.0.0-preview.4.20251.6.nupkg.sha512"
+    },
+    "Newtonsoft.Json/12.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
     },
     "System.Configuration.ConfigurationManager/5.0.0-preview.4.20251.6": {
       "type": "package",

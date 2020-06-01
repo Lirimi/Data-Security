@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient;
 
 namespace ds
@@ -51,7 +50,7 @@ namespace ds
 
        
 
-        public byte[] GeneratePassword()
+        private byte[] GeneratePassword()
         {
             Console.Write("Jepni fjalekalimin: ");
             string password = Console.ReadLine();
@@ -69,7 +68,7 @@ namespace ds
             return Saltedpassword;
         }
 
-        private void ValidatePassword( string password )
+        private void ValidatePassword(string password)
         {
             const int MIN_LENGTH =  6 ;
             const int MAX_LENGTH = 15 ;
@@ -109,7 +108,7 @@ namespace ds
 
         }
 
-        static byte[] GenerateSaltedHash(byte[] plainText, byte[] salt)
+        private static byte[] GenerateSaltedHash(byte[] plainText, byte[] salt)
         {
             HashAlgorithm algorithm = new SHA256Managed();
 
@@ -127,7 +126,7 @@ namespace ds
             return algorithm.ComputeHash(plainTextWithSaltBytes);            
         }
 
-        private byte[] CreateSalt(int size)
+        private static byte[] CreateSalt(int size)
         {
             var rng = new RNGCryptoServiceProvider();
             var buff = new byte[size];
@@ -151,6 +150,7 @@ namespace ds
                 bool dbopen = DB.Open();
                 MySqlDataReader row;
                 row = DB.ExecuteReader(query);
+                Console.WriteLine("@Eshte krijuar shfrytezuesi " + user);
             }
             catch(Exception ex)
             {
