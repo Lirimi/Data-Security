@@ -373,7 +373,7 @@ namespace ds
                     }
                 }
                 /*----Args per Login-----*/
-                if (args[0].Equals("login"))
+                else if (args[0].Equals("login"))
                 {
                     try
                     {
