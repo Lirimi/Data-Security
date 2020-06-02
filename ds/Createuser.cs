@@ -63,7 +63,7 @@ namespace ds
             if (!String.Equals(password, repeatpassword)) 
                     throw new Exception("Gabim: Fjalekalimet nuk perputhen.");
 
-            byte[] salt = CreateSalt(10);
+            byte[] salt = Salt();
             byte[] Saltedpassword = GenerateSaltedHash(Encoding.UTF8.GetBytes(password), salt);
             return Saltedpassword;
         }
@@ -134,18 +134,23 @@ namespace ds
             return buff;
         }
 
-
+        private static byte[] Salt()
+        {
+            return CreateSalt(10);
+        }
 
         public void InsertIntoDB(string user)
         {
+            byte[] salt = Salt();
             byte[] pass = GeneratePassword();
+            String saltBytes = Convert.ToBase64String(salt);
             String password = Convert.ToBase64String(pass);
             
             try
             {
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 
-                String query = "INSERT INTO users VALUES" + "('" + user + "','" + password + "')";
+                String query = "INSERT INTO users VALUES" + "('" + user + "','" + password + "','" + saltBytes + "')";
                  
                 bool dbopen = DB.Open();
                 MySqlDataReader row;
