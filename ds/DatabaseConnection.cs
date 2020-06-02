@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using MySql.Data.MySqlClient;
 
 namespace ds
@@ -43,5 +44,22 @@ namespace ds
                 throw new Exception(ex.Message);
             }
         }
+
+        public DataSet DataSet(string sql)
+        {
+            DataSet DS = new DataSet();
+            var SqlCommnad = new MySqlCommand(sql, conn);
+            var DA = new MySqlDataAdapter(SqlCommnad);
+            try
+            {
+                DA.Fill(DS);
+                return DS;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }

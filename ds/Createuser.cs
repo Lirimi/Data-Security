@@ -50,7 +50,7 @@ namespace ds
 
        
 
-        private byte[] GeneratePassword()
+        private byte[] GeneratePassword(byte[] salt)
         {
             Console.Write("Jepni fjalekalimin: ");
             string password = Console.ReadLine();
@@ -63,8 +63,9 @@ namespace ds
             if (!String.Equals(password, repeatpassword)) 
                     throw new Exception("Gabim: Fjalekalimet nuk perputhen.");
 
-            byte[] salt = Salt();
+           
             byte[] Saltedpassword = GenerateSaltedHash(Encoding.UTF8.GetBytes(password), salt);
+            
             return Saltedpassword;
         }
 
@@ -142,7 +143,7 @@ namespace ds
         public void InsertIntoDB(string user)
         {
             byte[] salt = Salt();
-            byte[] pass = GeneratePassword();
+            byte[] pass = GeneratePassword(salt);
             String saltBytes = Convert.ToBase64String(salt);
             String password = Convert.ToBase64String(pass);
             
