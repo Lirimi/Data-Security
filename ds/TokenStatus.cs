@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
@@ -18,8 +19,10 @@ namespace ds
     {
         DatabaseConnection DB = new DatabaseConnection();
         static RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-
-        public void Status(String jwtInput)
+        private static string UserofJWT = "";
+        private static DateTime ExpiringDateofJWT;
+        private static string Validition = ""; 
+        public bool Status(String jwtInput)
         {
             var jwtHandler = new JwtSecurityTokenHandler();
 
@@ -44,12 +47,7 @@ namespace ds
             bool VerifySignature = Decode(jwtInput, username);
 
             string valid = "";
-
-
-            if (nameClaim != null)
-            {
-                Console.WriteLine("User: " + username);
-            }
+            bool isValid = false;
 
             DB.Open();
 
@@ -58,7 +56,7 @@ namespace ds
             DataSet ds;
             ds = DB.DataSet(query);
 
-            Console.Write("Valid: ");
+            
             DateTime issued = DateTime.Now;
             DateTime expire = DateTime.Parse(expireDate);
 
@@ -66,18 +64,25 @@ namespace ds
                 valid = "po";
             else 
                 valid = "jo";
+
+            if (valid.Equals("po"))
+                isValid = true;
             
-
-            Console.WriteLine(valid);
-
-            if (expireClaim != null)
-            {
-                Console.WriteLine("Skadimi: " + expire.ToString("dd/MM/yyyy HH:mm"));
-            }
+            UserofJWT = username;
+            ExpiringDateofJWT = expire;
+            Validition = valid;
 
             DB.Close();
+
+            return isValid;
         }
 
+        public void PasstheValue()
+        {
+            Console.WriteLine("User: " + UserofJWT);
+            Console.WriteLine("Valid: " + Validition);
+            Console.WriteLine("Skadimi: " + ExpiringDateofJWT.ToString("dd/MM/yyyy HH:mm"));
+        }
 
         public bool Decode(string token, string publickey, bool verify = true)
         {
