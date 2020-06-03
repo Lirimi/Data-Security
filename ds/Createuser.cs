@@ -48,21 +48,33 @@ namespace ds
             rsa.Clear();
         }
 
-       
-
         private byte[] GeneratePassword(byte[] salt)
         {
             Console.Write("Jepni fjalekalimin: ");
-            string password = Console.ReadLine();
-
-            ValidatePassword(password);
+            string password = null;
+            while (true)
+            {
+                var key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.Enter)
+                    break;
+                password += key.KeyChar;
+            }
             
-            Console.Write("Perserit fjalekalimin: ");
-            string repeatpassword = Console.ReadLine();
-
+            ValidatePassword(password);
+           
+            Console.Write("\nPerserit fjalekalimin: ");
+            string repeatpassword = null;
+            while (true)
+            {
+                var key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.Enter)
+                    break;
+                repeatpassword += key.KeyChar;
+            }
             if (!String.Equals(password, repeatpassword)) 
                     throw new Exception("Gabim: Fjalekalimet nuk perputhen.");
-
+            
+            Console.WriteLine();
            
             byte[] Saltedpassword = GenerateSaltedHash(Encoding.UTF8.GetBytes(password), salt);
             

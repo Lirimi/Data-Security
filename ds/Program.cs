@@ -380,7 +380,15 @@ namespace ds
                         
                         string username = args[1];
                         Console.Write("Jep passwordin: ");
-                        string password = Console.ReadLine();
+                        string password = null;
+                        while (true)
+                        {
+                            var key = Console.ReadKey(true);
+                            if (key.Key == ConsoleKey.Enter)
+                                break;
+                            password += key.KeyChar;
+                        }
+                        Console.WriteLine();
                         T.Login(username, password);
                       
                     }
