@@ -22,6 +22,7 @@ namespace ds
             EncryptMessage EM = new EncryptMessage();
             DecryptMessage DM = new DecryptMessage();
             Token T = new Token();
+            TokenStatus S = new TokenStatus();
             
             
 
@@ -400,15 +401,15 @@ namespace ds
                 /*----Args per status----*/
                 else if (args[0].Equals("status"))
                 {
-                    
-                   /*try
+                    try
                     {
-                        Console.WriteLine(T.StatusToken());
+                        String token = args[1];
+                        S.Status(token);
                     }
                     catch(Exception error)
                     {
                         throw new Exception(error.Message);
-                    }*/
+                    }
                 }
                 /*----Argument is wrong------*/
                 else
