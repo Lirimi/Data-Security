@@ -1,4 +1,5 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
@@ -8,7 +9,10 @@ namespace ds
 {
     public class EncryptMessage
     {
-        public void Encrypt(string userName, string message, [Optional, DefaultParameterValue(0)] object ToPath)
+        TokenStatus TS = new TokenStatus();
+
+        public void Encrypt(string userName, string message, [Optional, DefaultParameterValue(0)] object TokenorPath,
+            [Optional, DefaultParameterValue(0)] object ToPath)
         {
             byte[] iv = new byte[8];
             byte[] key = new byte[8];
@@ -18,28 +22,62 @@ namespace ds
             string ivToString = Convert.ToBase64String(iv);
             string encryptKey = EncryptKeyWithRSA(userName, key);
             byte[] encryptMessage = EncryptMessageWithDES(message, key, iv);
-            string signedData = SignData(encryptMessage, "keys//Jon.xml");
 
-            /*-----CIPHERTEXT-----*/
-            String encryptedtext = String.Format("{0}.{1}.{2}.{3}.{4}", encodeUserName, ivToString, encryptKey, 
-                Convert.ToBase64String(encryptMessage), signedData);
+            // Check if third parameter is a valid formatted JWT token
+            var jwtHandler = new JwtSecurityTokenHandler();
+            bool readableToken = jwtHandler.CanReadToken(TokenorPath.ToString());
+            
+            string encryptedtext = "";
 
-            if (ToPath.Equals(0))
+            if (!TokenorPath.Equals(0))
             {
-                Console.WriteLine(encryptedtext);
+               
+                if (readableToken)
+                {
+                    bool TokenisValid = TS.Status(TokenorPath.ToString());
+                    if (!TokenisValid)
+                        throw new Exception("Tokeni nuk eshte valid");
+                    string user = TS.UserofJWT;
+                    
+                    byte[] senderbytes = Encoding.UTF8.GetBytes(user);
+                    string signedData = SignData(encryptMessage, user);
+
+                    /*-----CIPHERTEXT-----*/
+                    encryptedtext = String.Format("{0}.{1}.{2}.{3}.{4}.{5}", encodeUserName, ivToString, encryptKey,
+                        Convert.ToBase64String(encryptMessage), Convert.ToBase64String(senderbytes), signedData);
+                    if (ToPath.Equals(0))
+                        Console.WriteLine(encryptedtext);
+                    else
+                    {
+                        File.WriteAllText(ToPath.ToString(), encryptedtext);
+                        Console.WriteLine("Mesazhi i enkriptuar u ruajt ne filen " + ToPath);
+                    }
+                }
+                else if (!readableToken && !ToPath.Equals(0))
+                    throw new Exception(
+                        "Invalid Arguments! Fourth Argument isn't a valid token hence it must be path already!");
+                else if (!readableToken)
+                {
+                    encryptedtext = String.Format("{0}.{1}.{2}.{3}", encodeUserName, ivToString, encryptKey,
+                        Convert.ToBase64String(encryptMessage));
+                    File.WriteAllText(TokenorPath.ToString(), encryptedtext);
+                    Console.WriteLine("Mesazhi i enkriptuar u ruajt ne filen " + TokenorPath);
+                }
             }
             else
             {
-                File.WriteAllText(ToPath.ToString(), encryptedtext);
+                encryptedtext = String.Format("{0}.{1}.{2}.{3}", encodeUserName, ivToString, encryptKey,
+                    Convert.ToBase64String(encryptMessage));
+                Console.WriteLine(encryptedtext);
             }
         }
 
         private void GenerateKeys(byte[] iv, byte[] key)
         {
             Random random = new Random();
+
             /*--- Gjenerojme nje mode iv ----*/
             random.NextBytes(iv);
-
 
             /*---Gjenerojme nje random key ----*/
             random.NextBytes(key);
@@ -47,6 +85,8 @@ namespace ds
 
         private string EncryptKeyWithRSA(string userName, byte[] key)
         {
+            if(!File.Exists("keys//" + userName + ".pub.xml")) 
+                throw new Exception("Celsi publik i marresit " + userName + " nuk ekziston!"); 
             /*----Krijojme nje RSA instance-------*/
             RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
 
@@ -60,7 +100,6 @@ namespace ds
 
             /*------Enkriptojme qelsin--------*/
             byte[] byteCiphertext = objRSA.Encrypt(key, true);
-
             return Convert.ToBase64String(byteCiphertext);
         }
 
@@ -92,12 +131,11 @@ namespace ds
 
             /*------ Largojme padding bllokun ------*/
             cs.FlushFinalBlock();
-            byte[] byteCiphertext = ms.ToArray();
 
+            byte[] byteCiphertext = ms.ToArray();
             return byteCiphertext;
         }
 
-        
 
         public static string SignData(byte[] message, string privateKey)
         {
@@ -113,7 +151,7 @@ namespace ds
                 {
                     //Get RSA private key of sender from path//
                     string RSAParameters = "";
-                    StreamReader sr = new StreamReader(privateKey);
+                    StreamReader sr = new StreamReader("keys//" + privateKey + ".xml");
                     RSAParameters = sr.ReadToEnd();
                     sr.Close();
                     rsa.FromXmlString(RSAParameters);

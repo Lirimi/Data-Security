@@ -19,18 +19,14 @@ namespace ds
     {
         DatabaseConnection DB = new DatabaseConnection();
         static RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-        private static string UserofJWT = "";
-        private static DateTime ExpiringDateofJWT;
-        private static string Validition = ""; 
+        public  string UserofJWT = "";
+        public  DateTime ExpiringDateofJWT;
+        public  string Validition = "";
+      
         public bool Status(String jwtInput)
         {
             var jwtHandler = new JwtSecurityTokenHandler();
 
-
-            //Check if it's readable token (string is in a JWT format)
-            var readableToken = jwtHandler.CanReadToken(jwtInput);
-
-            if (!readableToken) throw new Exception("Gabim: Vlera e dhene nuk eshte token valid.");
             var token = jwtHandler.ReadJwtToken(jwtInput);
 
             //Extract the payload of the JWT

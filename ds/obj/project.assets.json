@@ -2,22 +2,8 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "BouncyCastle/1.8.6.1": {
+      "BouncyCastle.NetCore/1.8.6": {
         "type": "package",
-        "compile": {
-          "lib/BouncyCastle.Crypto.dll": {}
-        },
-        "runtime": {
-          "lib/BouncyCastle.Crypto.dll": {}
-        }
-      },
-      "BouncyCastle.NetCore/1.8.3": {
-        "type": "package",
-        "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "System.Reflection": "4.3.0",
-          "System.Reflection.TypeExtensions": "4.1.0"
-        },
         "compile": {
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
         },
@@ -1796,27 +1782,14 @@
     }
   },
   "libraries": {
-    "BouncyCastle/1.8.6.1": {
-      "sha512": "rkqpuKmJkdcfTMBkIj1b5nMdBAWKwAyh+I/BQYeqqSD2jkIlhwc9qBNKmSbnpmmm5c29qHZGLpvBSTNWvDLtQA==",
+    "BouncyCastle.NetCore/1.8.6": {
+      "sha512": "l22IFT8GFYKxq+4yCl89yWVDCCRVHjXcDIHO3ufVPefaZxHrFgvecmbrlTZir9tXjPCxXXivhDJgcJFlmPLhqw==",
       "type": "package",
-      "path": "bouncycastle/1.8.6.1",
+      "path": "bouncycastle.netcore/1.8.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "README.md",
-        "bouncycastle.1.8.6.1.nupkg.sha512",
-        "bouncycastle.nuspec",
-        "lib/BouncyCastle.Crypto.dll"
-      ]
-    },
-    "BouncyCastle.NetCore/1.8.3": {
-      "sha512": "jAy3uHN1U9DpoT/TgLqDTEhlccn/4doOVxhSmmNsnoSsGfHT9Lwr634ac9D0YFujAhNw61nWF4UIpHyzv0aQww==",
-      "type": "package",
-      "path": "bouncycastle.netcore/1.8.3",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "bouncycastle.netcore.1.8.3.nupkg.sha512",
+        "bouncycastle.netcore.1.8.6.nupkg.sha512",
         "bouncycastle.netcore.nuspec",
         "lib/Mono/BouncyCastle.Crypto.dll",
         "lib/Mono/BouncyCastle.Crypto.xml",
@@ -1828,8 +1801,6 @@
         "lib/MonoTouch/BouncyCastle.Crypto.xml",
         "lib/net20/BouncyCastle.Crypto.dll",
         "lib/net20/BouncyCastle.Crypto.xml",
-        "lib/netstandard1.3/BouncyCastle.Crypto.dll",
-        "lib/netstandard1.3/BouncyCastle.Crypto.xml",
         "lib/netstandard2.0/BouncyCastle.Crypto.dll",
         "lib/netstandard2.0/BouncyCastle.Crypto.xml",
         "lib/xamarinios/BouncyCastle.Crypto.dll",
@@ -6396,7 +6367,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "BouncyCastle >= 1.8.6.1",
+      "BouncyCastle.NetCore >= 1.8.6",
       "JWT >= 7.2.1",
       "JsonWebTokens >= 1.3.0",
       "MySql.Data >= 8.0.20",
@@ -6440,9 +6411,9 @@
     "frameworks": {
       "netcoreapp3.1": {
         "dependencies": {
-          "BouncyCastle": {
+          "BouncyCastle.NetCore": {
             "target": "Package",
-            "version": "[1.8.6.1, )"
+            "version": "[1.8.6, )"
           },
           "JWT": {
             "target": "Package",
@@ -6487,17 +6458,5 @@
         "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/current/sdk/3.1.300/RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'BouncyCastle 1.8.6.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
-      "libraryId": "BouncyCastle",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    }
-  ]
+  }
 }

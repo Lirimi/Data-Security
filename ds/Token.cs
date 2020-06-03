@@ -110,7 +110,9 @@ namespace ds
                 {
                     var payloadOBJ = new {expire = DateTime.Now.AddMinutes(20), Name = username};
                     string payload = JsonConvert.SerializeObject(payloadOBJ);
-                    Console.WriteLine("Token: " + Sign(payload,username));
+                    String Token = Sign(payload, username);
+                    Console.WriteLine("Token: " + Token);
+                    Environment.SetEnvironmentVariable("token", Token, EnvironmentVariableTarget.User);
                 }
                 else
                     Console.WriteLine("Gabim: Fjalekalimi i gabuar.");

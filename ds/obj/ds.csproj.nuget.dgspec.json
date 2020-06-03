@@ -36,9 +36,9 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "BouncyCastle": {
+            "BouncyCastle.NetCore": {
               "target": "Package",
-              "version": "[1.8.6.1, )"
+              "version": "[1.8.6, )"
             },
             "JWT": {
               "target": "Package",

@@ -11,7 +11,6 @@ namespace ds
     {
         static void Main(string[] args)
         {
-
             Beale B = new Beale();
             Permutation P = new Permutation();
             Numerical N = new Numerical();
@@ -23,23 +22,29 @@ namespace ds
             DecryptMessage DM = new DecryptMessage();
             Token T = new Token();
             TokenStatus S = new TokenStatus();
-            
-            
+
 
             try
             {
-                if (args.Length <= 1 || args.Length > 4)
+                if (args.Length <= 1 || args.Length > 5)
                 {
                     Console.WriteLine("\n@Argumentet Mungojne / Numri i argumenteve jo i lejuar!");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit Beale shtyp | ds Beale Encrypt <text> | ose | ds Beale Decrypt <text> |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit Permutation shtyp | ds Permutation Encrypt <key><text> | ose | ds Permutation Decrypt <key><text> |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit Numerical shtyp | ds Numerical Encode <text> | ose | ds Numerical Decode <text> |");
+                    Console.WriteLine(
+                        "\n@Per ekzekutimin e funksionit Beale shtyp | ds Beale Encrypt <text> | ose | ds Beale Decrypt <text> |");
+                    Console.WriteLine(
+                        "\n@Per ekzekutimin e funksionit Permutation shtyp | ds Permutation Encrypt <key><text> | ose | ds Permutation Decrypt <key><text> |");
+                    Console.WriteLine(
+                        "\n@Per ekzekutimin e funksionit Numerical shtyp | ds Numerical Encode <text> | ose | ds Numerical Decode <text> |");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit CreateUser shtyp | ds create-user <name> |");
                     Console.WriteLine("\n@Per ekzekutimin e funksionit DeleteUser shtyp | ds delete-user <name> |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit ExportKey shtyp | ds export-key <public | private> <name> [file] |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit ImportKey shtyp | ds import-key <name> <path> |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit EncryptMessage shtyp | ds write-message <name> <message> [file] |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit DecryptMessage shtyp | ds read-message <encrypted-message> |");
+                    Console.WriteLine(
+                        "\n@Per ekzekutimin e funksionit ExportKey shtyp | ds export-key <public | private> <name> [file] |");
+                    Console.WriteLine(
+                        "\n@Per ekzekutimin e funksionit ImportKey shtyp | ds import-key <name> <path> |");
+                    Console.WriteLine(
+                        "\n@Per ekzekutimin e funksionit EncryptMessage shtyp | ds write-message <name> <message> [file] |");
+                    Console.WriteLine(
+                        "\n@Per ekzekutimin e funksionit DecryptMessage shtyp | ds read-message <encrypted-message> |");
                     Environment.Exit(1);
                 }
 
@@ -48,7 +53,6 @@ namespace ds
                 {
                     if (args[1].Equals("Encode"))
                     {
-
                         String text = args[2];
                         if (Regex.IsMatch(text, "^[a-z ]+$"))
                         {
@@ -57,8 +61,8 @@ namespace ds
                         }
                         else
                         {
-                            Console.Write("\n@Argumenti i fundit lejohet te permbaje vetem shkronja te vogla sipas alfabetit anglez prej a-z!");
-
+                            Console.Write(
+                                "\n@Argumenti i fundit lejohet te permbaje vetem shkronja te vogla sipas alfabetit anglez prej a-z!");
                         }
                     }
                     else if (args[1].Equals("Decode"))
@@ -73,7 +77,6 @@ namespace ds
                         {
                             Console.Write("\n@Argumenti i fundit lejohet te permbaje vetem numra 0-9!");
                         }
-
                     }
                     else
                     {
@@ -81,31 +84,27 @@ namespace ds
                         Environment.Exit(1);
                     }
                 }
-
-
-
                 /*---------------Args per Permutation-----------------*/
                 else if (args[0].Equals("Permutation"))
                 {
                     if (args[1].Equals("Encrypt"))
                     {
-
                         String key = args[2];
                         String text = args[3];
                         if (Regex.IsMatch(key, "^[1-4]+$") && key.Length == 4)
                         {
                             Console.WriteLine();
                             P.Encrypt(key, text);
-
                         }
                         else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4)
                         {
-                            Console.WriteLine("\n@Key is either too long or too short (Make sure its 4 charecters only!");
+                            Console.WriteLine(
+                                "\n@Key is either too long or too short (Make sure its 4 charecters only!");
                         }
                         else
                         {
-
-                            throw new Exception("\n@Keep in mind that the first argument allows only numbers from 1-4!");
+                            throw new Exception(
+                                "\n@Keep in mind that the first argument allows only numbers from 1-4!");
                         }
                     }
                     else if (args[1].Equals("Decrypt"))
@@ -119,22 +118,22 @@ namespace ds
                         }
                         else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4)
                         {
-                            Console.WriteLine("\n@Key is either too long or too short (Make sure its 4 charecters only!");
+                            Console.WriteLine(
+                                "\n@Key is either too long or too short (Make sure its 4 charecters only!");
                         }
                         else
                         {
-
-                            throw new Exception("\n@Keep in mind that the first argument allows only numbers from 1-4!");
+                            throw new Exception(
+                                "\n@Keep in mind that the first argument allows only numbers from 1-4!");
                         }
                     }
                     else
                     {
-                        Console.Write("\n@E R R O R  ! Make sure you passed the argument right | Encrypt | or | Decrypt |!");
+                        Console.Write(
+                            "\n@E R R O R  ! Make sure you passed the argument right | Encrypt | or | Decrypt |!");
                         Environment.Exit(1);
                     }
-
                 }
-
                 /*---------------Args per Beale-----------------*/
                 else if (args[0].Equals("Beale"))
                 {
@@ -149,9 +148,9 @@ namespace ds
                         }
                         else
                         {
-                            Console.WriteLine("\n@Argumenti i fundit duhet te permbaje tekst a-z ose A-Z ne varesi nga teksti");
+                            Console.WriteLine(
+                                "\n@Argumenti i fundit duhet te permbaje tekst a-z ose A-Z ne varesi nga teksti");
                         }
-
                     }
                     else if (args[1].Equals("Decrypt"))
                     {
@@ -190,9 +189,6 @@ namespace ds
 
                         if (!(privateKeyExist || publicKeyExist))
                         {
-                           
-                           
-                            
                             C.InsertIntoDB(text);
                             //Perdorimi i funksionit GenerateRsaKey per te krijuar qelesat privat dhe public me madhesi 1024(sipas deshires)
                             C.GenerateRsaKey(privateKeyfilePath, publicKeyfilePath, 1024);
@@ -207,7 +203,8 @@ namespace ds
                     }
                     else
                     {
-                        Console.WriteLine("@Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
+                        Console.WriteLine(
+                            "@Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
                         Environment.Exit(1);
                     }
                 }
@@ -230,7 +227,7 @@ namespace ds
                             //Perdorimi i funksionit DeleteRsaKey per te fshire qelesat privat dhe public me madhesi 1024(sipas deshires)
                             D.DeletefromDB(text);
                             D.DeleteRsaKey(privateKeyfilePath, publicKeyfilePath, 1024);
-                            
+
                             //Trego qe u fshin qelsat
                             Console.WriteLine("@Eshte larguar celesi privat " + "'keys//" + text + ".xml'");
                             Console.WriteLine("@Eshte larguar celesi publik " + "'keys//" + text + ".pub.xml'");
@@ -244,16 +241,15 @@ namespace ds
                         else
                         {
                             Console.WriteLine("@Celesi '" + args[1] + "' nuk ekziston.");
-                            
                         }
                     }
                     else
                     {
-                        Console.WriteLine("@Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
+                        Console.WriteLine(
+                            "@Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
                         Environment.Exit(1);
                     }
                 }
-                
                 /*-----args per export-key--------------*/
                 else if (args[0].Equals("export-key"))
                 {
@@ -306,7 +302,6 @@ namespace ds
                         Environment.Exit(1);
                     }
                 }
-                
                 /*--------args per import key-----------*/
                 else if (args[0].Equals("import-key"))
                 {
@@ -316,9 +311,7 @@ namespace ds
                     {
                         try
                         {
-
                             I.Import(import, frompath);
-
                         }
                         catch
                         {
@@ -327,33 +320,33 @@ namespace ds
                     }
                     else
                     {
-                        Console.WriteLine("@Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
+                        Console.WriteLine(
+                            "@Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
                         Environment.Exit(1);
                     }
                 }
-
                 /*----Args per Encryption-----*/
                 else if (args[0].Equals("write-message"))
                 {
                     string userName = args[1];
                     string message = args[2];
-                    
-                    try
+
+
+                    if (args.Length == 3)
                     {
-                        if (args.Length == 3)
-                        {
-                            EM.Encrypt(userName, message);
-                        }
-                        else if (args.Length == 4)
-                        {
-                            string SaveToPath = args[3];
-                            EM.Encrypt(userName, message, SaveToPath);
-                            Console.WriteLine("Mesazhi i enkriptuar u ruajt ne filen " + SaveToPath);
-                        }
+                        EM.Encrypt(userName, message);
                     }
-                    catch
+                    else if (args.Length == 4)
                     {
-                        throw new Exception("Celsi publik " + userName + " nuk ekziston!");
+                        object TokenorPath = args[3];
+                        EM.Encrypt(userName, message, TokenorPath.ToString());
+                    }
+                    else if (args.Length == 5)
+                    {
+                        object TokenorPath = args[3];
+                        string Path = args[4];
+                        EM.Encrypt(userName, message, TokenorPath, Path);
+                        
                     }
                 }
                 /*-----Args per Decryption----*/
@@ -370,6 +363,7 @@ namespace ds
                         {
                             throw new Exception("@Mesazhi i dhene nuk paraqet cipher ose path valid! ");
                         }
+
                         Console.WriteLine(exception.Message);
                     }
                 }
@@ -378,7 +372,6 @@ namespace ds
                 {
                     try
                     {
-                        
                         string username = args[1];
                         Console.Write("Jep passwordin: ");
                         string password = null;
@@ -389,11 +382,11 @@ namespace ds
                                 break;
                             password += key.KeyChar;
                         }
+
                         Console.WriteLine();
                         T.Login(username, password);
-                      
                     }
-                    catch(Exception error)
+                    catch (Exception error)
                     {
                         throw new Exception(error.Message);
                     }
@@ -407,9 +400,9 @@ namespace ds
                         S.Status(token);
                         S.PasstheValue();
                     }
-                    catch(Exception error)
+                    catch
                     {
-                        throw new Exception(error.Message);
+                        throw new Exception("Gabim: Vlera e dhene nuk eshte token valid.");
                     }
                 }
                 /*----Argument is wrong------*/
@@ -425,10 +418,7 @@ namespace ds
                 Console.WriteLine(error.Message);
             }
         }
+
         /*--------------------------------------------------------------------------*/
-        
     }
-
 }
-
-
