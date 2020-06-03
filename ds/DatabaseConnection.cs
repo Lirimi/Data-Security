@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using Microsoft.Win32.SafeHandles;
 using MySql.Data.MySqlClient;
 
 namespace ds
@@ -58,6 +59,19 @@ namespace ds
             catch(Exception ex)
             {
                 throw new Exception(ex.Message);
+            }
+        }
+
+        public bool Close()
+        {
+            try
+            {
+                conn.Close();
+                return true;
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
             }
         }
 

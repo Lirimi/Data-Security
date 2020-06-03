@@ -19,7 +19,7 @@ namespace ds
         DatabaseConnection DB = new DatabaseConnection();
         static RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
 
-        private string Sign(string privateKey)
+        private string Sign(string payload,string privateKey)
         {
             List<string> segments = new List<string>();
 
@@ -28,12 +28,13 @@ namespace ds
             DateTime issued = DateTime.Now;
             DateTime expire = DateTime.Now.AddMinutes(20);
 
+
             byte[] headerBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(header, Formatting.None));
-            //byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
+            byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
 
-            segments.Add(Base64UrlEncode(headerBytes));
-            //segments.Add(Base64UrlEncode(payloadBytes));
-
+            segments.Add(Base64UrlEncode(headerBytes)); 
+            segments.Add(Base64UrlEncode(payloadBytes));
+            
             string stringToSign = string.Join(".", segments.ToArray());
 
             byte[] bytesToSign = Encoding.UTF8.GetBytes(stringToSign);
@@ -107,7 +108,9 @@ namespace ds
 
                 if (dbPassword.Equals(SaltedHashPassword))
                 {
-                    Console.WriteLine("Token: " + Sign(username));
+                    var payloadOBJ = new {expire = DateTime.Now.AddMinutes(20), Name = username};
+                    string payload = JsonConvert.SerializeObject(payloadOBJ);
+                    Console.WriteLine("Token: " + Sign(payload,username));
                 }
                 else
                     Console.WriteLine("Gabim: Fjalekalimi i gabuar.");
@@ -116,6 +119,8 @@ namespace ds
             {
                 Console.WriteLine("Shfrytezuesi nuk ekziston!");
             }
+
+            DB.Close();
         }
 
         private static byte[] Base64UrlDecode(string input)

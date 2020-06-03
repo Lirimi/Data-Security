@@ -37,6 +37,19 @@
           "lib/netstandard1.0/Google.Protobuf.dll": {}
         }
       },
+      "JsonWebTokens/1.3.0": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.3/JsonWebTokens.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/JsonWebTokens.dll": {}
+        }
+      },
       "K4os.Compression.LZ4/1.1.11": {
         "type": "package",
         "dependencies": {
@@ -1809,6 +1822,21 @@
         "lib/net45/Google.Protobuf.xml",
         "lib/netstandard1.0/Google.Protobuf.dll",
         "lib/netstandard1.0/Google.Protobuf.xml"
+      ]
+    },
+    "JsonWebTokens/1.3.0": {
+      "sha512": "jeXWWvAgl5UOu40S4g69KeTn4QlWMBc7RiHke/4XI+x9cyb670C3BNXZaPPUxKOlq99ZiVaxizvAbEtK5DGYlg==",
+      "type": "package",
+      "path": "jsonwebtokens/1.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "jsonwebtokens.1.3.0.nupkg.sha512",
+        "jsonwebtokens.nuspec",
+        "lib/net451/JsonWebTokens.dll",
+        "lib/net451/JsonWebTokens.xml",
+        "lib/netstandard1.3/JsonWebTokens.dll",
+        "lib/netstandard1.3/JsonWebTokens.xml"
       ]
     },
     "K4os.Compression.LZ4/1.1.11": {
@@ -6158,6 +6186,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "BouncyCastle >= 1.8.6.1",
+      "JsonWebTokens >= 1.3.0",
       "MySql.Data >= 8.0.20",
       "Newtonsoft.Json >= 12.0.3",
       "System.Diagnostics.PerformanceCounter >= 5.0.0-preview.4.20251.6"
@@ -6201,6 +6230,10 @@
           "BouncyCastle": {
             "target": "Package",
             "version": "[1.8.6.1, )"
+          },
+          "JsonWebTokens": {
+            "target": "Package",
+            "version": "[1.3.0, )"
           },
           "MySql.Data": {
             "target": "Package",

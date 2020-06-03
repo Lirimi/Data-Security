@@ -1,8 +1,8 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-
-
+using Jwt;
+using Org.BouncyCastle.Crypto.Macs;
 
 
 namespace ds
@@ -377,6 +377,7 @@ namespace ds
                 {
                     try
                     {
+                        
                         string username = args[1];
                         Console.Write("Jep passwordin: ");
                         string password = Console.ReadLine();
@@ -387,6 +388,19 @@ namespace ds
                     {
                         throw new Exception(error.Message);
                     }
+                }
+                /*----Args per status----*/
+                else if (args[0].Equals("status"))
+                {
+                    
+                   /*try
+                    {
+                        Console.WriteLine(T.StatusToken());
+                    }
+                    catch(Exception error)
+                    {
+                        throw new Exception(error.Message);
+                    }*/
                 }
                 /*----Argument is wrong------*/
                 else

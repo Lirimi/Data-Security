@@ -152,11 +152,12 @@ namespace ds
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 
                 String query = "INSERT INTO users VALUES" + "('" + user + "','" + password + "','" + saltBytes + "')";
-                 
-                bool dbopen = DB.Open();
+                
+                DB.Open();
                 MySqlDataReader row;
                 row = DB.ExecuteReader(query);
                 Console.WriteLine("@Eshte krijuar shfrytezuesi " + user);
+                DB.Close();
             }
             catch(Exception ex)
             {

@@ -103,3 +103,4 @@ C:/Users/jon_h/Desktop/Literatura dhe Afate FIEK/ds/ds/obj/Debug/netcoreapp3.1/d
 /home/lirix/Documents/GitHub/ds/ds/bin/Debug/netcoreapp3.1/Renci.SshNet.dll
 /home/lirix/Documents/GitHub/ds/ds/bin/Debug/netcoreapp3.1/SshNet.Security.Cryptography.dll
 /home/lirix/Documents/GitHub/ds/ds/bin/Debug/netcoreapp3.1/System.Xml.XPath.XmlDocument.dll
+/home/lirix/Documents/GitHub/ds/ds/bin/Debug/netcoreapp3.1/JsonWebTokens.dll

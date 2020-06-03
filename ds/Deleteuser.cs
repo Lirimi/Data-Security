@@ -30,10 +30,11 @@ namespace ds
                 
                 String query = "DELETE FROM users WHERE USER=" + "'" + user + "';";  
                  
-                bool dbopen = DB.Open();
+                DB.Open();
                 MySqlDataReader row;
                 row = DB.ExecuteReader(query);
                 Console.WriteLine("@Eshte fshire shfrytezuesi " + user);
+                DB.Close();
             }
             catch(Exception ex)
             {
