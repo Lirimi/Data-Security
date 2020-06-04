@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
+using Mysqlx.Datatypes;
 
 
 namespace ds
@@ -22,18 +23,26 @@ namespace ds
                 string encryptedCipher = File.ReadAllText(@ciphertext);
                 ciphertextSplit = encryptedCipher.Split('.');
             }
-            
+
+            int isSigned = DetectCipher(ciphertextSplit);
+
             /*----- Incializojme strings nga String Array ----*/
+           
             string username = ciphertextSplit[0];
             string iv = ciphertextSplit[1];
             string key = ciphertextSplit[2];
             string encryptedMessage = ciphertextSplit[3];
-            
+
             string user = DecodeUserName(username);
             byte[] DecryptetKey = DecryptKeywithRSA(username, key);
             String DecryptedText = DecryptCipher(encryptedMessage, iv, DecryptetKey);
             Console.WriteLine("Marresi: " + user);
             Console.WriteLine("Mesazhi: " + DecryptedText);
+            
+            if (isSigned == 6)
+            {
+                GetRSASigned(encryptedMessage,ciphertextSplit);
+            }
         }
 
         private string DecodeUserName(string username)
@@ -117,6 +126,89 @@ namespace ds
             return Encoding.UTF8.GetString(byteDecrypted);
 
         }
+        
+        
+        private int DetectCipher(string[] arr)
+        {
+            int res = arr.Length;
+
+            foreach (string item in arr)
+            {
+                if (String.IsNullOrEmpty(item))
+                {
+                    res -= 1;
+                }
+            }
+
+            return res;
+        }
+
+        private void GetRSASigned(string DESMessage,string[] ciphertext)
+        {
+            string SenderName = ciphertext[4];
+            string pbkeyofSender = DecodeSenderName(SenderName);
+            Console.WriteLine("Derguesi: " + pbkeyofSender);
+            string Sign = ciphertext[5];
+            bool VerifywithRsa = VerifyData(DESMessage, Sign, pbkeyofSender);
+            if (VerifywithRsa)
+            {
+                Console.WriteLine(" valid");
+            }
+            else
+            {
+                Console.WriteLine(" jovalid");   
+            }
+        }
+
+        private string DecodeSenderName(string senderName)
+        {
+            /*-----Gets Bytes from String------*/
+            byte[] GetSenderNameBytes = Convert.FromBase64String(senderName);
+
+            /*-----Encode String from byte array----*/
+            string GetSenderName = Encoding.UTF8.GetString(GetSenderNameBytes);
+
+            return GetSenderName;
+        }
+
+
+        private static bool VerifyData(string originalMessage, string signedMessage, string publicKeyUser)
+        {
+            bool success = false;
+            using (var rsa = new RSACryptoServiceProvider())
+            {
+                byte[] bytesToVerify = Convert.FromBase64String(originalMessage);
+                byte[] signedBytes = Convert.FromBase64String(signedMessage);
+                try
+                {
+                    
+                    //Get RSA public key of sender from path//
+                    string RSAParameters = "";
+                    StreamReader sr = new StreamReader("keys//" + publicKeyUser + ".pub.xml");
+                    RSAParameters = sr.ReadToEnd();
+                    sr.Close();
+                    rsa.FromXmlString(RSAParameters);
+
+                    SHA512Managed Hash = new SHA512Managed();
+
+                    byte[] hashedData = Hash.ComputeHash(signedBytes);
+                   
+                    success = rsa.VerifyData(bytesToVerify, CryptoConfig.MapNameToOID("SHA512"), signedBytes);
+                    Console.Write("Nenshkrimi:");
+                }
+                catch (FileNotFoundException)
+                {
+                    Console.Write("Nenshkrimi: mungon celsi publik " + publicKeyUser + ",");
+                    
+                }
+                finally
+                {
+                    rsa.PersistKeyInCsp = false;
+                }
+            }
+            return success;
+        }
+        
 
     }
 }
