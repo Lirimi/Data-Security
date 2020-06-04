@@ -144,9 +144,6 @@ namespace ds
             using (var rsa = new RSACryptoServiceProvider())
             {
                 //// Write the message to a byte array using UTF8 as the encoding.
-                var encoder = new UTF8Encoding();
-                //byte[] originalData = encoder.GetBytes(message);
-
                 try
                 {
                     //Get RSA private key of sender from path//

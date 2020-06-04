@@ -33,12 +33,14 @@ namespace ds
             var claims = token.Claims;
 
             var expireClaim = claims.FirstOrDefault(x =>
-                x.Type.ToString().Equals("expire", StringComparison.InvariantCultureIgnoreCase));
+                x.Type.ToString().Equals("exp", StringComparison.InvariantCultureIgnoreCase));
             var nameClaim = claims.FirstOrDefault(x =>
-                x.Type.ToString().Equals("Name", StringComparison.InvariantCultureIgnoreCase));
+                x.Type.ToString().Equals("sub", StringComparison.InvariantCultureIgnoreCase));
 
             var username = nameClaim.Value;
-            var expireDate = expireClaim.Value;
+            var expireDateJWT = Int32.Parse(expireClaim.Value);
+
+            ExpiringDateofJWT = UnixTimeStampToDateTime(expireDateJWT);
 
             bool VerifySignature = Decode(jwtInput, username);
 
@@ -53,10 +55,10 @@ namespace ds
             ds = DB.DataSet(query);
 
             
-            DateTime issued = DateTime.Now;
-            DateTime expire = DateTime.Parse(expireDate);
+            DateTime issued = DateTime.UtcNow;
+           
 
-            if (issued < expire && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && VerifySignature)
+            if (issued < ExpiringDateofJWT && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && VerifySignature)
                 valid = "po";
             else 
                 valid = "jo";
@@ -65,7 +67,6 @@ namespace ds
                 isValid = true;
             
             UserofJWT = username;
-            ExpiringDateofJWT = expire;
             Validition = valid;
 
             DB.Close();
@@ -77,7 +78,16 @@ namespace ds
         {
             Console.WriteLine("User: " + UserofJWT);
             Console.WriteLine("Valid: " + Validition);
-            Console.WriteLine("Skadimi: " + ExpiringDateofJWT.ToString("dd/MM/yyyy HH:mm"));
+            Console.WriteLine("Skadimi: " + ExpiringDateofJWT.ToLocalTime().ToString("dd/MM/yyyy HH:mm"));
+        }
+        
+        
+        public static DateTime UnixTimeStampToDateTime( Int32 unixTimeStamp )
+        {
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970,1,1,0,0,0,0,System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds( unixTimeStamp ).ToUniversalTime();
+            return dtDateTime;
         }
 
         public bool Decode(string token, string publickey, bool verify = true)

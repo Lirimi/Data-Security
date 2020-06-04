@@ -25,10 +25,6 @@ namespace ds
 
             var header = new {alg = "RS256", typ = "JWT"};
 
-            DateTime issued = DateTime.Now;
-            DateTime expire = DateTime.Now.AddMinutes(20);
-
-
             byte[] headerBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(header, Formatting.None));
             byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
 
@@ -108,9 +104,11 @@ namespace ds
 
                 if (dbPassword.Equals(SaltedHashPassword))
                 {
-                    var payloadOBJ = new {expire = DateTime.Now.AddMinutes(20), Name = username};
+                    Int32 expire = (Int32)(DateTime.UtcNow.AddMinutes(20).Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                    var payloadOBJ = new {exp = expire, sub = username};
                     string payload = JsonConvert.SerializeObject(payloadOBJ);
                     String Token = Sign(payload, username);
+                    Console.WriteLine(expire);
                     Console.WriteLine("Token: " + Token);
                     Environment.SetEnvironmentVariable("token", Token, EnvironmentVariableTarget.User);
                 }
