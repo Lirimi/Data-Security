@@ -1,0 +1,10 @@
+Header:
+{
+  "alg": "RS256",
+  "typ": "JWT"
+}
+Payload:
+{
+  "exp": "1591376689",
+  "sub": "Jon"
+}
