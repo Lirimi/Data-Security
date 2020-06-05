@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using MySql.Data.MySqlClient;
@@ -9,6 +11,7 @@ using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.Pkcs;
 
@@ -67,6 +70,47 @@ namespace ds
             return output;
         }
 
+
+        private void JWTinJSON(string username, string txtJwtIn)
+        {
+            var jwtHandler = new JwtSecurityTokenHandler();
+            var jwtInput = txtJwtIn;
+
+            //Check if readable token (string is in a JWT format)
+            var readableToken = jwtHandler.CanReadToken(jwtInput);
+
+            if(readableToken != true)
+            {
+                Console.WriteLine("The token doesn't seem to be in a proper JWT format.");
+            }
+            if(readableToken == true)
+            {
+                var token = jwtHandler.ReadJwtToken(jwtInput);
+                string JWTout = "";
+                //Extract the headers of the JWT
+                var headers = token.Header;
+                var jwtHeader = "{";
+                foreach(var h in headers)
+                {
+                    jwtHeader += '"' + h.Key + "\":\"" + h.Value + "\",";
+                }
+                jwtHeader += "}";
+                JWTout = "Header:\r\n" + JToken.Parse(jwtHeader).ToString(Formatting.Indented);
+
+                //Extract the payload of the JWT
+                var claims = token.Claims;
+                var jwtPayload = "{";
+                foreach(Claim c in claims)
+                {
+                    jwtPayload += '"' + c.Type + "\":\"" + c.Value + "\",";
+                }
+                jwtPayload += "}";
+                JWTout += "\r\nPayload:\r\n" + JToken.Parse(jwtPayload).ToString(Formatting.Indented);  
+                File.WriteAllText("JWT//" + username + "'s JWT.json", JWTout);
+            }
+            
+        }
+
         public void Login(string username, string password)
         {
             DB.Open();
@@ -108,7 +152,7 @@ namespace ds
                     var payloadOBJ = new {exp = expire, sub = username};
                     string payload = JsonConvert.SerializeObject(payloadOBJ);
                     String Token = Sign(payload, username);
-                    Console.WriteLine(expire);
+                    JWTinJSON(username,Token);
                     Console.WriteLine("Token: " + Token);
                     Environment.SetEnvironmentVariable("token", Token, EnvironmentVariableTarget.User);
                 }
