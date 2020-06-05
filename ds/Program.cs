@@ -42,9 +42,11 @@ namespace ds
                     Console.WriteLine(
                         "\n@Per ekzekutimin e funksionit ImportKey shtyp | ds import-key <name> <path> |");
                     Console.WriteLine(
-                        "\n@Per ekzekutimin e funksionit EncryptMessage shtyp | ds write-message <name> <message> [file] |");
+                        "\n@Per ekzekutimin e funksionit EncryptMessage shtyp | ds write-message <name> <message> [token | file] [file] |");
                     Console.WriteLine(
                         "\n@Per ekzekutimin e funksionit DecryptMessage shtyp | ds read-message <encrypted-message> |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit login shtyp | ds login <name> |");
+                    Console.WriteLine("\n@Per ekzekutimin e funksionit status shtyp | ds status <token> |");
                     Environment.Exit(1);
                 }
 
@@ -346,7 +348,6 @@ namespace ds
                         object TokenorPath = args[3];
                         string Path = args[4];
                         EM.Encrypt(userName, message, TokenorPath, Path);
-                        
                     }
                 }
                 /*-----Args per Decryption----*/
