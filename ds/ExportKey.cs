@@ -6,12 +6,10 @@ using System.Security.Cryptography;
 
 namespace ds
 {
-  
     public class ExportKey
     {
         public void PublicKey(string userKey, [Optional, DefaultParameterValue(0)] object ToPath)
         {
-
             RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
 
             String RSAParameters = "";

@@ -10,12 +10,13 @@ namespace ds
     public class Deleteuser
     {
         DatabaseConnection DB = new DatabaseConnection();
+
         public void DeleteRsaKey(string privateKeyPath, string publicKeyPath, int size)
         {
             File.Delete(privateKeyPath);
             File.Delete(publicKeyPath);
         }
-        
+
         public void DeleteRsaKey(string publicKeyPath, int size)
         {
             File.Delete(publicKeyPath);
@@ -23,27 +24,22 @@ namespace ds
 
         public void DeletefromDB(string user)
         {
-           
             try
             {
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                
-                String query = "DELETE FROM users WHERE USER=" + "'" + user + "';";  
-                 
+
+                String query = "DELETE FROM users WHERE USER=" + "'" + user + "';";
+
                 DB.Open();
                 MySqlDataReader row;
                 row = DB.ExecuteReader(query);
-                Console.WriteLine("@Eshte fshire shfrytezuesi " + user);
+                Console.WriteLine("Eshte fshire shfrytezuesi " + user);
                 DB.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-
         }
-
-
-
     }
 }

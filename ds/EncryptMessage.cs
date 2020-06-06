@@ -26,19 +26,18 @@ namespace ds
             // Check if third parameter is a valid formatted JWT token
             var jwtHandler = new JwtSecurityTokenHandler();
             bool readableToken = jwtHandler.CanReadToken(TokenorPath.ToString());
-            
+
             string encryptedtext = "";
 
             if (!TokenorPath.Equals(0))
             {
-               
                 if (readableToken)
                 {
                     bool TokenisValid = TS.Status(TokenorPath.ToString());
                     if (!TokenisValid)
                         throw new Exception("Tokeni nuk eshte valid");
                     string user = TS.UserofJWT;
-                    
+
                     byte[] senderbytes = Encoding.UTF8.GetBytes(user);
                     string signedData = SignData(encryptMessage, user);
 
@@ -85,8 +84,8 @@ namespace ds
 
         private string EncryptKeyWithRSA(string userName, byte[] key)
         {
-            if(!File.Exists("keys//" + userName + ".pub.xml")) 
-                throw new Exception("Celsi publik i marresit " + userName + " nuk ekziston!"); 
+            if (!File.Exists("keys//" + userName + ".pub.xml"))
+                throw new Exception("Celsi publik i marresit " + userName + " nuk ekziston!");
             /*----Krijojme nje RSA instance-------*/
             RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
 
@@ -137,13 +136,12 @@ namespace ds
         }
 
 
-        public static string SignData(byte[] message, string privateKey)
+        /* ---- Nenshkruaj mesazhin me qelesin privat te derguesit ---- */
+        private static string SignData(byte[] message, string privateKey)
         {
-            //// The array to store the signed message in bytes
             byte[] signedBytes;
             using (var rsa = new RSACryptoServiceProvider())
             {
-                //// Write the message to a byte array using UTF8 as the encoding.
                 try
                 {
                     //Get RSA private key of sender from path//
@@ -153,13 +151,7 @@ namespace ds
                     sr.Close();
                     rsa.FromXmlString(RSAParameters);
 
-                    //// Import the private key used for signing the message
-                    RSAParameters exportPrivateParameters = rsa.ExportParameters(true);
-                    RSACryptoServiceProvider rsa2 = new RSACryptoServiceProvider();
-                    rsa2.ImportParameters(exportPrivateParameters);
-
-
-                    //// Sign the data, using SHA512 as the hashing algorithm 
+                    /* --- Sign the data, using SHA512 as the hashing algorithm  --- */
                     signedBytes = rsa.SignData(message, CryptoConfig.MapNameToOID("SHA512"));
                 }
                 catch (CryptographicException e)
@@ -169,7 +161,7 @@ namespace ds
                 }
                 finally
                 {
-                    //// Set the keycontainer to be cleared when rsa is garbage collected.
+                    //// Set the key container to be cleared when rsa is garbage collected.
                     rsa.PersistKeyInCsp = false;
                 }
             }

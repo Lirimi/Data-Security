@@ -37,8 +37,8 @@ namespace ds
             string stringToSign = string.Join(".", segments.ToArray());
 
             byte[] bytesToSign = Encoding.UTF8.GetBytes(stringToSign);
-
-            //byte[] keyBytes = Convert.FromBase64String(privateKey);
+            
+            /* --- Sign JWT with private key --- */
             String RSAParameters = "";
             string path = "keys//" + privateKey + ".xml";
             StreamReader sr = new StreamReader(path);
@@ -61,6 +61,7 @@ namespace ds
             return string.Join(".", segments.ToArray());
         }
 
+        /* --- HELPER FUNCTION --- */
         private static string Base64UrlEncode(byte[] input)
         {
             var output = Convert.ToBase64String(input);
@@ -69,8 +70,9 @@ namespace ds
             output = output.Replace('/', '_'); // 63rd char of encoding
             return output;
         }
+        
 
-
+        /* --- Decode the encoded segment in it's JWT format .json(Save it in a file)(Not required) --- */ 
         private void JWTinJSON(string username, string txtJwtIn)
         {
             var jwtHandler = new JwtSecurityTokenHandler();
@@ -110,7 +112,8 @@ namespace ds
             }
             
         }
-
+        
+        /* --- User Login --- */
         public void Login(string username, string password)
         {
             DB.Open();

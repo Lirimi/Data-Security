@@ -1,13 +1,11 @@
 using System;
 using System.Data;
-using System.Diagnostics.CodeAnalysis;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json.Linq;
-using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
@@ -20,8 +18,8 @@ namespace ds
         DatabaseConnection DB = new DatabaseConnection();
         static RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
         public  string UserofJWT = "";
-        public  DateTime ExpiringDateofJWT;
-        public  string Validition = "";
+        private  DateTime ExpiringDateofJWT;
+        private  string Validition = "";
       
         public bool Status(String jwtInput)
         {
@@ -42,7 +40,7 @@ namespace ds
 
             ExpiringDateofJWT = UnixTimeStampToDateTime(expireDateJWT);
 
-            bool VerifySignature = Decode(jwtInput, username);
+            bool VerifySignature = DecodeAndVerify(jwtInput, username);
 
             string valid = "";
             bool isValid = false;
@@ -81,16 +79,20 @@ namespace ds
             Console.WriteLine("Skadimi: " + ExpiringDateofJWT.ToLocalTime().ToString("dd/MM/yyyy HH:mm"));
         }
         
-        
-        public static DateTime UnixTimeStampToDateTime( Int32 unixTimeStamp )
+        /* --- Convert unix timestamp to local datetime --- */
+        private static DateTime UnixTimeStampToDateTime( Int32 unixTimeStamp )
         {
             // Unix timestamp is seconds past epoch
-            System.DateTime dtDateTime = new DateTime(1970,1,1,0,0,0,0,System.DateTimeKind.Utc);
+            DateTime dtDateTime = new DateTime(1970,1,1,0,0,0,0,System.DateTimeKind.Utc);
             dtDateTime = dtDateTime.AddSeconds( unixTimeStamp ).ToUniversalTime();
             return dtDateTime;
         }
-
-        public bool Decode(string token, string publickey, bool verify = true)
+        
+        
+        
+        /* --- Verifikojme nenshkrimin e tokenit me qelsin publik te shfrytezuesit --- */
+                    /* --- The user is decoded from payload(data) ---*/
+        private bool DecodeAndVerify(string token, string publickey, bool verify = true)
         {
             string[] parts = token.Split('.');
             string header = parts[0];
@@ -130,7 +132,8 @@ namespace ds
 
             return true;
         }
-
+        
+        /* --- HELPER FUNCTION --- */ 
         private static byte[] FromBase64Url(string base64Url)
         {
             string padded = base64Url.Length % 4 == 0
@@ -140,7 +143,8 @@ namespace ds
                 .Replace("-", "+");
             return Convert.FromBase64String(base64);
         }
-
+        
+        /* --- HELPER FUNCTION --- */
         private static byte[] Base64UrlDecode(string input)
         {
             var output = input;

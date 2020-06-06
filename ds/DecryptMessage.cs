@@ -12,8 +12,8 @@ namespace ds
         public void Decrypt(string ciphertext)
         {
             /*---- Ndajme stringun ku ka seperator '.' ----*/
-            string[] ciphertextSplit = {};
-            
+            string[] ciphertextSplit = { };
+
             if (!File.Exists(ciphertext))
             {
                 ciphertextSplit = ciphertext.Split('.');
@@ -27,7 +27,7 @@ namespace ds
             int isSigned = DetectCipher(ciphertextSplit);
 
             /*----- Incializojme strings nga String Array ----*/
-           
+
             string username = ciphertextSplit[0];
             string iv = ciphertextSplit[1];
             string key = ciphertextSplit[2];
@@ -38,10 +38,12 @@ namespace ds
             String DecryptedText = DecryptCipher(encryptedMessage, iv, DecryptetKey);
             Console.WriteLine("Marresi: " + user);
             Console.WriteLine("Mesazhi: " + DecryptedText);
-            
+
+
+            /* --- If string array has 6 components it means the encrypted-message contains a signature --- */
             if (isSigned == 6)
             {
-                GetRSASigned(encryptedMessage,ciphertextSplit);
+                GetRSASigned(encryptedMessage, ciphertextSplit);
             }
         }
 
@@ -59,13 +61,13 @@ namespace ds
             {
                 return GetUserName;
             }
-            
+
             throw new Exception("Celsi privat keys/" + GetUserName + ".xml nuk ekziston");
         }
 
         private bool CheckifFUserExists(string username)
         {
-            if (File.Exists("keys//" + username + ".xml")) 
+            if (File.Exists("keys//" + username + ".xml"))
             {
                 return true;
             }
@@ -103,7 +105,7 @@ namespace ds
         {
             /*------Krijojme nje Des Instance-------*/
             DESCryptoServiceProvider objDES = new DESCryptoServiceProvider();
-            
+
             /*------Gets Bytes from encryptet message and IV-----*/
             byte[] getEncryptedBytes = Convert.FromBase64String(encryptedMessage);
             byte[] getIVbytes = Convert.FromBase64String(iv);
@@ -114,20 +116,19 @@ namespace ds
             objDES.Mode = CipherMode.CBC;
             objDES.Padding = PaddingMode.Zeros;
 
-           
+
             /*--------- Dekripotojme Bytat e enkriptuar --------*/
             MemoryStream ms = new MemoryStream(getEncryptedBytes);
             byte[] byteDecrypted = new byte[ms.Length];
             CryptoStream cs = new CryptoStream(ms, objDES.CreateDecryptor(), CryptoStreamMode.Read);
             cs.Read(byteDecrypted, 0, byteDecrypted.Length);
             cs.Close();
-            
-            /*------- Kthen  string te enkoduar nga bajtat -------*/ 
-            return Encoding.UTF8.GetString(byteDecrypted);
 
+            /*------- Kthen  string te enkoduar nga bajtat -------*/
+            return Encoding.UTF8.GetString(byteDecrypted);
         }
-        
-        
+
+        /* --- Function to detect cipher array --- */
         private int DetectCipher(string[] arr)
         {
             int res = arr.Length;
@@ -143,7 +144,8 @@ namespace ds
             return res;
         }
 
-        private void GetRSASigned(string DESMessage,string[] ciphertext)
+        /* --- Decode signed components --- */
+        private void GetRSASigned(string DESMessage, string[] ciphertext)
         {
             string SenderName = ciphertext[4];
             string pbkeyofSender = DecodeSenderName(SenderName);
@@ -151,13 +153,9 @@ namespace ds
             string Sign = ciphertext[5];
             bool VerifywithRsa = VerifyData(DESMessage, Sign, pbkeyofSender);
             if (VerifywithRsa)
-            {
                 Console.WriteLine(" valid");
-            }
             else
-            {
-                Console.WriteLine(" jovalid");   
-            }
+                Console.WriteLine(" jovalid");
         }
 
         private string DecodeSenderName(string senderName)
@@ -171,7 +169,7 @@ namespace ds
             return GetSenderName;
         }
 
-
+        /* --- Verify signature with the public key of sender --- */
         private static bool VerifyData(string originalMessage, string signedMessage, string publicKeyUser)
         {
             bool success = false;
@@ -181,7 +179,6 @@ namespace ds
                 byte[] signedBytes = Convert.FromBase64String(signedMessage);
                 try
                 {
-                    
                     //Get RSA public key of sender from path//
                     string RSAParameters = "";
                     StreamReader sr = new StreamReader("keys//" + publicKeyUser + ".pub.xml");
@@ -192,23 +189,21 @@ namespace ds
                     SHA512Managed Hash = new SHA512Managed();
 
                     byte[] hashedData = Hash.ComputeHash(signedBytes);
-                   
+
                     success = rsa.VerifyData(bytesToVerify, CryptoConfig.MapNameToOID("SHA512"), signedBytes);
                     Console.Write("Nenshkrimi:");
                 }
                 catch (FileNotFoundException)
                 {
                     Console.Write("Nenshkrimi: mungon celsi publik " + publicKeyUser + ",");
-                    
                 }
                 finally
                 {
                     rsa.PersistKeyInCsp = false;
                 }
             }
+
             return success;
         }
-        
-
     }
 }

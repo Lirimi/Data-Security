@@ -6,10 +6,10 @@ using MySql.Data.MySqlClient;
 
 namespace ds
 {
-    
-    public class Createuser 
+    public class Createuser
     {
         DatabaseConnection DB = new DatabaseConnection();
+
         public void GenerateRsaKey(string privateKeyPath, string publicKeyPath, int size)
         {
             //nje stream qe i ruan qelsat
@@ -45,6 +45,7 @@ namespace ds
                 if (sw != null) sw.Close();
                 if (fs != null) fs.Close();
             }
+
             rsa.Clear();
         }
 
@@ -59,9 +60,9 @@ namespace ds
                     break;
                 password += key.KeyChar;
             }
-            
+
             ValidatePassword(password);
-           
+
             Console.Write("\nPerserit fjalekalimin: ");
             string repeatpassword = null;
             while (true)
@@ -71,54 +72,45 @@ namespace ds
                     break;
                 repeatpassword += key.KeyChar;
             }
-            if (!String.Equals(password, repeatpassword)) 
-                    throw new Exception("Gabim: Fjalekalimet nuk perputhen.");
-            
+
+            if (!String.Equals(password, repeatpassword))
+                throw new Exception("Gabim: Fjalekalimet nuk perputhen.");
+
             Console.WriteLine();
-           
+
             byte[] Saltedpassword = GenerateSaltedHash(Encoding.UTF8.GetBytes(password), salt);
-            
+
             return Saltedpassword;
         }
 
         private void ValidatePassword(string password)
         {
-            const int MIN_LENGTH =  6 ;
-            const int MAX_LENGTH = 15 ;
+            const int MIN_LENGTH = 6;
+            const int MAX_LENGTH = 15;
 
-            if ( password == null ) throw new ArgumentNullException("Gabim: Passwordi nuk eshte shtypur!") ;
+            if (password == null) throw new ArgumentNullException("Gabim: Passwordi nuk eshte shtypur!");
 
-            bool meetsLengthRequirements = password.Length >= MIN_LENGTH && password.Length <= MAX_LENGTH ;
-            bool hasLetter               = false ;
-            bool hasDecimalDigitorSymbol = false ;
+            bool meetsLengthRequirements = password.Length >= MIN_LENGTH && password.Length <= MAX_LENGTH;
+            bool hasLetter = false;
+            bool hasDecimalDigitorSymbol = false;
 
-            if ( meetsLengthRequirements )
+            if (meetsLengthRequirements)
             {
-                foreach (char c in password )
+                foreach (char c in password)
                 {
-                    if      ( char.IsLetter(c) )                   hasLetter = true ;
-                    else if ( char.IsDigit(c) || char.IsSymbol(c)) hasDecimalDigitorSymbol   = true ;
+                    if (char.IsLetter(c)) hasLetter = true;
+                    else if (char.IsDigit(c) || char.IsSymbol(c)) hasDecimalDigitorSymbol = true;
                 }
             }
 
-            if(meetsLengthRequirements && hasLetter && hasDecimalDigitorSymbol)
+            if (meetsLengthRequirements && hasLetter && hasDecimalDigitorSymbol)
                 return;
             if (!meetsLengthRequirements)
-            {
                 throw new Exception("Gabim: Fjalëkalimi yt duhet të jetë të paktën 6 karaktere i gjatë.");
-                
-            }
             if (!hasLetter)
-            {
                 throw new Exception("Gabim: Fjalekalimi duhet te permbaje se paku nje karakter.");
-                
-            }
             if (!hasDecimalDigitorSymbol)
-            {
                 throw new Exception("Gabim: Fjalekalimi duhet te permbaje se paku nje numer ose simbol.");
-                
-            }
-
         }
 
         private static byte[] GenerateSaltedHash(byte[] plainText, byte[] salt)
@@ -128,15 +120,12 @@ namespace ds
             byte[] plainTextWithSaltBytes = new byte[plainText.Length + salt.Length];
 
             for (int i = 0; i < plainText.Length; i++)
-            {
                 plainTextWithSaltBytes[i] = plainText[i];
-            }
-            for (int i = 0; i < salt.Length; i++)
-            {
-                plainTextWithSaltBytes[plainText.Length + i] = salt[i];
-            }
 
-            return algorithm.ComputeHash(plainTextWithSaltBytes);            
+            for (int i = 0; i < salt.Length; i++)
+                plainTextWithSaltBytes[plainText.Length + i] = salt[i];
+
+            return algorithm.ComputeHash(plainTextWithSaltBytes);
         }
 
         private static byte[] CreateSalt(int size)
@@ -152,30 +141,31 @@ namespace ds
             return CreateSalt(10);
         }
 
+
+        /* --- Save Data in Database --- */
         public void InsertIntoDB(string user)
         {
             byte[] salt = Salt();
             byte[] pass = GeneratePassword(salt);
             String saltBytes = Convert.ToBase64String(salt);
             String password = Convert.ToBase64String(pass);
-            
+
             try
             {
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                
+
                 String query = "INSERT INTO users VALUES" + "('" + user + "','" + password + "','" + saltBytes + "')";
-                
+
                 DB.Open();
                 MySqlDataReader row;
                 row = DB.ExecuteReader(query);
-                Console.WriteLine("@Eshte krijuar shfrytezuesi " + user);
+                Console.WriteLine("Eshte krijuar shfrytezuesi " + user);
                 DB.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
     }
-
 }

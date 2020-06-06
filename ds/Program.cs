@@ -28,25 +28,25 @@ namespace ds
             {
                 if (args.Length <= 1 || args.Length > 5)
                 {
-                    Console.WriteLine("\n@Argumentet Mungojne / Numri i argumenteve jo i lejuar!");
+                    Console.WriteLine("\nArgumentet Mungojne / Numri i argumenteve jo i lejuar!");
                     Console.WriteLine(
-                        "\n@Per ekzekutimin e funksionit Beale shtyp | ds Beale Encrypt <text> | ose | ds Beale Decrypt <text> |");
+                        "\nPer ekzekutimin e funksionit Beale shtyp | ds Beale Encrypt <text> | ose | ds Beale Decrypt <text> |");
                     Console.WriteLine(
-                        "\n@Per ekzekutimin e funksionit Permutation shtyp | ds Permutation Encrypt <key><text> | ose | ds Permutation Decrypt <key><text> |");
+                        "\nPer ekzekutimin e funksionit Permutation shtyp | ds Permutation Encrypt <key><text> | ose | ds Permutation Decrypt <key><text> |");
                     Console.WriteLine(
-                        "\n@Per ekzekutimin e funksionit Numerical shtyp | ds Numerical Encode <text> | ose | ds Numerical Decode <text> |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit CreateUser shtyp | ds create-user <name> |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit DeleteUser shtyp | ds delete-user <name> |");
+                        "\nPer ekzekutimin e funksionit Numerical shtyp | ds Numerical Encode <text> | ose | ds Numerical Decode <text> |");
+                    Console.WriteLine("\nPer ekzekutimin e funksionit CreateUser shtyp | ds create-user <name> |");
+                    Console.WriteLine("\nPer ekzekutimin e funksionit DeleteUser shtyp | ds delete-user <name> |");
                     Console.WriteLine(
-                        "\n@Per ekzekutimin e funksionit ExportKey shtyp | ds export-key <public | private> <name> [file] |");
+                        "\nPer ekzekutimin e funksionit ExportKey shtyp | ds export-key <public | private> <name> [file] |");
                     Console.WriteLine(
-                        "\n@Per ekzekutimin e funksionit ImportKey shtyp | ds import-key <name> <path> |");
+                        "\nPer ekzekutimin e funksionit ImportKey shtyp | ds import-key <name> <path> |");
                     Console.WriteLine(
-                        "\n@Per ekzekutimin e funksionit EncryptMessage shtyp | ds write-message <name> <message> [token | file] [file] |");
+                        "\nPer ekzekutimin e funksionit EncryptMessage shtyp | ds write-message <name> <message> [token | file] [file] |");
                     Console.WriteLine(
-                        "\n@Per ekzekutimin e funksionit DecryptMessage shtyp | ds read-message <encrypted-message> |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit login shtyp | ds login <name> |");
-                    Console.WriteLine("\n@Per ekzekutimin e funksionit status shtyp | ds status <token> |");
+                        "\nPer ekzekutimin e funksionit DecryptMessage shtyp | ds read-message <encrypted-message> |");
+                    Console.WriteLine("\nPer ekzekutimin e funksionit login shtyp | ds login <name> |");
+                    Console.WriteLine("\nPer ekzekutimin e funksionit status shtyp | ds status <token> |");
                     Environment.Exit(1);
                 }
 
@@ -64,7 +64,7 @@ namespace ds
                         else
                         {
                             Console.Write(
-                                "\n@Argumenti i fundit lejohet te permbaje vetem shkronja te vogla sipas alfabetit anglez prej a-z!");
+                                "\nArgumenti i fundit lejohet te permbaje vetem shkronja te vogla sipas alfabetit anglez prej a-z!");
                         }
                     }
                     else if (args[1].Equals("Decode"))
@@ -77,12 +77,12 @@ namespace ds
                         }
                         else
                         {
-                            Console.Write("\n@Argumenti i fundit lejohet te permbaje vetem numra 0-9!");
+                            Console.Write("\nArgumenti i fundit lejohet te permbaje vetem numra 0-9!");
                         }
                     }
                     else
                     {
-                        Console.Write("\n@Argumenti eshte jo valid! (Args must be | Encode | or | Decode |)");
+                        Console.Write("\nArgumenti eshte jo valid! (Args must be | Encode | or | Decode |)");
                         Environment.Exit(1);
                     }
                 }
@@ -101,12 +101,12 @@ namespace ds
                         else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4)
                         {
                             Console.WriteLine(
-                                "\n@Key is either too long or too short (Make sure its 4 charecters only!");
+                                "\nKey is either too long or too short (Make sure its 4 charecters only!");
                         }
                         else
                         {
                             throw new Exception(
-                                "\n@Keep in mind that the first argument allows only numbers from 1-4!");
+                                "\nKeep in mind that the first argument allows only numbers from 1-4!");
                         }
                     }
                     else if (args[1].Equals("Decrypt"))
@@ -121,18 +121,18 @@ namespace ds
                         else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4)
                         {
                             Console.WriteLine(
-                                "\n@Key is either too long or too short (Make sure its 4 charecters only!");
+                                "\nKey is either too long or too short (Make sure its 4 charecters only!");
                         }
                         else
                         {
                             throw new Exception(
-                                "\n@Keep in mind that the first argument allows only numbers from 1-4!");
+                                "\nKeep in mind that the first argument allows only numbers from 1-4!");
                         }
                     }
                     else
                     {
                         Console.Write(
-                            "\n@E R R O R  ! Make sure you passed the argument right | Encrypt | or | Decrypt |!");
+                            "\nE R R O R  ! Make sure you passed the argument right | Encrypt | or | Decrypt |!");
                         Environment.Exit(1);
                     }
                 }
@@ -151,7 +151,7 @@ namespace ds
                         else
                         {
                             Console.WriteLine(
-                                "\n@Argumenti i fundit duhet te permbaje tekst a-z ose A-Z ne varesi nga teksti");
+                                "\nArgumenti i fundit duhet te permbaje tekst a-z ose A-Z ne varesi nga teksti");
                         }
                     }
                     else if (args[1].Equals("Decrypt"))
@@ -166,12 +166,12 @@ namespace ds
                         }
                         else
                         {
-                            Console.WriteLine("\n@Argumenti i fundit duhet te permbaje vetem kod");
+                            Console.WriteLine("\nArgumenti i fundit duhet te permbaje vetem kod");
                         }
                     }
                     else
                     {
-                        Console.Write("\n@Argumenti eshte jo valid! (Args must be Encrypt or Decrypt) !");
+                        Console.Write("\nArgumenti eshte jo valid! (Args must be Encrypt or Decrypt) !");
                         Environment.Exit(1);
                     }
                 }
@@ -195,18 +195,18 @@ namespace ds
                             //Perdorimi i funksionit GenerateRsaKey per te krijuar qelesat privat dhe public me madhesi 1024(sipas deshires)
                             C.GenerateRsaKey(privateKeyfilePath, publicKeyfilePath, 1024);
                             //Trego qe u krijuan qelsat
-                            Console.WriteLine("@Eshte krijuar celesi privat " + "'keys//" + args[1] + ".xml'");
-                            Console.WriteLine("@Eshte krijuar celesi public " + "'keys//" + args[1] + ".pub.xml'");
+                            Console.WriteLine("Eshte krijuar celesi privat " + "'keys//" + args[1] + ".xml'");
+                            Console.WriteLine("Eshte krijuar celesi public " + "'keys//" + args[1] + ".pub.xml'");
                         }
                         else
                         {
-                            Console.WriteLine("@File me ate emer egziston ne folderin keys, provo tjeter emer!");
+                            Console.WriteLine("File me ate emer egziston ne folderin keys, provo tjeter emer!");
                         }
                     }
                     else
                     {
                         Console.WriteLine(
-                            "@Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
+                            "Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
                         Environment.Exit(1);
                     }
                 }
@@ -231,24 +231,24 @@ namespace ds
                             D.DeleteRsaKey(privateKeyfilePath, publicKeyfilePath, 1024);
 
                             //Trego qe u fshin qelsat
-                            Console.WriteLine("@Eshte larguar celesi privat " + "'keys//" + text + ".xml'");
-                            Console.WriteLine("@Eshte larguar celesi publik " + "'keys//" + text + ".pub.xml'");
+                            Console.WriteLine("Eshte larguar celesi privat " + "'keys//" + text + ".xml'");
+                            Console.WriteLine("Eshte larguar celesi publik " + "'keys//" + text + ".pub.xml'");
                         }
                         else if (publicKeyExist)
                         {
                             D.DeletefromDB(text);
                             D.DeleteRsaKey(publicKeyfilePath, 1024);
-                            Console.WriteLine("@Eshte larguar celesi publik " + "'keys//" + text + ".pub.xml'");
+                            Console.WriteLine("Eshte larguar celesi publik " + "'keys//" + text + ".pub.xml'");
                         }
                         else
                         {
-                            Console.WriteLine("@Celesi '" + args[1] + "' nuk ekziston.");
+                            Console.WriteLine("Celesi '" + args[1] + "' nuk ekziston.");
                         }
                     }
                     else
                     {
                         Console.WriteLine(
-                            "@Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
+                            "Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
                         Environment.Exit(1);
                     }
                 }
@@ -274,7 +274,7 @@ namespace ds
                         }
                         catch
                         {
-                            throw new Exception("@Celesi publik " + args[2].ToString() + " nuk ekziston!");
+                            throw new Exception("Celesi publik " + args[2].ToString() + " nuk ekziston!");
                         }
                     }
                     else if (args[1].Equals("private"))
@@ -295,12 +295,12 @@ namespace ds
                         }
                         catch
                         {
-                            throw new Exception("@Celesi privat " + args[2].ToString() + " nuk ekziston!");
+                            throw new Exception("Celesi privat " + args[2].ToString() + " nuk ekziston!");
                         }
                     }
                     else
                     {
-                        Console.WriteLine("@Argument is not passed right! Make sure is Public or Private!");
+                        Console.WriteLine("Argument is not passed right! Make sure is Public or Private!");
                         Environment.Exit(1);
                     }
                 }
@@ -317,13 +317,13 @@ namespace ds
                         }
                         catch
                         {
-                            throw new Exception("@Fajlli i dhene nuk eshte cels valid! Check the path right!");
+                            throw new Exception("Fajlli i dhene nuk eshte cels valid! Check the path right!");
                         }
                     }
                     else
                     {
                         Console.WriteLine(
-                            "@Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
+                            "Lejohen vetem Emra me shkonje te madhe apo te vogel, dhe numrat 0-9 dhe _ dhe .");
                         Environment.Exit(1);
                     }
                 }
@@ -362,7 +362,7 @@ namespace ds
                     {
                         if (exception is FormatException || exception is IndexOutOfRangeException)
                         {
-                            throw new Exception("@Mesazhi i dhene nuk paraqet cipher & sign ose path valid! ");
+                            throw new Exception("Mesazhi i dhene nuk paraqet cipher & sign ose path valid! ");
                         }
 
                         Console.WriteLine(exception.Message);
@@ -409,8 +409,8 @@ namespace ds
                 /*----Argument is wrong------*/
                 else
                 {
-                    Console.WriteLine("@First Argument is not valid! Make sure you passed it right!");
-                    Console.WriteLine("@Pass no arguments for DETAILS!");
+                    Console.WriteLine("First Argument is not valid! Make sure you passed it right!");
+                    Console.WriteLine("Pass no arguments for DETAILS!");
                     Environment.Exit(1);
                 }
             }

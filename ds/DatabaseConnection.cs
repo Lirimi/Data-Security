@@ -13,7 +13,7 @@ namespace ds
         static string userDB = "root";
         static string password = "password";
   
-        public static string strProvider = "server=" + host + ";Database=" + database + ";User ID=" + userDB + ";Password=" + password +";CharSet=utf8";
+        private static string strProvider = "server=" + host + ";Database=" + database + ";User ID=" + userDB + ";Password=" + password +";CharSet=utf8";
 
         public bool Open()
         {
