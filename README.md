@@ -34,10 +34,16 @@
 		ds import-key  <name> <path>
      	
     8.Ekzekutimi i komandes write-message:
-		ds write-message  <name> <message> [file]
+		ds write-message  <name> <message> [token|file] [file] 
     
 	9.Ekzekutimi i komandes read-message:
 		ds read-message  <encrypted-message>
+
+   10.Ekzekutimi i komandes login:
+   		ds login <name>
+
+   11.Ekzekutimi i komandes status:
+   		ds status <token>
 
 2. Pershkrimi i Komandave: 
 
@@ -63,8 +69,32 @@ FAZA II:
 * Komanda write-message: Enkripton nje mesazh te dedikuar per nje shfrytezues. Mesazhi i enkriptuar do te ndahet ne 4 komponente me karakterin "." si ndares. Komponenti i pare paraqet enkodimin e Emrit dedikuar shfrytezuesit ose marresit, kompanenta e dyte vektorin e inicilizuar IV, komponenti i trete paraqet DES qelsin te enkriptuar me RSA, dhe komponenta e fundit paraqet mesazhin e enkriptuar me DES. Mesazhi i enkriptuar mund te shfaqet ne Console ose te ruhet ne  nje path te relativ/absolut.
 
 * Komanda read-message: Duke perdorur qelsin RSA privat te marresit Dekriptohet mesazhi i enkriptuar dhe shfaqet ne console.
+
+
+FAZA III:
+
+• Pershkimi i komandave:
+	* Komanda create-user:   Zgjerohet komanda create-user e fazes se dyte ashtu qe gjate krijimit te shfrytezuesit te kerkohet edhe fjalekalimi dhe te dhenat te ruhen ne baze te shenimeve.
+
+	* Komanda delete-user:   Zgjerohet komanda delete-user e fazes se dyte ashtu qe gjate fshirjes se qelsave do të fshihen edhe të gjitha të dhënat e shfrytëzuesit nga baza e shenimeve.
+
+	* Komanda login: 	     Teston çiftin shfrytëzues/fjalëkalim. Në rast suksesi lëshohet një token i nënshkruar i cili mund të përdoret për autentikim të shfrytëzuesit.
+
+	* Komanda status:        Jep informata rreth tokenit. Nese tokeni ka skaduar apo nuk ka nenshkrim valid atehere tokeni nuk eshte valid.
+
+	* Komanda write-message: Kjo komandë zgjerohet ashtu që mund ta pranojë edhe opsionin --sender <token>. N.q.s se tokeni nuk eshte valid atehere komanda deshton, ndersa nese tokeni validohet me sukses atehere behet nenshkrimi i mesazhit te enkriptuar me qels privat te derguesit(Vlere qe nxirret nga tokeni!). Ne rast se opsioni sender nuk specifikohet atehere veprohet sikurse ne fazen e dyte.
+
+	* Komanda read-message:  Komanda read-message zgjerohet ashtu që nëse figuron pjesa e dërguesit/nënshkrimit në mesazh, atëherë do të tentohet verifikimi i atij nënshkrimi duke përdorur çelësin publik të dërguesit. Nëse mungon pjesa e dërguesit/nënshkrimit, atëherë komanda e injoron dhe vepron sikur në fazën e dytë.
+
+• Detajet e implementimit për:
+	** Skemën e ruajtjes së fjalëkalimeve - Fjalekalimet jane te ruajtuara jo ne forme te plaintext por ne forme hashing+salt. Salt gjenerohet e re(random) per cdo shfrytezues dhe kombinohet me hashing algorithm SHA-256 per nje forme me te sigurt te ruajtjes se fjalekalimeve. Te pjesa e login implementohet algoritmi i njejte vecse tash salt merret nga baza e te dhenave per shfrytezuesin ne fjale. Ne rast se hashed password i shfrytezuesit eshte i njejte me ate te qe gjendet ne baze te dhenave atehere per shfrytezuesin gjenerohet nje token.
+
+	** Mënyrën e ruajtjes së shënimeve -  Shenimet jane te ruajtuara ne nje databaze. Ne databaze ruhen te dhenat kryesore per nje shfrytezues, sic jane emri i perdoruesit, passwordi i ruajtur ne forme te enkriptuar(hashing + salt) dhe gjithashtu ruhet edhe salt e gjeneruar per shfrytezuesin pasi qe na duhet per verifikimin korrekt te password te pjesa e Login. 
+
+	** Strukturën e tokenëve të lëshuar - Tokeni permbahet nga tri komponente. Kompanenti i pare parqet algoritmin dhe tipin e tokenit(Ne rastin tone JWT). Kompenti i dyte ne permbajtje ka emrin e shfrytezuesit(sub) dhe kohen e skadimit(exp) ne unix datetime ndersa komponenti i trete paraqet nenshkrimin e tokenit me qelsin privat te shfrytezuesit.
+
       
-3. Per te pare Rezultatet e ekzekutimit referohu tek 'Raporti i projektit'(Faza 1) perkatesisht 'Rezultatet e ekzekutimeve'(Faza 2)!
+3. Per te pare Rezultatet e ekzekutimit referohu tek '(FAZA 1)Raporti i projektit' perkatesisht '(FAZA 2)Rezultatet e ekzekutimeve'!
 
 
 
