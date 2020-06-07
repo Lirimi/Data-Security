@@ -1,8 +1,6 @@
 using System;
 using System.IO;
-using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient;
 
 namespace ds
