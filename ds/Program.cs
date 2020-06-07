@@ -359,7 +359,7 @@ namespace ds
                     {
                         if (exception is FormatException || exception is IndexOutOfRangeException)
                         {
-                            throw new Exception("Mesazhi i dhene nuk paraqet cipher & sign ose path valid! ");
+                            throw new Exception("Mesazhi i dhene nuk paraqet cipher ose path valid! ");
                         }
 
                         Console.WriteLine(exception.Message);

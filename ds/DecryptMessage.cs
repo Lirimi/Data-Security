@@ -40,7 +40,7 @@ namespace ds
 
 
             /* --- If string array has 6 components it means the encrypted-message contains a signature --- */
-            if (isSigned == 6)
+            if (isSigned > 4)
             {
                 GetRSASigned(encryptedMessage, ciphertextSplit);
             }
