@@ -94,7 +94,7 @@ FAZA III:
 	** Strukturën e tokenëve të lëshuar - Tokeni permbahet nga tri komponente. Kompanenti i pare parqet algoritmin dhe tipin e tokenit(Ne rastin tone JWT). Kompenti i dyte ne permbajtje ka emrin e shfrytezuesit(sub) dhe kohen e skadimit(exp) ne unix datetime ndersa komponenti i trete paraqet nenshkrimin e tokenit me qelsin privat te shfrytezuesit.
 
       
-3. Per te pare Rezultatet e ekzekutimit referohu tek '(FAZA 1)Raporti i projektit' perkatesisht '(FAZA 2)Rezultatet e ekzekutimeve'!
+3. Per te pare Rezultatet e ekzekutimit referohu tek '(FAZA 1)Raporti i projektit' perkatesisht '(FAZA 2)Rezultatet e ekzekutimeve' dhe (FAZA 3)Rezultatet e ekzekutimeve!
 
 
 
