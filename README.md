@@ -1,6 +1,7 @@
-# ds
-* Projekti ne lenden "Siguria e te dhenave". Realizimi i funksioneve u implmentua ne gjuhen programuese C#
+# Projekti ne lenden: "Siguria e te dhenave"
+# Gjuha e perdorur: C#
 
+# ds
 
 1. Ekzekutimi i Programit: 
 
@@ -95,12 +96,4 @@ FAZA III:
 
       
 3. Per te pare Rezultatet e ekzekutimit referohu tek '(FAZA 1)Raporti i projektit' perkatesisht '(FAZA 2)Rezultatet e ekzekutimeve' dhe (FAZA 3)Rezultatet e ekzekutimeve!
-
-
-
-
-
-
-
-
 
