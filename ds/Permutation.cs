@@ -3,18 +3,9 @@ using System.Text;
 
 namespace ds
 {
-    public class Permutation
-    {
-        private void Key(string key)
-        {
-            /* Unaza qe nuk lejon numra te perseritur */
-            for (int i = 0; i < key.Length - 1; i++)
-                for (int j = i + 1; j < key.Length; j++)
-                    if (key[i] == key[j])
-                        throw new Exception("Invalid key! Make sure the numbers are not repeated!");
-            /* -------------------------------------------------------- */
-        }
-
+    public class Permutation : Beale
+    { 
+        
         public void Encrypt(string key, string message)
         {
             Key(key);
@@ -74,5 +65,16 @@ namespace ds
             Console.WriteLine();
             /* --------------------------------------------- */
         }
+        
+        private void Key(string key)
+        {
+            /* Unaza qe nuk lejon numra te perseritur */
+            for (int i = 0; i < key.Length - 1; i++)
+            for (int j = i + 1; j < key.Length; j++)
+                if (key[i] == key[j])
+                    throw new Exception("Invalid key! Make sure the numbers are not repeated!");
+            /* -------------------------------------------------------- */
+        }
+        
     }
 }

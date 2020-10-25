@@ -1,45 +1,52 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 
 namespace ds
 {
-    public class Beale
+    public class Beale : Encryption_Standard 
     {
-        public void BealeEncrypt(string plainteksti)
+        private static readonly String keyPath = "Beale/KeyFile";
+
+        private String content()
         {
-            string libri = "fakulteti teknik";
-            char[] test = libri.ToCharArray();
+            if (File.Exists(keyPath))
+                return File.ReadAllText(keyPath);
+            throw new Exception("File does not exist!");
+        }
 
+        public String Encrypt(String plaintext)
+        {
+            return Translate(true, plaintext);
+        }
 
-            char[] ch = plainteksti.ToCharArray();
+        public String Decrypt(String ciphertext)
+        {
+            return Translate(false, ciphertext);
+        }
 
-
-            for (int i = 0; i < plainteksti.Length; i++)
+        private String Translate(bool Encrypt, String Text)
+        {
+            StringBuilder sb = new StringBuilder();
+            
+            for (int i = 0; i < Text.Length; i++)
+            for (int j = 0; j < content().Length; j++)
             {
-                for (int j = 0; j < libri.Length; j++)
+                if (Encrypt)
                 {
-                    if (test[j] == ch[i])
+                    if (content()[j] == Text[i])
                     {
-                        Console.Write(j + " ");
+                        sb.Append(j).Append(" ");
                         break;
                     }
                 }
+                else if (i<Text.Split(' ').Length && Convert.ToInt32(Text.Split(' ')[i]) == j)
+                { 
+                    sb.Append(content()[j]).Append(""); 
+                }
             }
-        }
 
-
-        public void BealeDecrypt(string[] ciphertekst)
-        {
-            string libri = "fakulteti teknik";
-
-            for (int i = 0; i < ciphertekst.Length; i++)
-            {
-                for (int j = 0; j < libri.Length; j++)
-
-                    if (Convert.ToInt32(ciphertekst[i]) == j)
-                    {
-                        Console.Write(libri[j] + "");
-                    }
-            }
+            return sb.ToString();
         }
     }
 }
