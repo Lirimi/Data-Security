@@ -48,7 +48,7 @@ namespace ds
                     Console.WriteLine("\nPer ekzekutimin e funksionit status shtyp | ds status <token> |");
                     Environment.Exit(1);
                 }
-                
+
 
                 // args[0] which tells the main function, is implemented in switch statement for clarification
                 switch (args[0])
@@ -63,10 +63,8 @@ namespace ds
                                 Console.WriteLine("Encoded text is: " + Cipher);
                             }
                             else
-                            {
                                 Console.Write(
                                     "\nArgumenti i fundit lejohet te permbaje vetem shkronja sipas alfabetit anglez prej a-z!");
-                            }
                         }
                         else if (args[1].Equals("Decode"))
                         {
@@ -77,9 +75,8 @@ namespace ds
                                 Console.WriteLine("Decoded cipher is: " + Plain);
                             }
                             else
-                            {
                                 Console.Write("\nArgumenti i fundit lejohet te permbaje vetem numra 0-9!");
-                            }
+                            
                         }
                         else
                         {
@@ -96,18 +93,19 @@ namespace ds
                             if (Regex.IsMatch(key, "^[1-4]+$") && key.Length == 4)
                             {
                                 Console.WriteLine();
-                                P.Encrypt(key, text);
+                                P.setKey(key);
+                                String Cipher = P.Encrypt(text);
+                                Console.WriteLine("Plaintexti i enkriptuar: " + Cipher);
+                                Console.WriteLine("Encryption scheme: ");
+                                Console.WriteLine(P.EncryptionScheme(text, Cipher));
                             }
                             else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4)
-                            {
                                 Console.WriteLine(
                                     "\nKey is either too long or too short (Make sure its 4 charecters only!");
-                            }
+
                             else
-                            {
                                 throw new Exception(
                                     "\nKeep in mind that the first argument allows only numbers from 1-4!");
-                            }
                         }
                         else if (args[1].Equals("Decrypt"))
                         {
@@ -116,18 +114,16 @@ namespace ds
                             if (Regex.IsMatch(key, "^[1-4]+$") && key.Length == 4)
                             {
                                 Console.WriteLine();
-                                P.Decrypt(key, text);
+                                P.setKey(key);
+                                String eMessage = P.Decrypt(text);
+                                Console.Write("Ciphertexti i dekriptuar: " + eMessage + "\n");
                             }
                             else if (Regex.IsMatch(key, "^[1-4]+$") && key.Length != 4)
-                            {
                                 Console.WriteLine(
                                     "\nKey is either too long or too short (Make sure its 4 charecters only!");
-                            }
                             else
-                            {
                                 throw new Exception(
                                     "\nKeep in mind that the first argument allows only numbers from 1-4!");
-                            }
                         }
                         else
                         {
@@ -147,10 +143,8 @@ namespace ds
                                 Console.WriteLine("Encrypted plaintext is: " + Cipher);
                             }
                             else
-                            {
                                 Console.WriteLine(
                                     "\nArgumenti i fundit duhet te permbaje tekst a-z ose A-Z ne varesi nga teksti");
-                            }
                         }
                         else if (args[1].Equals("Decrypt"))
                         {
@@ -161,9 +155,7 @@ namespace ds
                                 Console.WriteLine("Decrypted Ciphertext is: " + Text);
                             }
                             else
-                            {
                                 Console.WriteLine("\nArgumenti i fundit duhet te permbaje vetem kod");
-                            }
                         }
                         else
                         {
@@ -400,7 +392,6 @@ namespace ds
                         Console.WriteLine("Pass no arguments for DETAILS!");
                         Environment.Exit(1);
                         break;
-                        
                 }
             }
             catch (Exception error)
