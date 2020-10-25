@@ -12,7 +12,7 @@ namespace ds
             Beale B = new Beale();
             Permutation P = new Permutation();
             Numerical_Encoding N = new Numerical_Encoding();
-            Createuser C = new Createuser();
+            Createuser C = new Createuser(1024);
             Deleteuser D = new Deleteuser();
             ExportKey E = new ExportKey();
             ImportKey I = new ImportKey();
@@ -166,29 +166,17 @@ namespace ds
                         break;
                     case "create-user":
                         string user = args[1];
+                        C.User = user;
+                        String Password = Createuser._generatePassword();
+                        C.SetPassword(Password);
                         if (Regex.IsMatch(user, "^[A-Za-z0-9_.]+$"))
                         {
-                            //FilePath
-                            string privateKeyfilePath = "keys//" + user + ".xml";
-                            string publicKeyfilePath = "keys//" + user + ".pub.xml";
-
-                            //Check nese egziston ndonje file me ate emer ne direktorin keys
-                            bool privateKeyExist = File.Exists(privateKeyfilePath);
-                            bool publicKeyExist = File.Exists(publicKeyfilePath);
-
-                            if (!(privateKeyExist || publicKeyExist))
-                            {
-                                C.InsertIntoDB(user);
+                            
                                 //Perdorimi i funksionit GenerateRsaKey per te krijuar qelesat privat dhe public me madhesi 1024(sipas deshires)
-                                C.GenerateRsaKey(privateKeyfilePath, publicKeyfilePath, 1024);
+                                C.GenerateRsaKey();
                                 //Trego qe u krijuan qelsat
                                 Console.WriteLine("Eshte krijuar celesi privat " + "'keys//" + user + ".xml'");
-                                Console.WriteLine("Eshte krijuar celesi public " + "'keys//" + user + ".pub.xml'");
-                            }
-                            else
-                            {
-                                Console.WriteLine("File me ate emer ekziston ne folderin keys, provo tjeter emer!");
-                            }
+                                Console.WriteLine("Eshte krijuar celesi public " + "'keys//" + user + ".pub.xml'"); 
                         }
                         else
                         {
