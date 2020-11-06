@@ -6,47 +6,35 @@ using System.Security.Cryptography;
 
 namespace ds
 {
-    public class ExportKey
+    public class ExportKey : PathManagement
     {
+        protected String RSAParameters = "";
+        public String userKey { get; set; }
+
+        protected RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
         
-        String RSAParameters = "";
-        public void PublicKey(string userKey, [Optional, DefaultParameterValue(0)] object ToPath)
+        public void Export(bool isPublic, [Optional, DefaultParameterValue(0)] object ToPath)
         {
-            string path = "keys//" + userKey + ".pub.xml";
-            Exportkey(path);
+            string path = keyPath + userKey + (isPublic ? publicNotation : privateNotation);
+            ReadRSA(path);
 
             if (ToPath.Equals(0)) Console.WriteLine(RSAParameters);
-            else
-            {
-                StreamWriter sw = new StreamWriter(ToPath.ToString());
-                sw.Write(RSAParameters);
-                sw.Close();
-            }
+            else WriteRSA(ToPath.ToString());
         }
 
-        public void PrivateKey(string userKey, [Optional, DefaultParameterValue(0)] object ToPath)
+        protected override void ReadRSA(string path)
         {
-            string path = "keys//" + userKey + ".xml";
-            Exportkey(path);
-
-            if (ToPath.Equals(0)) Console.WriteLine(RSAParameters);
-            else
-            {
-                StreamWriter sw = new StreamWriter(ToPath.ToString());
-                sw.Write(RSAParameters);
-                sw.Close();
-            }
-        }
-
-        private void Exportkey(string path)
-        {
-            RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
-
             StreamReader sr = new StreamReader(path);
             RSAParameters = sr.ReadToEnd();
             sr.Close();
-
             objRSA.FromXmlString(RSAParameters);
+        }
+
+        protected override void WriteRSA(string path)
+        {
+            StreamWriter sw = new StreamWriter(path);
+            sw.Write(RSAParameters);
+            sw.Close();
         }
     }
 }

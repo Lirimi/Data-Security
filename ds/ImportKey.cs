@@ -7,101 +7,73 @@ using System.Threading.Tasks;
 
 namespace ds
 {
-    public class ImportKey
+    public class ImportKey : ExportKey
     {
-        public void Import(string AddToPath, string SourcePath)
+        private String publicRSAParameters = "";
+        private String privateRSAParameters = "";
+        private Boolean publicKey = true;
+
+        public void Import(string AddToPath, string SourcePath, out bool PublicKey)
         {
-            /*------Rsa instance-----*/
-            RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
-
-            String RSAParameters = "";
-
             /*-------Check if sourcepath has a web client----*/
-            bool HttpPath = PathIsHttp(SourcePath);
+            bool httpPath = PathIsHttp(SourcePath);
 
             /*----Read Rsa key from Web----*/
-            if (HttpPath)
+            if (httpPath)
             {
                 Task<Stream> xmlParameters = GetRequest(SourcePath);
                 xmlParameters.Wait();
                 var readXml = xmlParameters.Result;
 
-                StreamReader sr = new StreamReader(readXml);
+                /*StreamReader sr = new StreamReader(readXml);
                 RSAParameters = sr.ReadToEnd();
                 sr.Close();
 
-                objRSA.FromXmlString(RSAParameters);
+                objRSA.FromXmlString(RSAParameters);*/
+                ReadRSA(readXml.ToString());
             }
             /*---Read RSA Key from path---*/
             else
             {
-                StreamReader sr = new StreamReader(SourcePath);
-                RSAParameters = sr.ReadToEnd();
-                sr.Close();
-                objRSA.FromXmlString(RSAParameters);
+                ReadRSA(SourcePath);
             }
 
-
-            /*-----------Check if key exists-----------------*/
-            bool KeyExists = KeyExistsCheck(AddToPath);
-
-            /*------------Check if key is Public------------*/
-            //------bool publicKey = objRSA.PublicOnly;--------//
-            /*----For unknown reason it always gives false------*/
-
-
-            if (!KeyExists)
+            bool privateKey = RSAParameters.Contains("<P>");
+            if (!privateKey) // if key is public only
             {
-                if (!RSAParameters.Contains("<P>"))
-                {
-                    /* ------- Importojme qelsin Publik -----*/
-                    StreamWriter sw = new StreamWriter("keys//" + AddToPath + ".pub.xml");
-                    sw.Write(RSAParameters);
-                    sw.Close();
-                    Console.WriteLine("Celsi publik u ruajt ne fajllin keys/" + AddToPath + ".pub.xml");
-                }
-                else
-                {
-                    /*-------- Importojme qelsin privat ------*/
-                    RSAParameters exportPrivateParameters = objRSA.ExportParameters(true);
-                    RSACryptoServiceProvider objRSA2 = new RSACryptoServiceProvider();
-                    objRSA2.ImportParameters(exportPrivateParameters);
-
-                    /*------- Include Public ParemetersOnly ----*/
-                    string PublicRSAParameters = objRSA2.ToXmlString(false);
-
-                    StreamWriter swPublic = new StreamWriter("keys//" + AddToPath + ".pub.xml");
-                    swPublic.Write(PublicRSAParameters);
-                    swPublic.Close();
-
-                    /*------- Include All Paremeters ------*/
-                    string PrivateRsaParemters = objRSA2.ToXmlString(true);
-
-                    StreamWriter swPrivate = new StreamWriter("keys//" + AddToPath + ".xml");
-                    swPrivate.Write(PrivateRsaParemters);
-                    swPrivate.Close();
-
-                    Console.WriteLine("Celsi privat u ruajt ne fajllin keys/" + AddToPath + ".xml");
-                    Console.WriteLine("Celsi publik u ruajt ne fajllin keys/" + AddToPath + ".pub.xml");
-                }
+                /* ------- Importojme qelsin Publik -----*/
+                WriteRSA(keyPath + AddToPath + publicNotation);
+                PublicKey = true;
+              
             }
             else
             {
-                Console.WriteLine("Celsi " + AddToPath + " ekziston paraprakisht!");
+                /*-------- Importojme qelsin privat ------*/
+                
+
+                /*------- Include Public ParemetersOnly ----*/
+                publicRSAParameters = objRSA.ToXmlString(false);
+
+                WriteRSA(keyPath + AddToPath + publicNotation);
+                
+                publicKey = false;
+                /*------- Include All / Private Paremeters ------*/
+                privateRSAParameters = objRSA.ToXmlString(true);
+                WriteRSA(keyPath + AddToPath + privateNotation);
+
+                PublicKey = false;
+
             }
         }
 
-        private bool KeyExistsCheck(string AddToPath)
+
+        protected override void WriteRSA(string path)
         {
-            string filenamePublic = "keys//" + AddToPath + ".pub.xml";
-            string filenamePrivate = "keys//" + AddToPath + ".xml";
-            if (File.Exists(filenamePublic) || File.Exists(filenamePrivate))
-            {
-                return true;
-            }
-
-            return false;
+            StreamWriter sw = new StreamWriter(path);
+            sw.Write(publicKey ? publicRSAParameters : privateRSAParameters);
+            sw.Close();
         }
+
 
         private bool PathIsHttp(string SourcePath)
         {

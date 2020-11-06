@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Xml;
+using Org.BouncyCastle.Bcpg;
 
 namespace ds
 {
@@ -12,9 +14,13 @@ namespace ds
             Beale B = new Beale();
             Permutation P = new Permutation();
             Numerical_Encoding N = new Numerical_Encoding();
+            
             UserManagement U = new UserManagement(1024);
+
             ExportKey E = new ExportKey();
             ImportKey I = new ImportKey();
+            
+            
             EncryptMessage EM = new EncryptMessage();
             DecryptMessage DM = new DecryptMessage();
             Token T = new Token();
@@ -200,26 +206,26 @@ namespace ds
 
                         break;
                     case "export-key":
-                        string userKey = args[2];
+                        E.userKey = args[2];
                         if (args[1].Equals("public"))
                         {
                             try
                             {
                                 if (args.Length == 3)
                                 {
-                                    E.PublicKey(userKey);
+                                    E.Export(true);
                                     Console.WriteLine();
                                 }
                                 else if (args.Length == 4)
                                 {
                                     string exportToPath = args[3];
-                                    E.PublicKey(userKey, exportToPath);
+                                    E.Export(true, exportToPath);
                                     Console.WriteLine("Celesi publik u ruajt ne fajllin " + exportToPath);
                                 }
                             }
-                            catch
+                            catch(FileNotFoundException)
                             {
-                                throw new Exception("Celesi publik " + args[2].ToString() + " nuk ekziston!");
+                                throw new Exception("Celesi publik " + E.userKey + " nuk ekziston!");
                             }
                         }
                         else if (args[1].Equals("private"))
@@ -228,19 +234,19 @@ namespace ds
                             {
                                 if (args.Length == 3)
                                 {
-                                    E.PrivateKey(userKey);
+                                    E.Export(false);
                                     Console.WriteLine();
                                 }
                                 else if (args.Length == 4)
                                 {
                                     string exportToPath = args[3];
-                                    E.PrivateKey(userKey, exportToPath);
+                                    E.Export(false, exportToPath);
                                     Console.WriteLine("Celesi privat u ruajt ne fajllin " + exportToPath);
                                 }
                             }
-                            catch
+                            catch (FileNotFoundException)
                             {
-                                throw new Exception("Celesi privat " + args[2].ToString() + " nuk ekziston!");
+                                throw new Exception("Celesi privat " + E.userKey + " nuk ekziston!");
                             }
                         }
                         else
@@ -253,13 +259,33 @@ namespace ds
                     case "import-key":
                         string import = args[1];
                         string frompath = args[2];
+                        var publicKey = true;
                         if (Regex.IsMatch(import, "^[A-Za-z0-9_.]+$"))
                         {
+                            
                             try
                             {
-                                I.Import(import, frompath);
+
+                                if (PathManagement.CreatePath(import))
+                                {
+                                    I.Import(import, frompath, out publicKey);
+                                    if (publicKey)
+                                        Console.WriteLine("Celsi publik u ruajt ne fajllin keys/" + import +
+                                                          ".pub.xml");
+                                    else
+                                    {
+
+                                        Console.WriteLine("Celsi privat u ruajt ne fajllin keys/" + import + ".xml");
+                                        Console.WriteLine("Celsi publik u ruajt ne fajllin keys/" + import +
+                                                          ".pub.xml");
+                                    }
+                                }
+                                else
+                                {
+                                    throw new Exception("Celsi " + import + " ekziston paraprakisht!");
+                                }
                             }
-                            catch
+                            catch(Exception)
                             {
                                 throw new Exception("Fajlli i dhene nuk eshte cels valid! Check the path right!");
                             }
